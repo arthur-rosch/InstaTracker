@@ -1,13 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Loader2 } from "lucide-react"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { useIg } from "@/hooks/use-ig"
 
-export function ProfileConfirmation() {
+function ProfileConfirmationContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [isClient, setIsClient] = useState(false)
@@ -195,5 +195,21 @@ export function ProfileConfirmation() {
         </div>
       )}
     </div>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <Loader2 className="w-8 h-8 animate-spin text-white" />
+    </div>
+  )
+}
+
+export function ProfileConfirmation() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <ProfileConfirmationContent />
+    </Suspense>
   )
 }

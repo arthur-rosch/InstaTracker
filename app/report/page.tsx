@@ -1,10 +1,10 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { DetailedReport } from "@/components/detailed-report"
 
-export default function ReportPage() {
+function ReportContent() {
   const searchParams = useSearchParams()
   const username = searchParams.get("username") || "eo.rosch"
   const [isDataLoaded, setIsDataLoaded] = useState(false)
@@ -33,4 +33,24 @@ export default function ReportPage() {
   }
 
   return <DetailedReport username={username} />
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <div className="text-white text-lg">Loading report...</div>
+        <div className="text-gray-400 text-sm mt-2">Please wait while we process the data</div>
+      </div>
+    </div>
+  )
+}
+
+export default function ReportPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <ReportContent />
+    </Suspense>
+  )
 }

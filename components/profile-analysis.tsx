@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { ArrowLeft, Star, Check } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -128,7 +128,7 @@ const randomProfiles: string[] = [
   Profile4.src,
 ]
 
-export function ProfileAnalysis() {
+function ProfileAnalysisContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const username = searchParams.get("username") || "eo.rosch"
@@ -444,5 +444,25 @@ export function ProfileAnalysis() {
         }
       `}</style>
     </div>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <div className="text-white text-lg">Loading analysis...</div>
+        <div className="text-gray-400 text-sm mt-2">Please wait while we prepare your profile analysis</div>
+      </div>
+    </div>
+  )
+}
+
+export function ProfileAnalysis() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <ProfileAnalysisContent />
+    </Suspense>
   )
 }
