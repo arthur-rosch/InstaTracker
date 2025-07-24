@@ -3,6 +3,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { Star } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { ChatList } from "./ChatList"
 
 import Storys1 from '@/assets/storys/imgi_17_story-01.jpeg'
 import Storys2 from '@/assets/storys/imgi_18_story-02.jpg'
@@ -38,8 +40,51 @@ const mockCloseFriends = {
 }
 
 export function CloseFriends({ username, profileData, followers, followersLoading }: CloseFriendsProps) {
+  const [showChatList, setShowChatList] = useState(false);
   // Usar apenas os primeiros 4 seguidores para os avatares
   const displayFollowers = followers.slice(0, 4);
+  const carouselApiRef = useRef<any>(null);
+  const autoScrollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    const startAutoScroll = () => {
+      if (carouselApiRef.current) {
+        autoScrollRef.current = setInterval(() => {
+          carouselApiRef.current.scrollNext();
+        }, 3000);
+      }
+    };
+
+    const stopAutoScroll = () => {
+      if (autoScrollRef.current) {
+        clearInterval(autoScrollRef.current);
+        autoScrollRef.current = null;
+      }
+    };
+
+    // Delay to ensure carousel API is ready
+    const timer = setTimeout(() => {
+      startAutoScroll();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      stopAutoScroll();
+    };
+  }, [carouselApiRef.current]);
+
+  const handleCarouselApi = (api: any) => {
+    carouselApiRef.current = api;
+    // Start auto-scroll when API is ready
+    if (api && !autoScrollRef.current) {
+      setTimeout(() => {
+        autoScrollRef.current = setInterval(() => {
+          api.scrollNext();
+        }, 3000);
+      }, 100);
+    }
+  };
 
   return (
     <section className="space-y-6">
@@ -70,8 +115,8 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
             ) : displayFollowers.length > 0 ? (
               displayFollowers.map((follower, index) => (
                 <Avatar key={index} className="w-16 h-16 border-2 border-green-500/50 hover:z-10 transition-all duration-200 hover:scale-110">
-                  <AvatarImage src={follower.avatar} />
-                  <AvatarFallback className="bg-gradient-to-br from-green-500 to-green-600 text-white font-semibold">
+                  <AvatarImage src={follower.avatar} className="blur-sm" />
+                  <AvatarFallback className="bg-gradient-to-br from-green-500 to-green-600 text-white font-semibold blur-sm">
                     {follower.name.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
@@ -80,8 +125,8 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
               // Fallback to mock data if no followers available
               mockCloseFriends.profiles.map((i) => (
                 <Avatar key={i} className="w-16 h-16 border-2 border-green-500/50 hover:z-10 transition-all duration-200 hover:scale-110">
-                  <AvatarImage src={`/images/profile-${i}.jpg`} />
-                  <AvatarFallback className="bg-gradient-to-br from-green-500 to-green-600 text-white font-semibold">U{i}</AvatarFallback>
+                  <AvatarImage src={`/images/profile-${i}.jpg`} className="blur-sm" />
+                  <AvatarFallback className="bg-gradient-to-br from-green-500 to-green-600 text-white font-semibold blur-sm">U{i}</AvatarFallback>
                 </Avatar>
               ))
             )}
@@ -92,16 +137,29 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
         <div className="mb-8">
           <Carousel
             className="w-full max-w-2xl mx-auto"
+            setApi={handleCarouselApi}
             opts={{
               align: "center",
               loop: true,
               skipSnaps: false,
               dragFree: true,
               inViewThreshold: 0.5,
-
+            }}
+            onMouseEnter={() => {
+              if (autoScrollRef.current) {
+                clearInterval(autoScrollRef.current);
+                autoScrollRef.current = null;
+              }
+            }}
+            onMouseLeave={() => {
+              if (carouselApiRef.current && !autoScrollRef.current) {
+                autoScrollRef.current = setInterval(() => {
+                  carouselApiRef.current.scrollNext();
+                }, 3000);
+              }
             }}
           >
-            <CarouselContent className="-ml-6" >
+            <CarouselContent className="-ml-6">
               {mockCloseFriends.stories.map((story, index) => (
                 <CarouselItem key={index} className="">
                   <div className="p-3">
@@ -146,6 +204,8 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
                 </CarouselItem>
               ))}
             </CarouselContent>
+            <CarouselPrevious className="left-4 bg-white/10 border-white/20 hover:bg-white/20" />
+            <CarouselNext className="right-4 bg-white/10 border-white/20 hover:bg-white/20" />
           </Carousel>
         </div>
 
@@ -155,10 +215,20 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
         </p>
       </div>
       <div className="pt-4">
-        <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300">
+        <button 
+          onClick={() => setShowChatList(true)}
+          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+        >
           View real-time Stories
         </button>
       </div>
+
+      <ChatList 
+        open={showChatList}
+        onOpenChange={setShowChatList}
+        username={username}
+        followers={followers}
+      />
     </section >
   )
 }

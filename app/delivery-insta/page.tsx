@@ -5,17 +5,23 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowLeft, Instagram, Loader2, Eye, Activity } from "lucide-react"
-import { useIg } from "@/hooks/use-ig"
+import { InstagramProfile, useIg } from "@/hooks/use-ig"
 import InteractionsSection from "./components/InteractionsSection"
 import ContentSection from "./components/ContentSection"
 import LocationsSection from "./components/LocationsSection"
 import StoriesSection from "./components/StoriesSection"
 import StandardSection from "./components/StandardSection"
+import ProfilesSection from "./components/ProfilesSection"
+import MentionsSection from "./components/MentionsSection"
+import PrintsSection from "./components/PrintsSections"
+import { Badge } from "@/components/ui/badge"
+import GallerySection from "./components/GalerrySection"
 
 export default function DeliveryInstaPage() {
   const router = useRouter()
-  const { getProfile, getFollowers, getStories, profile, followers, stories, loading, followersLoading, storiesLoading, error } = useIg()
+  const { getProfile, getFollowers, getStories, getHighlights, followers, stories, highlights, loading, followersLoading, storiesLoading, highlightsLoading, error } = useIg()
   const [username, setUsername] = useState("")
+  const [profile, setProfile] = useState<InstagramProfile | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [showReport, setShowReport] = useState(false)
   const [currentUsername, setCurrentUsername] = useState("")
@@ -31,15 +37,21 @@ export default function DeliveryInstaPage() {
       // Fetch profile data
       const profileData = await getProfile(username)
       if (profileData) {
+        setProfile(() => profileData);
         // Fetch followers (10 followers)
         await getFollowers(profileData.id)
         // Fetch stories
-        await getStories(username)
-        
+        const resultStories = await getStories(username)
+
+        // Fetch highlights if stories exist
+        if (resultStories.length === 0) {
+          await getHighlights(username)
+        }
+
         // Only show report after all data is loaded
-          if (!loading && !followersLoading && !storiesLoading) {
-            setShowReport(true)
-          }
+        if (!loading && !followersLoading && !storiesLoading && !highlightsLoading) {
+          setShowReport(true)
+        }
       }
     } catch (err) {
       console.error('Error fetching data:', err)
@@ -55,96 +67,96 @@ export default function DeliveryInstaPage() {
   }
 
   if (showReport) {
-     const standardSections: Array<{
-       id: string;
-       name: string;
-       description: string;
-       icon: any;
-       status: string;
-       data: string;
-     }> = []
+    const standardSections: Array<{
+      id: string;
+      name: string;
+      description: string;
+      icon: any;
+      status: string;
+      data: string;
+    }> = []
 
-     return (
-       <section className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
-         {/* Light points - same as delivery */}
-         <div className="absolute inset-0">
-           <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-           <div className="absolute top-40 right-32 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
-           <div className="absolute bottom-32 left-16 w-40 h-40 bg-blue-500/15 rounded-full blur-3xl animate-pulse delay-2000"></div>
-           <div className="absolute bottom-20 right-20 w-28 h-28 bg-purple-400/20 rounded-full blur-2xl animate-pulse delay-500"></div>
-           <div className="absolute top-1/2 left-1/3 w-20 h-20 bg-pink-400/15 rounded-full blur-xl animate-pulse delay-1500"></div>
-         </div>
+    return (
+      <section className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
+        {/* Light points - same as delivery */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-40 right-32 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-32 left-16 w-40 h-40 bg-blue-500/15 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          <div className="absolute bottom-20 right-20 w-28 h-28 bg-purple-400/20 rounded-full blur-2xl animate-pulse delay-500"></div>
+          <div className="absolute top-1/2 left-1/3 w-20 h-20 bg-pink-400/15 rounded-full blur-xl animate-pulse delay-1500"></div>
+        </div>
 
-         <div className="container mx-auto px-4 relative z-10">
-           <div className="max-w-4xl mx-auto">
-             {/* Header Section - same structure as delivery */}
-             <div className="text-center mb-12">
-               {/* Profile Badge - same as delivery welcome badge */}
-               <div className="inline-block bg-white/5 backdrop-blur-xl border border-purple-400/30 rounded-2xl px-6 py-4 mb-6 shadow-2xl">
-                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-2xl"></div>
-                 <div className="relative z-10 flex items-center space-x-3">
-                   <Instagram className="w-6 h-6 text-purple-400" />
-                   <div className="text-left">
-                     <h2 className="text-white font-bold text-lg">@{currentUsername}</h2>
-                     <p className="text-purple-300 text-sm">Instagram Analysis Complete</p>
-                   </div>
-                   <button
-                     onClick={handleBackToForm}
-                     className="flex items-center space-x-1 text-purple-400 hover:text-white transition-colors text-sm"
-                   >
-                     <ArrowLeft className="w-5 h-5" />
-                   </button>
-                 </div>
-               </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            {/* Header Section - same structure as delivery */}
+            <div className="text-center mb-12">
+              {/* Profile Badge - same as delivery welcome badge */}
+              <div className="inline-block bg-white/5 backdrop-blur-xl border border-purple-400/30 rounded-2xl px-6 py-4 mb-6 shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-2xl"></div>
+                <div className="relative z-10 flex items-center space-x-3">
+                  <Instagram className="w-6 h-6 text-purple-400" />
+                  <div className="text-left">
+                    <h2 className="text-white font-bold text-lg">@{currentUsername}</h2>
+                    <p className="text-purple-300 text-sm">Instagram Analysis Complete</p>
+                  </div>
+                  <button
+                    onClick={handleBackToForm}
+                    className="flex items-center space-x-1 text-purple-400 hover:text-white transition-colors text-sm"
+                  >
+                    <ArrowLeft className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
 
-               {/* Main Title - same as delivery */}
-               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                 Delivery Report
-               </h1>
-               <p className="text-gray-300 text-lg mb-8">Complete activity report for @{currentUsername}</p>
-             </div>
+              {/* Main Title - same as delivery */}
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                Delivery Report
+              </h1>
+              <p className="text-gray-300 text-lg mb-8">Complete activity report for @{currentUsername}</p>
+            </div>
 
-             {/* Report Flex - All cards in a column */}
-             <div className="flex flex-col gap-6 md:gap-8 mb-8">
-               {/* Special Sections */}
-               <InteractionsSection isActive={true} followers={followers} />
-               <ContentSection isActive={true} />
-               <LocationsSection isActive={true} />
-               <StoriesSection isActive={true} followers={followers} stories={stories} />
-               
-               {/* Standard Sections */}
-               {standardSections.map((section) => {
-                 const isActive = section.status === "Active"
-                 return (
-                   <StandardSection
-                     key={section.id}
-                     {...section}
-                     isActive={isActive}
-                   />
-                 )
-               })}
-             </div>
+            {/* Report Flex - All cards in a column */}
+            <div className="flex flex-col gap-6 md:gap-8 mb-8">
+              <ProfilesSection isActive={true} profile={profile} />
+              <InteractionsSection isActive={true} followers={followers} />
+              <MentionsSection isActive={true} mentionsCount={19} followers={followers} />
 
-             {/* Footer links - Same as delivery */}
-             <div className="pt-12 space-y-4 text-center">
-               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-                 <a href="#" className="hover:text-gray-300 transition-colors underline">
-                   Terms and Conditions
-                 </a>
-                 <a href="#" className="hover:text-gray-300 transition-colors underline">
-                   Privacy Policy
-                 </a>
-                 <a href="#" className="hover:text-gray-300 transition-colors underline">
-                   support@instacheck.app
-                 </a>
-               </div>
-               <p className="text-xs text-gray-600">Copyright © 2025. All Rights Reserved.</p>
-             </div>
-           </div>
-         </div>
-       </section>
-     )
-   }
+              <ContentSection isActive={true} />
+              {stories.length > 0 && (
+                <StoriesSection isActive={true} followers={followers} stories={stories} />
+              )}
+
+              {stories.length === 0 && highlights.length > 0 && (
+                <StoriesSection isActive={true} followers={followers} highlights={highlights} />
+              )}
+
+              <LocationsSection isActive={true} />
+              <PrintsSection isActive={true} followers={followers} />
+              <GallerySection isActive={true} />
+
+ 
+
+
+              {/* Standard Sections */}
+              {standardSections.map((section) => {
+                const isActive = section.status === "Active"
+                return (
+                  <StandardSection
+                    key={section.id}
+                    {...section}
+                    isActive={isActive}
+                  />
+                )
+              })}
+            </div>
+
+
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
@@ -176,9 +188,9 @@ export default function DeliveryInstaPage() {
               <div className="relative z-10 flex items-center space-x-3">
                 <Instagram className="w-8 h-8 text-purple-400" />
                 <div className="text-left">
-                    <h2 className="text-white font-bold text-xl">Instagram Spy</h2>
-                    <p className="text-purple-300 text-sm">Access DMs, stalkers, forwards...</p>
-                  </div>
+                  <h2 className="text-white font-bold text-xl">Instagram Spy</h2>
+                  <p className="text-purple-300 text-sm">Access DMs, stalkers, forwards...</p>
+                </div>
               </div>
             </div>
 
@@ -186,8 +198,16 @@ export default function DeliveryInstaPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Enter Instagram @
             </h1>
+            <div className="inline-block bg-white/5 backdrop-blur-xl border border-purple-400/30 rounded-2xl px-6 py-4 mb-6 shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-2xl"></div>
+              <div className="relative z-10 flex items-center space-x-3">
+                <div className="text-left">
+                  <p className="text-purple-300 text-sm">Your purchase has been approved!</p>
+                </div>
+              </div>
+            </div>
             <p className="text-gray-300 text-lg mb-8">
-              Insert the username of the person you want to spy on
+              You can always acesse this platform using the link sent you email
             </p>
           </div>
 
@@ -236,17 +256,6 @@ export default function DeliveryInstaPage() {
                 </Button>
               </form>
 
-              {isLoading && (
-                <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
-                  <div className="flex items-center space-x-3">
-                    <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />
-                    <div>
-                      <p className="text-blue-400 font-semibold">Analyzing profile...</p>
-                      <p className="text-blue-300 text-sm">This may take a few minutes</p>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               {error && (
                 <div className="mt-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
@@ -262,22 +271,6 @@ export default function DeliveryInstaPage() {
           </div>
 
 
-
-          {/* Footer links */}
-          <div className="pt-12 space-y-4 text-center">
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-              <a href="#" className="hover:text-gray-300 transition-colors underline">
-                Terms and Conditions
-              </a>
-              <a href="#" className="hover:text-gray-300 transition-colors underline">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-gray-300 transition-colors underline">
-                support@instacheck.app
-              </a>
-            </div>
-            <p className="text-xs text-gray-600">Copyright © 2025. All Rights Reserved.</p>
-          </div>
         </div>
       </div>
     </section>

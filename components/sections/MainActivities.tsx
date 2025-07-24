@@ -1,7 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { AlertTriangle, Clock, Users, Lock, MapPin } from "lucide-react"
+import MapboxMap from "@/app/delivery-insta/components/MapboxMap"
+import { ChatList } from "./ChatList"
 
 interface Follower {
   name: string;
@@ -43,6 +46,8 @@ const ActivityItem = ({ username, action, icon: Icon }: {
 )
 
 export function MainActivities({ username, profileData, followers, followersLoading }: MainActivitiesProps) {
+  const [showChatList, setShowChatList] = useState(false);
+
   return (
     <section className="space-y-6">
       <div className="text-center">
@@ -61,7 +66,10 @@ export function MainActivities({ username, profileData, followers, followersLoad
       </div>
 
       <div className="pt-4">
-        <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300">
+        <button
+          onClick={() => setShowChatList(true)}
+          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+        >
           Access Instagram in Real Time
         </button>
       </div>
@@ -74,41 +82,35 @@ export function MainActivities({ username, profileData, followers, followersLoad
       </div>
 
       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
-        <div className="relative h-48 bg-gray-900 rounded-lg overflow-hidden">
-          {/* Simulated map background */}
-          <div className="absolute inset-0">
-            <div className="w-full h-full bg-gradient-to-br from-green-900/40 via-blue-900/40 to-gray-900/40">
-              {/* Map grid lines */}
-              <div className="absolute inset-0 opacity-20">
-                <div className="grid grid-cols-8 grid-rows-6 h-full w-full">
-                  {Array.from({ length: 48 }).map((_, i) => (
-                    <div key={i} className="border border-gray-600/30"></div>
-                  ))}
-                </div>
-              </div>
-              {/* Simulated roads/paths */}
-              <div className="absolute top-1/4 left-0 w-full h-0.5 bg-yellow-600/40 transform rotate-12"></div>
-              <div className="absolute top-1/2 left-0 w-full h-0.5 bg-yellow-600/40 transform -rotate-6"></div>
-              <div className="absolute top-3/4 left-1/4 w-3/4 h-0.5 bg-yellow-600/40 transform rotate-3"></div>
-              <div className="absolute left-1/3 top-0 h-full w-0.5 bg-yellow-600/40 transform rotate-12"></div>
-              <div className="absolute left-2/3 top-0 h-full w-0.5 bg-yellow-600/40 transform -rotate-6"></div>
-              {/* Simulated buildings/areas */}
-              <div className="absolute top-6 left-8 w-12 h-8 bg-gray-700/60 rounded-sm"></div>
-              <div className="absolute top-16 right-12 w-16 h-12 bg-gray-700/60 rounded-sm"></div>
-              <div className="absolute bottom-12 left-16 w-20 h-10 bg-gray-700/60 rounded-sm"></div>
-              <div className="absolute bottom-8 right-8 w-14 h-14 bg-gray-700/60 rounded-sm"></div>
-            </div>
-          </div>
-          {/* Blur overlay */}
-          <div className="absolute inset-0 backdrop-blur-lg bg-black/50">
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center">
-                <p className="text-white font-bold text-xl">Location detected</p>
-              </div>
+        <div className="mb-4">
+          <div className="flex items-center space-x-3 mb-3">
+            <div>
+              <h3 className="text-white font-bold text-lg">Location Activity Detected</h3>
+              <p className="text-gray-300 text-sm">Real-time location tracking</p>
             </div>
           </div>
         </div>
+
+        <div className="relative h-64 bg-gray-900 rounded-lg overflow-hidden border border-white/20">
+          <MapboxMap
+            position={[-23.5505, -46.6333]} // São Paulo coordinates
+            city="São Paulo"
+            country="Brazil"
+            ip="192.168.1.1"
+            zoom={13}
+          />
+
+          {/* Blur overlay */}
+          <div className="absolute inset-0 backdrop-blur-sm"></div>
+        </div>
       </div>
+
+      <ChatList
+        open={showChatList}
+        onOpenChange={setShowChatList}
+        username={username}
+        followers={followers}
+      />
     </section>
   )
 }

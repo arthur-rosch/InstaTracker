@@ -4,10 +4,17 @@ import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { ArrowLeft, Star, Check } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import Profile1 from '@/assets/profile/01.jpg'
 import Profile2 from '@/assets/profile/02.jpg'
 import Profile3 from '@/assets/profile/03.jpg'
 import Profile4 from '@/assets/profile/04.jpg'
+import Profile5 from '@/assets/profile/05.jpg'
+import Profile6 from '@/assets/profile/06.jpg'
+import Profile7 from '@/assets/profile/07.jpg'
+import Profile8 from '@/assets/profile/08.jpg'
+import Profile9 from '@/assets/profile/09.jpg'
+import Profile10 from '@/assets/profile/10.jpg'
 
 interface LocationData {
   city: string
@@ -55,64 +62,56 @@ const analysisTopics = [
 // Mock reviews data
 const reviews = [
   {
-    name: "Maria Silva",
-    location: "São Paulo, Brazil",
-    time: "2 days ago",
+    name: "@mar***_silva",
+    time: "2min ago",
     rating: 5,
-    text: "This service was very accurate and reliable in most of my searches, except in some cases where the information seemed a bit outdated. However, that's what made everything rewarding.",
+    text: "Found out who was stalking my profile! Worth every penny!",
     verified: true,
+    avatar: "/images/profile-testimonial-1.jpg",
   },
   {
-    name: "João Santos",
-    location: "Rio de Janeiro, Brazil",
-    time: "1 week ago",
+    name: "@carlos***_m",
+    time: "5min ago",
     rating: 5,
-    text: "Incredible tool! Found information I never thought was possible to discover. The analysis was detailed and helped me understand my Instagram profile better.",
+    text: "Amazing! Now I know who views my stories repeatedly.",
     verified: true,
-  },
-  {
-    name: "Ana Costa",
-    location: "Belo Horizonte, Brazil",
-    time: "3 days ago",
-    rating: 5,
-    text: "Fast and efficient service. The report provided valuable insights about my profile security and interactions. Highly recommended!",
-    verified: true,
+    avatar: "/images/profile-testimonial-2.jpg",
   },
 ]
 
 // Company logos for sliding carousel
 const companies = [
-  { 
-    name: "TechCrunch", 
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3ETechCrunch%3C/text%3E%3C/svg%3E" 
+  {
+    name: "TechCrunch",
+    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3ETechCrunch%3C/text%3E%3C/svg%3E"
   },
-  { 
-    name: "Forbes", 
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EForbes%3C/text%3E%3C/svg%3E" 
+  {
+    name: "Forbes",
+    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EForbes%3C/text%3E%3C/svg%3E"
   },
-  { 
-    name: "Wired", 
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EWired%3C/text%3E%3C/svg%3E" 
+  {
+    name: "Wired",
+    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EWired%3C/text%3E%3C/svg%3E"
   },
-  { 
-    name: "Mashable", 
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EMashable%3C/text%3E%3C/svg%3E" 
+  {
+    name: "Mashable",
+    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EMashable%3C/text%3E%3C/svg%3E"
   },
-  { 
-    name: "The Verge", 
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EThe Verge%3C/text%3E%3C/svg%3E" 
+  {
+    name: "The Verge",
+    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EThe Verge%3C/text%3E%3C/svg%3E"
   },
-  { 
-    name: "Engadget", 
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EEngadget%3C/text%3E%3C/svg%3E" 
+  {
+    name: "Engadget",
+    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EEngadget%3C/text%3E%3C/svg%3E"
   },
-  { 
-    name: "VentureBeat", 
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EVentureBeat%3C/text%3E%3C/svg%3E" 
+  {
+    name: "VentureBeat",
+    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EVentureBeat%3C/text%3E%3C/svg%3E"
   },
-  { 
-    name: "Business Insider", 
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EBusiness Insider%3C/text%3E%3C/svg%3E" 
+  {
+    name: "Business Insider",
+    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EBusiness Insider%3C/text%3E%3C/svg%3E"
   },
 ]
 
@@ -122,16 +121,18 @@ const randomProfiles: string[] = [
   Profile2.src,
   Profile3.src,
   Profile4.src,
-  Profile1.src,
-  Profile2.src,
-  Profile3.src,
-  Profile4.src,
+  Profile5.src,
+  Profile6.src,
+  Profile7.src,
+  Profile8.src,
+  Profile9.src,
+  Profile10.src,
 ]
 
 function ProfileAnalysisContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const username = searchParams.get("username") || "eo.rosch"
+  const username = searchParams.get("username")
   const [progress, setProgress] = useState(0)
   const [location, setLocation] = useState<LocationData | null>(null)
   const [completedTopics, setCompletedTopics] = useState<number[]>([])
@@ -145,13 +146,13 @@ function ProfileAnalysisContent() {
     setProfileData(getProfileFromStorage())
   }, [])
 
- 
+
 
   // Simulate progress loading and show topics progressively
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prev) => {
-        const newProgress = prev + 1
+        const newProgress = prev + 0.5
 
         // Mark topics as completed based on progress thresholds
         analysisTopics.forEach((topic, index) => {
@@ -168,7 +169,7 @@ function ProfileAnalysisContent() {
 
         return newProgress
       })
-    }, 80)
+    }, 120)
 
     return () => clearInterval(timer)
   }, [completedTopics])
@@ -185,7 +186,11 @@ function ProfileAnalysisContent() {
   useEffect(() => {
     if (progress < 100) {
       const profileTimer = setInterval(() => {
-        setCurrentProfileIndex((prev) => (prev + 1) % randomProfiles.length)
+        setCurrentProfileIndex((prev) => {
+          const nextIndex = (prev + 1) % randomProfiles.length
+          console.log('Changing profile index from', prev, 'to', nextIndex)
+          return nextIndex
+        })
       }, 1500)
       return () => clearInterval(profileTimer)
     }
@@ -210,15 +215,26 @@ function ProfileAnalysisContent() {
         <div className="absolute top-1/2 left-1/3 w-20 h-20 bg-pink-400/15 rounded-full blur-xl animate-pulse delay-1500"></div>
       </div>
 
-      {/* Header */}
-      <div className="relative z-10 p-4 pt-8 flex items-center justify-between sticky top-0 bg-black/80 backdrop-blur-xl">
-        <button
-          onClick={handleBack}
-          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <div className="w-10 h-10"></div>
+      {/* Header with Progress Bar */}
+      <div className="w-full">
+        <div className="container mx-auto px-4 py-4">
+          <div className="max-w-md mx-auto">
+            <div className="flex items-center justify-between mb-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleBack}
+                className="text-white hover:bg-white/10 p-2"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </Button>
+              <div className="w-8"></div>
+            </div>
+            <div className="w-full bg-gray-700 rounded-full h-2">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300" style={{ width: '80%' }}></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Scrollable Content */}
@@ -227,22 +243,24 @@ function ProfileAnalysisContent() {
           {/* Profile Section */}
           <div className="text-center">
             <div className="flex justify-center mb-4">
-              <Avatar className="w-16 h-16 ring-3 ring-pink-500/80">
-                <AvatarImage src={profileData.avatar || "/placeholder.svg"} alt={profileData.name} />
-                <AvatarFallback className="text-lg bg-gray-700 text-white">
-                  {profileData.name
-                    .split(" ")
-                    .map((n: string) => n[0])
-                    .join("")}
-                </AvatarFallback>
-              </Avatar>
+              <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-full p-1">
+                <Avatar className="w-full h-full rounded-full">
+                  <AvatarImage src={profileData.avatar || "/placeholder.svg"} alt={profileData.name} />
+                  <AvatarFallback className="text-lg bg-gray-700 text-white">
+                    {profileData.name
+                      .split(" ")
+                      .map((n: string) => n[0])
+                      .join("")}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
             </div>
             <h1 className="text-xl font-bold text-white mb-1">@{username}</h1>
           </div>
 
           {/* Analysis Header */}
           <div className="text-center space-y-2">
-            <h2 className="text-lg font-semibold text-white">Collecting information from Instagram profile</h2>
+            <h2 className="text-base font-semibold text-white">Collecting information from Instagram</h2>
             <p className="text-gray-300 text-sm">Please be patient while we search through millions of records</p>
           </div>
 
@@ -254,9 +272,13 @@ function ProfileAnalysisContent() {
                 <div className="relative w-16 h-16">
                   <div className="relative overflow-hidden rounded-lg w-full h-full">
                     <img
-                      src={randomProfiles[currentProfileIndex % randomProfiles.length] || "/placeholder.svg"}
+                      key={`profile-${Math.random()}-${Date.now()}`}
+                      src={randomProfiles[Math.floor(Math.random() * randomProfiles.length)] || "/placeholder.svg"}
                       alt={`Profile ${currentProfileIndex + 1}`}
-                      className="w-full h-full object-cover transition-all duration-700 blur-[3px] opacity-70"
+                      className="w-full h-full object-cover transition-opacity duration-300 blur-[3px] opacity-70"
+                      style={{
+                        animation: 'fadeIn 0.3s ease-in-out'
+                      }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20"></div>
                   </div>
@@ -265,7 +287,7 @@ function ProfileAnalysisContent() {
               )}
 
               <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">{progress}%</span>
+                <span className="text-white font-bold text-sm">{Math.floor(progress)}%</span>
               </div>
               <div className="flex-1">
                 <div className="bg-white/10 rounded-full h-3 overflow-hidden">
@@ -289,23 +311,20 @@ function ProfileAnalysisContent() {
               {analysisTopics.map((topic, index) => (
                 <div
                   key={index}
-                  className={`flex items-center space-x-2 p-3 rounded-xl transition-all duration-300 ${
-                    completedTopics.includes(index)
-                      ? "bg-green-500/10 border border-green-500/30"
-                      : "bg-white/5 border border-white/10"
-                  }`}
+                  className={`flex items-center space-x-2 p-3 rounded-xl transition-all duration-300 ${completedTopics.includes(index)
+                    ? "bg-green-500/10 border border-green-500/30"
+                    : "bg-white/5 border border-white/10"
+                    }`}
                 >
                   <div
-                    className={`w-4 h-4 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${
-                      completedTopics.includes(index) ? "bg-green-500" : "bg-white/20"
-                    }`}
+                    className={`w-4 h-4 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${completedTopics.includes(index) ? "bg-green-500" : "bg-white/20"
+                      }`}
                   >
                     {completedTopics.includes(index) && <Check className="w-2.5 h-2.5 text-white" />}
                   </div>
                   <span
-                    className={`text-xs transition-colors ${
-                      completedTopics.includes(index) ? "text-green-400" : "text-gray-300"
-                    }`}
+                    className={`text-xs transition-colors ${completedTopics.includes(index) ? "text-green-400" : "text-gray-300"
+                      }`}
                   >
                     {topic.label}
                   </span>
@@ -314,65 +333,58 @@ function ProfileAnalysisContent() {
             </div>
           </div>
 
-          {/* Reviews Section */}
-          <div className="space-y-6">
-            {/* Rating Header */}
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <span className="text-2xl font-bold text-white">Excellent</span>
-                <div className="flex space-x-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="w-6 h-6 text-yellow-400 fill-current" />
-                  ))}
+          {/* Testimonials */}
+          <div className="space-y-4 mb-6">
+            <div className="bg-white/5 rounded-2xl p-4">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="relative w-8 h-8 rounded-full overflow-hidden">
+                  <img
+                    src="/images/profile-testimonial-1.jpg"
+                    alt="User"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-xs">@mar***_silva</h3>
+                  <p className="text-gray-400 text-xs">2min ago</p>
                 </div>
               </div>
-              <p className="text-gray-300">
-                <span className="font-bold text-white">4.75</span> based on{" "}
-                <span className="font-bold text-white">338</span> reviews
+              <p className="text-gray-300 text-xs mb-3 leading-relaxed">
+                "I found out who was stalking my profile! Worth every penny!"
               </p>
-            </div>
-
-            {/* Review Card */}
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-white">{reviews[currentReview].name}</h3>
-                  <div className="flex space-x-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="w-4 h-4 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                </div>
-
-                {reviews[currentReview].verified && (
-                  <div className="flex items-center space-x-2">
-                    <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-                      <Check className="w-3 h-3 text-white" />
-                    </div>
-                    <span className="text-gray-300 text-sm">Verified Customer</span>
-                  </div>
-                )}
-
-                <p className="text-gray-300 leading-relaxed text-sm">{reviews[currentReview].text}</p>
-
-                <div className="text-right">
-                  <p className="text-gray-400 text-sm">
-                    {reviews[currentReview].location}, {reviews[currentReview].time}
-                  </p>
-                </div>
+              <div className="flex space-x-1">
+                <span className="text-yellow-400 text-sm">★</span>
+                <span className="text-yellow-400 text-sm">★</span>
+                <span className="text-yellow-400 text-sm">★</span>
+                <span className="text-yellow-400 text-sm">★</span>
+                <span className="text-yellow-400 text-sm">★</span>
               </div>
             </div>
 
-            {/* Review Indicators */}
-            <div className="flex justify-center space-x-2">
-              {reviews.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    index === currentReview ? "bg-white" : "bg-white/30"
-                  }`}
-                />
-              ))}
+            <div className="bg-white/5 rounded-2xl p-4">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="relative w-8 h-8 rounded-full overflow-hidden">
+                  <img
+                    src="/images/profile-testimonial-2.jpg"
+                    alt="User"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-xs">@carlos***_m</h3>
+                  <p className="text-gray-400 text-xs">5min ago</p>
+                </div>
+              </div>
+              <p className="text-gray-300 text-xs mb-3 leading-relaxed">
+                "Amazing! Now I know who views my stories repeatedly."
+              </p>
+              <div className="flex space-x-1">
+                <span className="text-yellow-400 text-sm">★</span>
+                <span className="text-yellow-400 text-sm">★</span>
+                <span className="text-yellow-400 text-sm">★</span>
+                <span className="text-yellow-400 text-sm">★</span>
+                <span className="text-yellow-400 text-sm">★</span>
+              </div>
             </div>
           </div>
 
@@ -392,7 +404,7 @@ function ProfileAnalysisContent() {
                     <img
                       src={company.logo}
                       alt={company.name}
-                      className="h-6 w-auto filter brightness-0 invert opacity-60 hover:opacity-80 transition-opacity"
+                      className="h-8 w-auto filter brightness-0 invert opacity-70 hover:opacity-90 transition-opacity"
                     />
                   </div>
                 ))}
@@ -423,7 +435,7 @@ function ProfileAnalysisContent() {
               onClick={handleGenerateReport}
               className="w-full py-4 instagram-gradient text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl animate-fade-in"
             >
-              Continue to Full Report
+              Access Instagram in real-time
             </button>
           </div>
         </div>
@@ -436,6 +448,15 @@ function ProfileAnalysisContent() {
           }
           100% {
             transform: translateX(-50%);
+          }
+        }
+        
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 0.7;
           }
         }
         

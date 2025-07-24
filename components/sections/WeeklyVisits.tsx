@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ChatList } from "./ChatList"
+import { type CarouselApi } from "@/components/ui/carousel"
 
 
 interface Follower {
@@ -27,8 +28,42 @@ interface WeeklyVisitsProps {
 
 export function WeeklyVisits({ username, profileData, followers, followersLoading }: WeeklyVisitsProps) {
   const [showChatList, setShowChatList] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
+  const autoScrollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   // Usar apenas os primeiros 5 seguidores para o carrossel
   const displayFollowers = followers.slice(0, 5);
+
+  // Auto-scroll effect
+  useEffect(() => {
+    if (!api) return;
+
+    const startAutoScroll = () => {
+      autoScrollRef.current = setInterval(() => {
+        api.scrollNext();
+      }, 2000); // Rola a cada 2 segundos
+    };
+
+    const stopAutoScroll = () => {
+      if (autoScrollRef.current) {
+        clearInterval(autoScrollRef.current);
+        autoScrollRef.current = null;
+      }
+    };
+
+    startAutoScroll();
+
+    // Parar auto-scroll quando usuário interagir
+    api.on("pointerDown", stopAutoScroll);
+    api.on("pointerUp", () => {
+      setTimeout(startAutoScroll, 1000); // Retomar após 3 segundos
+    });
+
+    return () => {
+      stopAutoScroll();
+      api.off("pointerDown", stopAutoScroll);
+    };
+  }, [api]);
 
   return (
     <section className="space-y-6">
@@ -39,11 +74,14 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
         <p className="text-white font-semibold">Visited this profile this week 2 to 7 times:</p>
       </div>
 
-      <Carousel 
+      <Carousel
         className="w-full max-w-sm mx-auto"
+        setApi={setApi}
         opts={{
           align: "start",
           loop: true,
+          dragFree: true,
+          skipSnaps: false,
         }}
       >
         <CarouselContent className="-ml-2 md:-ml-4">
@@ -132,7 +170,7 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
 
       {/* View Real-time Button */}
       <div className="pt-4">
-        <button 
+        <button
           onClick={() => setShowChatList(!showChatList)}
           className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
         >
@@ -140,15 +178,13 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
         </button>
       </div>
 
-      {/* Chat List */}
-      {showChatList && (
-        <div className="mt-6">
-          <ChatList 
-            onBack={() => setShowChatList(false)} 
-            username={profileData?.name || username}
-          />
-        </div>
-      )}
+      {/* Chat List Modal */}
+      <ChatList 
+        open={showChatList}
+        onOpenChange={setShowChatList}
+        username={profileData?.name || username}
+        followers={followers}
+      />
     </section>
   )
 }

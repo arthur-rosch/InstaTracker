@@ -42,7 +42,7 @@ export default function MapboxMap({ position, city, country, ip, zoom = 13 }: Ma
       .addTo(map.current)
 
     // Create popup
-    const popup = new maplibregl.Popup({ 
+    const popup = new maplibregl.Popup({  
       offset: 25,
       closeButton: false,
       closeOnClick: false
@@ -65,4 +65,4 @@ export default function MapboxMap({ position, city, country, ip, zoom = 13 }: Ma
       className="maplibre-map"
     />
   )
-}
+}  

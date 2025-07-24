@@ -56,14 +56,14 @@ export default function DeliveryPage() {
       id: "gallery",
       name: "Gallery",
       description: "See the photo gallery, secret albums, deleted photos...",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Photos_icon.svg/2048px-Google_Photos_icon.svg.png",
+      logo: "https://cdn-icons-png.flaticon.com/512/1040/1040241.png",
       status: "Coming Soon"
     },
     {
       id: "adult",
       name: "+18",
       description: "Access adult content and private videos...",
-      logo: "https://cdn.worldvectorlogo.com/logos/xvideos-1.svg",
+      logo: "https://cdn-icons-png.flaticon.com/512/2593/2593549.png",
       status: "Coming Soon"
     }
   ]
@@ -82,7 +82,21 @@ export default function DeliveryPage() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Header Section */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 mt-12 mx-4">
+            {/* Profile and Notification Icons */}
+            <div className="flex justify-between items-center mb-6">
+              <div className="w-10 h-10 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-white/20 transition-all duration-300">
+                <User className="w-5 h-5 text-white" />
+              </div>
+              <div className="relative">
+                <div className="w-10 h-10 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-white/20 transition-all duration-300">
+                  <Bell className="w-5 h-5 text-white" />
+                </div>
+                {/* Notification dot */}
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-black"></div>
+              </div>
+            </div>
+
             {/* Welcome Badge */}
             <div className="inline-block bg-white/5 backdrop-blur-xl border border-purple-400/30 rounded-2xl px-6 py-4 mb-6 shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-2xl"></div>
@@ -112,8 +126,11 @@ export default function DeliveryPage() {
               return (
                 <div
                   key={service.id}
-                  className={`relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 md:p-6 shadow-2xl hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer ${selectedService === service.id ? 'ring-2 ring-purple-500/50' : ''
-                    }`}
+                  className={`relative backdrop-blur-xl border rounded-2xl p-4 md:p-6 shadow-2xl transition-all duration-300 cursor-pointer ${
+                    isActive 
+                      ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:scale-105' 
+                      : 'bg-white/2 border-white/5 opacity-50 hover:opacity-70'
+                  } ${selectedService === service.id ? 'ring-2 ring-purple-500/50' : ''}`}
                   onClick={() => {
                     if (service.id === 'instagram' && service.status === 'Active') {
                       router.push('/delivery-insta')
@@ -126,15 +143,15 @@ export default function DeliveryPage() {
                   <div className="relative z-10">
                     <div className="flex flex-col space-y-3">
                       <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center">
+                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center">
                           {service.logo ? (
                             <img
                               src={service.logo}
                               alt={`${service.name} logo`}
-                              className="w-6 h-6 md:w-8 md:h-8 object-contain"
+                              className="w-8 h-8 md:w-10 md:h-10 object-contain"
                             />
                           ) : IconComponent ? (
-                            <IconComponent className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                            <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-white" />
                           ) : null}
                         </div>
                         <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${isActive
@@ -155,21 +172,6 @@ export default function DeliveryPage() {
             })}
           </div>
 
-          {/* Footer links - Same as hero section */}
-          <div className="pt-12 space-y-4 text-center">
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-              <a href="#" className="hover:text-gray-300 transition-colors underline">
-                Terms and Conditions
-              </a>
-              <a href="#" className="hover:text-gray-300 transition-colors underline">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-gray-300 transition-colors underline">
-                support@instacheck.app
-              </a>
-            </div>
-            <p className="text-xs text-gray-600">Copyright © 2025. All Rights Reserved.</p>
-          </div>
         </div>
       </div>
     </section>

@@ -13,7 +13,7 @@ export default function Upsell3Page() {
   const [accessLevel, setAccessLevel] = useState("premium")
 
   return (
-    <section className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
+    <section className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden mt-6">
       {/* Light points - same as home */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>

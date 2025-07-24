@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Highlight } from '@/hooks/use-ig'
 
 interface Follower {
   name: string;
@@ -34,7 +35,8 @@ interface Story {
 interface StoriesSectionProps {
   isActive: boolean;
   followers: Follower[];
-  stories: Story[];
+  stories?: Story[];
+  highlights?: Highlight[];
 }
 
 const storiesData = [
@@ -103,23 +105,82 @@ const storiesData = [
   }
 ]
 
-export default function StoriesSection({ isActive, followers, stories }: StoriesSectionProps) {
-  // Use API stories if available, otherwise fallback to mock data
-  const displayStories = stories.length > 0 ? stories
-    .filter(story => story.image) // Only use stories with images
-    .map((story, index) => ({
-      id: story.id,
-      image: story.image!.url, // Use the image URL from API
-      pausedProfiles: Math.floor(Math.random() * 15) + 5, // Random number for demo
-      viewers: followers.slice(0, Math.min(followers.length, 4)).map((follower, i) => ({
-        id: i + 1,
-        avatar: follower.avatar
-      }))
-    })) : storiesData;
+// Função para normalizar stories
+function mapStories(stories: Story[], followers: Follower[]) {
+  return stories
+    .filter(story => story.image)
+    .map((story, index) => {
+      // Usar a API proxy para as imagens das stories
+      const proxyImageUrl = `/api/image-proxy?url=${encodeURIComponent(story.image!.url)}`;
+      
+      return {
+        id: story.id,
+        image: proxyImageUrl,
+        pausedProfiles: Math.floor(Math.random() * 15) + 5,
+        viewers: followers.slice(0, Math.min(followers.length, 4)).map((follower, i) => ({
+          id: i + 1,
+          avatar: follower.avatar
+        }))
+      };
+    });
+}
+
+// Função para normalizar highlights
+function mapHighlights(highlights: Highlight[], followers: Follower[]) {
+  const highlightItems: {
+    id: string;
+    image: string;
+    pausedProfiles: number;
+    viewers: { id: number; avatar: string }[];
+  }[] = [];
+
+  highlights.forEach((highlight) => {
+    highlight.items.forEach((item, itemIndex) => {
+      if (item.image?.url) {
+        // Usar a API proxy para as imagens dos highlights
+        const proxyImageUrl = `/api/image-proxy?url=${encodeURIComponent(item.image.url)}`;
+        
+        highlightItems.push({
+          id: `${highlight.id}-${item.id}`,
+          image: proxyImageUrl,
+          pausedProfiles: Math.floor(Math.random() * 15) + 5,
+          viewers: followers.slice(0, Math.min(followers.length, 4)).map((follower, i) => ({
+            id: i + 1,
+            avatar: follower.avatar
+          }))
+        });
+      }
+    });
+  });
+
+  return highlightItems;
+}
+
+export default function StoriesSection({
+  isActive,
+  followers,
+  stories,
+  highlights = []
+}: StoriesSectionProps) {
+  let displayStories: {
+    id: string | number;
+    image: string;
+    pausedProfiles: number;
+    viewers: { id: number; avatar: string }[];
+  }[] = [];
+
+  // Priorizar stories, depois highlights, depois dados mock
+  if (stories && stories.length > 0) {
+    displayStories = mapStories(stories, followers);
+  } else if (highlights && highlights.length > 0) {
+    displayStories = mapHighlights(highlights, followers);
+  } else {
+    displayStories = storiesData;
+  }
+
   return (
     <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer w-full">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-2xl"></div>
-
       <div className="relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
@@ -132,16 +193,13 @@ export default function StoriesSection({ isActive, followers, stories }: Stories
               <p className="text-gray-300 text-sm">Story interactions detected</p>
             </div>
           </div>
-
-          <div className={`px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${
-            isActive
-              ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-              : 'bg-red-500/20 text-red-400 border border-red-500/30'
-          }`}>
+          <div className={`px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${isActive
+            ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+            : 'bg-red-500/20 text-red-400 border border-red-500/30'
+            }`}>
             {isActive ? 'Active' : 'Inactive'}
           </div>
         </div>
-
         {/* Stories Carousel */}
         <div className="relative">
           <Carousel className="w-full">
@@ -156,10 +214,8 @@ export default function StoriesSection({ isActive, followers, stories }: Stories
                         alt={`Story ${story.id}`}
                         className="w-full h-full object-cover"
                       />
-                      
                       {/* Gradient Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                      
                       {/* Story Info - Bottom Left */}
                       <div className="absolute bottom-3 left-3 right-3">
                         <div className="space-y-2">
@@ -167,7 +223,6 @@ export default function StoriesSection({ isActive, followers, stories }: Stories
                           <div className="text-white font-semibold text-sm">
                             {story.pausedProfiles} profiles paused for +13s
                           </div>
-                          
                           {/* Avatars */}
                           <div className="flex -space-x-2">
                             {story.viewers.slice(0, 4).map((viewer) => (
@@ -193,13 +248,10 @@ export default function StoriesSection({ isActive, followers, stories }: Stories
                 </CarouselItem>
               ))}
             </CarouselContent>
-            
             <CarouselPrevious className="-left-2 md:-left-4 bg-white/10 border-white/20 text-white hover:bg-white/20 w-8 h-8 md:w-10 md:h-10" />
             <CarouselNext className="-right-2 md:-right-4 bg-white/10 border-white/20 text-white hover:bg-white/20 w-8 h-8 md:w-10 md:h-10" />
           </Carousel>
         </div>
-
-  
       </div>
     </div>
   )

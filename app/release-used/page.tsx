@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import Image from "next/image"
+import Profile from "@/assets/profile/25.jpg"
+import Profile2 from "@/assets/profile/24.jpg"
 
 function ReleaseUsedContent() {
   const router = useRouter()
@@ -80,20 +82,15 @@ function ReleaseUsedContent() {
 
               {/* Profile Info */}
               {profileData && (
-                <div className="flex flex-col items-center mb-4">
-                  <Avatar className="w-20 h-20 mb-3 border-2 border-white/20">
-                    <AvatarImage
-                      src={`/api/image-proxy?url=${encodeURIComponent(profileData.profile_pic_url)}`}
-                      alt={profileData.full_name || profileData.name}
-                      className="object-cover"
-                    />
-                  </Avatar>
-                  <h2 className="text-white text-xl font-bold mb-1">{profileData.full_name || profileData.name}</h2>
-                  <p className="text-gray-400 text-sm">@{profileData.name}</p>
-                  {profileData.follower_count && (
-                    <p className="text-gray-500 text-xs mt-1">{profileData.follower_count.toLocaleString()} followers</p>
-                  )}
+                <div className="w-full flex items-center justify-center">
+                  <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-full p-1">
+                    <Avatar className="w-full h-full rounded-full">
+                      <AvatarImage src={`/api/image-proxy?url=${encodeURIComponent(profileData.avatar)}`} />
+                    </Avatar>
+                  </div>
                 </div>
+
+
               )}
 
               {!profileData && (
@@ -175,20 +172,20 @@ function ReleaseUsedContent() {
                 <div className="flex items-center space-x-3 mb-3">
                   <div className="relative w-8 h-8 rounded-full overflow-hidden">
                     <Image
-                      src="/images/profile-testimonial-1.jpg"
+                      src={Profile2}
                       alt="User"
                       width={32}
                       height={32}
-                      className="object-cover blur-sm"
+                      className="object-cover"
                     />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold text-xs">@mar***_silva</h3>
+                    <h3 className="text-white font-semibold text-xs">@sarah***_jones</h3>
                     <p className="text-gray-400 text-xs">2min ago</p>
                   </div>
                 </div>
                 <p className="text-gray-300 text-xs mb-3 leading-relaxed">
-                  "Descobri quem estava stalkeando meu perfil! Valeu cada centavo!"
+                  "Found out who was stalking my profile! Worth every penny!"
                 </p>
                 <div className="flex space-x-1">
                   <span className="text-yellow-400 text-sm">★</span>
@@ -203,20 +200,20 @@ function ReleaseUsedContent() {
                 <div className="flex items-center space-x-3 mb-3">
                   <div className="relative w-8 h-8 rounded-full overflow-hidden">
                     <Image
-                      src="/images/profile-testimonial-2.jpg"
+                      src={Profile}
                       alt="User"
                       width={32}
                       height={32}
-                      className="object-cover blur-sm"
+                      className="object-cover"
                     />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold text-xs">@carlos***_m</h3>
+                    <h3 className="text-white font-semibold text-xs">@mike***_wilson</h3>
                     <p className="text-gray-400 text-xs">5min ago</p>
                   </div>
                 </div>
                 <p className="text-gray-300 text-xs mb-3 leading-relaxed">
-                  "Incrível! Agora sei quem vê meus stories repetidamente."
+                  "Amazing! Now I know who views my stories repeatedly."
                 </p>
                 <div className="flex space-x-1">
                   <span className="text-yellow-400 text-sm">★</span>
@@ -242,10 +239,6 @@ function ReleaseUsedContent() {
                 <span className="text-green-400 text-sm font-medium">100% secure payment</span>
               </div>
 
-              <div className="mb-4">
-                <div className="text-gray-400 text-sm line-through mb-1">From $8.99</div>
-                <div className="text-white text-lg font-bold">Today only: $4.99</div>
-              </div>
 
               <div className="space-y-2 mb-6">
                 <div className="flex items-center space-x-3">
@@ -276,14 +269,7 @@ function ReleaseUsedContent() {
         </div>
       </div>
 
-      {/* Bottom Button */}
-      <div className="relative z-10 p-4 pb-8 flex-shrink-0">
-        <Button
-          className="w-full h-14 text-lg font-bold instagram-gradient hover:opacity-90 text-white rounded-2xl shadow-xl"
-        >
-          Get Full Report Now
-        </Button>
-      </div>
+
     </div>
   )
 }

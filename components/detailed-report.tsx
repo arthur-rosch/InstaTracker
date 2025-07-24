@@ -12,7 +12,7 @@ import Profile9 from '@/assets/profile/09.jpg'
 import Profile10 from '@/assets/profile/10.jpg'
 
 import { useRouter } from "next/navigation"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Clock } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useIg } from "@/hooks/use-ig"
 import { AnalysisCompleted } from "@/components/sections/AnalysisCompleted"
@@ -22,6 +22,7 @@ import { MainActivities } from "@/components/sections/MainActivities"
 import { InteractionsDetected } from "@/components/sections/InteractionsDetected"
 import { TopObservers } from "@/components/sections/TopObservers"
 import { CloseFriends } from "@/components/sections/CloseFriends"
+import { ChatList } from "@/components/sections/ChatList"
 
 
 interface DetailedReportProps {
@@ -40,6 +41,8 @@ export function DetailedReport({ username }: DetailedReportProps) {
   const [profileData, setProfileData] = useState<StoredProfile | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [isPrivateProfile, setIsPrivateProfile] = useState(false);
+  const [showUrgentButton, setShowUrgentButton] = useState(false);
+  const [showChatList, setShowChatList] = useState(false);
   const { followers, getFollowers, followersLoading, setFollowersFromStorage } = useIg();
 
   // Array of local images for private profiles
@@ -67,6 +70,11 @@ export function DetailedReport({ username }: DetailedReportProps) {
 
   useEffect(() => {
     setIsClient(true);
+
+    // Show urgent button after 2.5 seconds
+    const urgentTimer = setTimeout(() => {
+      setShowUrgentButton(true);
+    }, 2500);
 
     // Get data from localStorage
     const getProfileFromStorage = () => {
@@ -116,6 +124,10 @@ export function DetailedReport({ username }: DetailedReportProps) {
     };
 
     getProfileFromStorage();
+
+    return () => {
+      clearTimeout(urgentTimer);
+    };
   }, []);
 
   const handleBack = () => {
@@ -144,15 +156,22 @@ export function DetailedReport({ username }: DetailedReportProps) {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 p-4 pt-8 flex items-center justify-between sticky top-0 bg-black/80 backdrop-blur-xl border-b border-white/10">
-        <button
-          onClick={handleBack}
-          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <h1 className="text-lg font-semibold text-white">Full Report</h1>
-        <div className="w-10 h-10"></div>
+      <div className="relative z-10 p-4 pt-8 space-y-4">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={handleBack}
+            className="w-10 h-10 rounded-full  flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <h1 className="text-lg font-semibold text-white">Instagram in real-time</h1>
+          <div className="w-10 h-10"></div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="w-full bg-gray-700 rounded-full h-2">
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300" style={{ width: '100%' }}></div>
+        </div>
       </div>
 
       {/* Scrollable Content */}
@@ -228,6 +247,33 @@ export function DetailedReport({ username }: DetailedReportProps) {
 
         </div>
       </div>
+
+      {/* Urgent Access Button - Fixed Position */}
+      {showUrgentButton && (
+        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-50 w-full">
+          <div className="w-full bg-white10 backdrop-blur-md border border-white/20 rounded-2xl p-4 shadow-2xl">
+            <div className="flex items-center space-x-3 mb-3">
+              <p className="text-white text-sm font-medium text-center">
+                For privacy reasons, we can only keep your report available for purchase for 10 minutes
+              </p>
+            </div>
+            <button
+              onClick={() => setShowChatList(true)}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 px-6 rounded-xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+            >
+              Access Instagram in Real Time
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Chat List Modal */}
+      <ChatList
+        open={showChatList}
+        onOpenChange={setShowChatList}
+        username={username}
+        followers={followers}
+      />
     </div>
   );
 }

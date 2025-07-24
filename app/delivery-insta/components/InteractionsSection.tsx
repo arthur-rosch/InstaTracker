@@ -1,8 +1,11 @@
 "use client"
 
+import { useState } from "react"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Activity } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Activity, X } from "lucide-react"
 import { PieChart, Pie, Cell } from "recharts"
 
 interface Follower {
@@ -16,6 +19,8 @@ interface InteractionsSectionProps {
 }
 
 export default function InteractionsSection({ isActive, followers }: InteractionsSectionProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  
   const chartData = [
     { name: "Viewed", value: 85, fill: "#a855f7" },
     { name: "Not viewed", value: 15, fill: "#374151" }
@@ -31,6 +36,12 @@ export default function InteractionsSection({ isActive, followers }: Interaction
       color: "#374151"
     }
   }
+
+  // Use the followers from props
+  const displayFollowers = followers.map((follower, index) => ({
+    ...follower,
+    username: follower.name.toLowerCase().replace(' ', '_')
+  }))
 
   return (
     <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer col-span-2">
@@ -108,7 +119,10 @@ export default function InteractionsSection({ isActive, followers }: Interaction
             {/* Followers Section */}
             <div className="text-center">
               <p className="text-white font-semibold text-base mb-4">View followers</p>
-              <div className="flex items-center justify-center space-x-3">
+              <div 
+                className="flex items-center justify-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={() => setIsModalOpen(true)}
+              >
                 <div className="flex -space-x-2">
                   {followers.slice(0, 3).map((follower, index) => (
                     <Avatar key={index} className="w-10 h-10 border-2 border-purple-500">
@@ -141,6 +155,47 @@ export default function InteractionsSection({ isActive, followers }: Interaction
           </div>
         </div>
       </div>
+
+      {/* Followers Modal */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="bg-black/95 border border-white/20 text-white w-[95vw] max-w-lg max-h-[85vh] overflow-hidden">
+          <DialogHeader className="flex flex-row items-center justify-between pb-4">
+            <DialogTitle className="text-lg md:text-xl font-bold">Followers ({displayFollowers.length})</DialogTitle>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsModalOpen(false)}
+              className="text-white hover:bg-white/10 p-2 h-8 w-8"
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </DialogHeader>
+          <div className="overflow-y-auto max-h-[65vh] space-y-2 pr-2">
+            {displayFollowers.map((follower, index) => (
+              <div key={index} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 transition-colors">
+                <Avatar className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
+                  <AvatarImage src={follower.avatar} />
+                  <AvatarFallback className="bg-purple-600 text-white text-sm">
+                    {follower.name.split(' ').map(n => n[0]).join('')}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-white text-sm md:text-base truncate">{follower.name}</p>
+                  <p className="text-xs md:text-sm text-gray-400 truncate">@{follower.username}</p>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white text-xs md:text-sm px-3 py-1 flex-shrink-0"
+                  onClick={() => window.open(`https://instagram.com/${follower.username}`, '_blank')}
+                >
+                  View
+                </Button>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

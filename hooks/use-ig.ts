@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-interface InstagramProfile {
+export interface InstagramProfile {
   id: string;
   name: string;
   fullName: string;
@@ -33,6 +33,24 @@ interface Story {
   };
 }
 
+interface HighlightItem {
+  id: string;
+  createdAt: string;
+  video?: {
+    url: string;
+  };
+  image?: {
+    url: string;
+  };
+}
+
+export interface Highlight {
+  id: string;
+  title: string;
+  url: string;
+  items: HighlightItem[];
+}
+
 interface ApiError {
   error: string;
 }
@@ -40,6 +58,7 @@ interface ApiError {
 type ProfileResponse = InstagramProfile | ApiError;
 type FollowersResponse = Follower[] | ApiError;
 type StoriesResponse = Story[] | ApiError;
+type HighlightsResponse = Highlight[] | ApiError;
 
 export const useIg = () => {
   const [loading, setLoading] = useState(false);
@@ -49,6 +68,8 @@ export const useIg = () => {
   const [followersLoading, setFollowersLoading] = useState(false);
   const [stories, setStories] = useState<Story[]>([]);
   const [storiesLoading, setStoriesLoading] = useState(false);
+  const [highlights, setHighlights] = useState<Highlight[]>([]);
+  const [highlightsLoading, setHighlightsLoading] = useState(false);
 
   const getProfile = async (username: string): Promise<InstagramProfile | null> => {
     setLoading(true);
@@ -137,6 +158,34 @@ export const useIg = () => {
     }
   };
 
+  const getHighlights = async (username: string): Promise<Highlight[]> => {
+    setHighlightsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`https://instagram-scrapper-develop.up.railway.app/instagram/highlights/${username}`, {
+        headers: {
+          'Authorization': 'Bearer a9Xf2Bq7LmCzT4vNwK8r'
+        }
+      });
+      const data: HighlightsResponse = await response.json();
+
+      if ('error' in data) {
+        setError(data.error);
+        return [];
+      }
+
+      setHighlights(data);
+      return data;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Error fetching highlights';
+      setError(errorMessage);
+      return [];
+    } finally {
+      setHighlightsLoading(false);
+    }
+  };
+
   const setFollowersFromStorage = (followersData: Follower[]) => {
     setFollowers(followersData);
   };
@@ -149,9 +198,12 @@ export const useIg = () => {
     followersLoading,
     stories,
     storiesLoading,
+    highlights,
+    highlightsLoading,
     getProfile,
     getFollowers,
     getStories,
+    getHighlights,
     setFollowersFromStorage
   };
 };

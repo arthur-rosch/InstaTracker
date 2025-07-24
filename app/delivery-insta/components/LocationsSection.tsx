@@ -48,13 +48,13 @@ export default function LocationsSection({ isActive }: LocationsSectionProps) {
         // Using ipapi.co for IP geolocation (free tier available)
         const response = await fetch('https://ipapi.co/json/')
         const data = await response.json()
-        
+
         setDetectedLocation({
           city: data.city || "Unknown",
           country: data.country_name || "Unknown",
-          coordinates: { 
-            lat: parseFloat(data.latitude) || 0, 
-            lng: parseFloat(data.longitude) || 0 
+          coordinates: {
+            lat: parseFloat(data.latitude) || 0,
+            lng: parseFloat(data.longitude) || 0
           },
           timestamp: new Date().toLocaleString('en-US'),
           ip: data.ip || "Unknown",
@@ -91,15 +91,14 @@ export default function LocationsSection({ isActive }: LocationsSectionProps) {
               </div>
               <div>
                 <h3 className="text-white font-bold text-lg md:text-xl">Location</h3>
-                <p className="text-gray-300 text-sm">Last detected location</p>
+                <p className="text-gray-300 text-sm">The phone you want to monitor was recently located is this place</p>
               </div>
             </div>
-            <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${
-              isActive
-                ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                : 'bg-red-500/20 text-red-400 border border-red-500/30'
-            }`}>
-Active
+            <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${isActive
+              ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+              : 'bg-red-500/20 text-red-400 border border-red-500/30'
+              }`}>
+              Active
             </div>
           </div>
 
@@ -107,30 +106,30 @@ Active
           <div className="space-y-6 mt-6">
             {/* Real Map */}
             <div className="bg-white/5 rounded-lg p-6 space-y-4">
-              
-              
+
+
               {/* Real Map Area */}
-               <div className="relative0 rounded-lg h-48 border  overflow-hidden">
-                 {isLoading ? (
-                   <div className="flex items-center justify-center h-full">
-                     <div className="text-center">
-                       <div className="w-8 h-8 bg-gray-500 rounded-full mx-auto mb-2 animate-spin"></div>
-                       <p className="text-white text-sm">Loading map...</p>
-                     </div>
-                   </div>
-                 ) : (
-                   <MapboxMap 
-                     position={[detectedLocation.coordinates.lat, detectedLocation.coordinates.lng]}
-                     city={detectedLocation.city}
-                     country={detectedLocation.country}
-                     ip={detectedLocation.ip}
-                     zoom={13}
-                   />
-                 )}
-               </div>
+              <div className="relative0 rounded-lg h-48 border  overflow-hidden">
+                {isLoading ? (
+                  <div className="flex items-center justify-center h-full">
+                    <div className="text-center">
+                      <div className="w-8 h-8 bg-gray-500 rounded-full mx-auto mb-2 animate-spin"></div>
+                      <p className="text-white text-sm">Loading map...</p>
+                    </div>
+                  </div>
+                ) : (
+                  <MapboxMap
+                    position={[detectedLocation.coordinates.lat, detectedLocation.coordinates.lng]}
+                    city={detectedLocation.city}
+                    country={detectedLocation.country}
+                    ip={detectedLocation.ip}
+                    zoom={13}
+                  />
+                )}
+              </div>
             </div>
 
-    
+
           </div>
         </div>
       </div>
