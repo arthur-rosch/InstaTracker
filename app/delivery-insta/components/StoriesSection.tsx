@@ -112,7 +112,7 @@ function mapStories(stories: Story[], followers: Follower[]) {
     .map((story, index) => {
       // Usar a API proxy para as imagens das stories
       const proxyImageUrl = `/api/image-proxy?url=${encodeURIComponent(story.image!.url)}`;
-      
+
       return {
         id: story.id,
         image: proxyImageUrl,
@@ -138,8 +138,8 @@ function mapHighlights(highlights: Highlight[], followers: Follower[]) {
     highlight.items.forEach((item, itemIndex) => {
       if (item.image?.url) {
         // Usar a API proxy para as imagens dos highlights
-        const proxyImageUrl = `/api/image-proxy?url=${encodeURIComponent(item.image.url)}`;
-        
+        const proxyImageUrl = item.image.url;
+
         highlightItems.push({
           id: `${highlight.id}-${item.id}`,
           image: proxyImageUrl,

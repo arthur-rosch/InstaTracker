@@ -127,7 +127,7 @@ function ProfileConfirmationContent() {
                   <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-full p-1">
                     <Avatar className="w-full h-full rounded-full">
                       <AvatarImage
-                        src={`/api/image-proxy?url=${encodeURIComponent(profile.avatar)}`}
+                        src={profile.avatar}
                         alt={profile.fullName || profile.name}
                         className="object-cover"
                       />

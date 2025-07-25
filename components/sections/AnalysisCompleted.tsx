@@ -97,7 +97,7 @@ export function AnalysisCompleted({ username, profileData, followers, followersL
             {displayFollowers.map((follower, index) => (
               <Avatar key={index} className="w-12 h-12 border-2 border-white/30">
                 <AvatarImage
-                  src={`/api/image-proxy?url=${encodeURIComponent(follower.avatar)}`}
+                  src={follower.avatar}
                   alt={follower.name}
                   className="blur-sm"
                 />
@@ -119,7 +119,7 @@ export function AnalysisCompleted({ username, profileData, followers, followersL
             {displayFollowers.slice(0, 3).map((follower, index) => (
               <Avatar key={`stalker-${index}`} className="w-12 h-12 border-2 border-white/30">
                 <AvatarImage
-                  src={`/api/image-proxy?url=${encodeURIComponent(follower.avatar)}`}
+                  src={follower.avatar}
                   alt={follower.name}
                   className="blur-sm"
                 />
