@@ -129,10 +129,6 @@ const companies = [
     name: "Reviews.io",
     logo: reviewsLogo
   },
-  {
-    name: "Company 1",
-    logo: logo1
-  }
 ]
 
 
