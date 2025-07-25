@@ -22,49 +22,49 @@ export default function DeliveryPage() {
       name: "WhatsApp",
       description: "See Conversations, Calls...",
       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2048px-WhatsApp.svg.png",
-      status: "Coming Soon"
+      status: "Inative"
     },
     {
       id: "facebook",
       name: "Facebook",
       description: "Access Messenger, Get conversations...",
       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png",
-      status: "Coming Soon"
+      status: "Inative"
     },
     {
       id: "location",
       name: "Location",
       description: "See the location of the spied person in real time.",
       icon: MapPin,
-      status: "Coming Soon"
+      status: "Inative"
     },
     {
       id: "social",
       name: "Social Media",
       description: "See all social media that person has. Ex: Tinder",
       logo: "https://logos-world.net/wp-content/uploads/2020/09/Tinder-Logo.png",
-      status: "Coming Soon"
+      status: "Inative"
     },
     {
       id: "camera",
       name: "Camera",
       description: "Get access to the phone's camera and microphone...",
       icon: Camera,
-      status: "Coming Soon"
+      status: "Inative"
     },
     {
       id: "gallery",
       name: "Gallery",
       description: "See the photo gallery, secret albums, deleted photos...",
-      logo: "https://cdn-icons-png.flaticon.com/512/1040/1040241.png",
-      status: "Coming Soon"
+      logo: "https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Photos_icon_%282020%29.svg",
+      status: "Inative"
     },
     {
       id: "adult",
       name: "+18",
       description: "Access adult content and private videos...",
-      logo: "https://cdn-icons-png.flaticon.com/512/2593/2593549.png",
-      status: "Coming Soon"
+      logo: "https://static-cdn77.xvideos-cdn.com/v3/img/skins/default/logo/xv.black.svg",
+      status: "Inative"
     }
   ]
 
@@ -126,11 +126,10 @@ export default function DeliveryPage() {
               return (
                 <div
                   key={service.id}
-                  className={`relative backdrop-blur-xl border rounded-2xl p-4 md:p-6 shadow-2xl transition-all duration-300 cursor-pointer ${
-                    isActive 
-                      ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:scale-105' 
-                      : 'bg-white/2 border-white/5 opacity-50 hover:opacity-70'
-                  } ${selectedService === service.id ? 'ring-2 ring-purple-500/50' : ''}`}
+                  className={`relative backdrop-blur-xl border rounded-2xl p-4 md:p-6 shadow-2xl transition-all duration-300 cursor-pointer ${isActive
+                    ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:scale-105'
+                    : 'bg-white/2 border-white/5 opacity-50 hover:opacity-70'
+                    } ${selectedService === service.id ? 'ring-2 ring-purple-500/50' : ''}`}
                   onClick={() => {
                     if (service.id === 'instagram' && service.status === 'Active') {
                       router.push('/delivery-insta')

@@ -5,16 +5,35 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { ArrowLeft, Star, Check } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import Profile1 from '@/assets/profile/01.jpg'
-import Profile2 from '@/assets/profile/02.jpg'
-import Profile3 from '@/assets/profile/03.jpg'
-import Profile4 from '@/assets/profile/04.jpg'
-import Profile5 from '@/assets/profile/05.jpg'
-import Profile6 from '@/assets/profile/06.jpg'
-import Profile7 from '@/assets/profile/07.jpg'
-import Profile8 from '@/assets/profile/08.jpg'
-import Profile9 from '@/assets/profile/09.jpg'
-import Profile10 from '@/assets/profile/10.jpg'
+import AppBar from "@/components/AppBar"
+
+// Import all profile images
+import profile01 from "/assets/profile/01.jpg"
+import profile02 from "/assets/profile/02.jpg"
+import profile03 from "/assets/profile/03.jpg"
+import profile04 from "/assets/profile/04.jpg"
+import profile05 from "/assets/profile/05.jpg"
+import profile06 from "/assets/profile/06.jpg"
+import profile07 from "/assets/profile/07.jpg"
+import profile08 from "/assets/profile/08.jpg"
+import profile09 from "/assets/profile/09.jpg"
+import profile10 from "/assets/profile/10.jpg"
+import profile11 from "/assets/profile/11.jpg"
+import profile12 from "/assets/profile/12.jpg"
+import profile13 from "/assets/profile/13.jpg"
+import profile14 from "/assets/profile/14.jpg"
+import profile15 from "/assets/profile/15.jpg"
+import profile16 from "/assets/profile/16.jpg"
+import profile17 from "/assets/profile/17.jpg"
+import profile18 from "/assets/profile/18.jpg"
+import profile019 from "/assets/profile/019.jpg"
+import profile20 from "/assets/profile/20.jpg"
+import profile21 from "/assets/profile/21.jpg"
+import profile22 from "/assets/profile/22.jpg"
+import profile23 from "/assets/profile/23.jpg"
+import profile24 from "/assets/profile/24.jpg"
+import profile25 from "/assets/profile/25.jpg"
+
 
 interface LocationData {
   city: string
@@ -116,17 +135,32 @@ const companies = [
 ]
 
 // Random profile photos for blur effect during analysis
-const randomProfiles: string[] = [
-  Profile1.src,
-  Profile2.src,
-  Profile3.src,
-  Profile4.src,
-  Profile5.src,
-  Profile6.src,
-  Profile7.src,
-  Profile8.src,
-  Profile9.src,
-  Profile10.src,
+const randomProfiles = [
+  profile01,
+  profile02,
+  profile03,
+  profile04,
+  profile05,
+  profile06,
+  profile07,
+  profile08,
+  profile09,
+  profile10,
+  profile11,
+  profile12,
+  profile13,
+  profile14,
+  profile15,
+  profile16,
+  profile17,
+  profile18,
+  profile019,
+  profile20,
+  profile21,
+  profile22,
+  profile23,
+  profile24,
+  profile25
 ]
 
 function ProfileAnalysisContent() {
@@ -134,10 +168,10 @@ function ProfileAnalysisContent() {
   const searchParams = useSearchParams()
   const username = searchParams.get("username")
   const [progress, setProgress] = useState(0)
-  const [location, setLocation] = useState<LocationData | null>(null)
   const [completedTopics, setCompletedTopics] = useState<number[]>([])
-  const [currentReview, setCurrentReview] = useState(0)
+
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0)
+  const [currentReview, setCurrentReview] = useState(0)
   const [showButton, setShowButton] = useState(false)
   const [profileData, setProfileData] = useState(getProfileFromStorage())
 
@@ -177,24 +211,23 @@ function ProfileAnalysisContent() {
   // Auto-rotate reviews
   useEffect(() => {
     const reviewTimer = setInterval(() => {
-      setCurrentReview((prev) => (prev + 1) % reviews.length)
+      setCurrentReview((prev: number) => (prev + 1) % reviews.length)
     }, 4000)
     return () => clearInterval(reviewTimer)
   }, [])
 
   // Rotate random profile photos during analysis
   useEffect(() => {
-    if (progress < 100) {
-      const profileTimer = setInterval(() => {
-        setCurrentProfileIndex((prev) => {
-          const nextIndex = (prev + 1) % randomProfiles.length
-          console.log('Changing profile index from', prev, 'to', nextIndex)
-          return nextIndex
-        })
-      }, 1500)
-      return () => clearInterval(profileTimer)
-    }
-  }, [progress])
+    const profileTimer = setInterval(() => {
+      setCurrentProfileIndex(() => {
+        const randomIndex = Math.floor(Math.random() * randomProfiles.length)
+        console.log('Changing to random profile index:', randomIndex) // Debug log
+        return randomIndex
+      })
+    }, 2000) // Reduced interval to 2 seconds for more visible rotation
+
+    return () => clearInterval(profileTimer)
+  }, []) // Empty dependency array to run only once
 
   const handleBack = () => {
     router.back()
@@ -205,7 +238,7 @@ function ProfileAnalysisContent() {
   }
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-black relative overflow-hidden pb-20">
       {/* Background light points */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
@@ -219,7 +252,10 @@ function ProfileAnalysisContent() {
       <div className="w-full">
         <div className="container mx-auto px-4 py-4">
           <div className="max-w-md mx-auto">
-            <div className="flex items-center justify-between mb-2">
+            <div className="w-full bg-gray-700 rounded-full h-2">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300" style={{ width: '80%' }}></div>
+            </div>
+            <div className="flex items-center justify-between mt-2">
               <Button
                 variant="ghost"
                 size="sm"
@@ -229,9 +265,6 @@ function ProfileAnalysisContent() {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <div className="w-8"></div>
-            </div>
-            <div className="w-full bg-gray-700 rounded-full h-2">
-              <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300" style={{ width: '80%' }}></div>
             </div>
           </div>
         </div>
@@ -272,12 +305,12 @@ function ProfileAnalysisContent() {
                 <div className="relative w-16 h-16">
                   <div className="relative overflow-hidden rounded-lg w-full h-full">
                     <img
-                      key={`profile-${Math.random()}-${Date.now()}`}
-                      src={randomProfiles[Math.floor(Math.random() * randomProfiles.length)] || "/placeholder.svg"}
+                      key={currentProfileIndex}
+                      src={randomProfiles[currentProfileIndex].src}
                       alt={`Profile ${currentProfileIndex + 1}`}
-                      className="w-full h-full object-cover transition-opacity duration-300 blur-[3px] opacity-70"
+                      className="w-full h-full object-cover transition-all duration-500 blur-[3px] opacity-70"
                       style={{
-                        animation: 'fadeIn 0.3s ease-in-out'
+                        animation: 'fadeIn 0.5s ease-in-out'
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20"></div>
@@ -376,7 +409,7 @@ function ProfileAnalysisContent() {
                 </div>
               </div>
               <p className="text-gray-300 text-xs mb-3 leading-relaxed">
-                "Amazing! Now I know who views my stories repeatedly."
+                "Thought my ex-girlfriend had moved on... Still watches all my stories. This app revealed the truth I needed to know!"
               </p>
               <div className="flex space-x-1">
                 <span className="text-yellow-400 text-sm">★</span>
@@ -389,22 +422,22 @@ function ProfileAnalysisContent() {
           </div>
 
           {/* Companies Sliding Section */}
-          <div className="space-y-4">
-            <p className="text-gray-300 font-medium text-center">INSTACHECK WAS FEATURED IN</p>
+          <div className="space-y-6">
+            <p className="text-gray-300 font-medium text-center text-sm">INSTACHECK WAS FEATURED IN</p>
 
             {/* Sliding Logos */}
-            <div className="relative overflow-hidden">
-              <div className="flex animate-slide space-x-16">
+            <div className="relative overflow-hidden py-4">
+              <div className="flex animate-slide space-x-12">
                 {/* First set of logos */}
                 {companies.map((company, index) => (
                   <div
                     key={`first-${index}`}
-                    className="flex-shrink-0 flex items-center justify-center min-w-[120px]"
+                    className="flex-shrink-0 flex items-center justify-center min-w-[140px] h-12"
                   >
                     <img
                       src={company.logo}
                       alt={company.name}
-                      className="h-8 w-auto filter brightness-0 invert opacity-70 hover:opacity-90 transition-opacity"
+                      className="h-10 w-auto filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300"
                     />
                   </div>
                 ))}
@@ -412,12 +445,12 @@ function ProfileAnalysisContent() {
                 {companies.map((company, index) => (
                   <div
                     key={`second-${index}`}
-                    className="flex-shrink-0 flex items-center justify-center min-w-[120px]"
+                    className="flex-shrink-0 flex items-center justify-center min-w-[140px] h-12"
                   >
                     <img
                       src={company.logo}
                       alt={company.name}
-                      className="h-6 w-auto filter brightness-0 invert opacity-60 hover:opacity-80 transition-opacity"
+                      className="h-10 w-auto filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300"
                     />
                   </div>
                 ))}
@@ -440,6 +473,9 @@ function ProfileAnalysisContent() {
           </div>
         </div>
       )}
+
+      {/* AppBar - Only visible when button is not showing */}
+      {!showButton && <AppBar activeTab="explore" />}
 
       <style jsx>{`
         @keyframes slide {

@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { Edit, Search, X } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Edit, Search, X, ArrowLeft, Unlock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -9,6 +9,26 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+
+// Import avatar images
+import avatar01 from "/assets/profile/01.jpg"
+import avatar02 from "/assets/profile/02.jpg"
+import avatar03 from "/assets/profile/03.jpg"
+import avatar04 from "/assets/profile/04.jpg"
+import avatar05 from "/assets/profile/05.jpg"
+import avatar06 from "/assets/profile/06.jpg"
+import avatar07 from "/assets/profile/07.jpg"
+import avatar08 from "/assets/profile/08.jpg"
+import avatar09 from "/assets/profile/09.jpg"
+import avatar10 from "/assets/profile/10.jpg"
+import avatar11 from "/assets/profile/11.jpg"
+import avatar12 from "/assets/profile/12.jpg"
+import avatar13 from "/assets/profile/13.jpg"
+import avatar14 from "/assets/profile/14.jpg"
+import avatar15 from "/assets/profile/15.jpg"
+import avatar16 from "/assets/profile/16.jpg"
+import avatar17 from "/assets/profile/17.jpg"
+import avatar18 from "/assets/profile/18.jpg"
 
 interface Follower {
   name: string;
@@ -19,13 +39,24 @@ interface ChatListProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   username: string;
+  avatar?: string
   followers?: Follower[];
 }
 
-export function ChatList({ open, onOpenChange, username, followers = [] }: ChatListProps) {
+export function ChatList({ open, onOpenChange, username, followers = [], avatar }: ChatListProps) {
   const [messagesUnlocked, setMessagesUnlocked] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("primary");
+  const [selectedConversation, setSelectedConversation] = useState<any>(null);
+
+
+
+  // Avatar images array for easy access
+  const avatarImages = [
+    avatar01.src, avatar02.src, avatar03.src, avatar04.src, avatar05.src, avatar06.src,
+    avatar07.src, avatar08.src, avatar09.src, avatar10.src, avatar11.src, avatar12.src,
+    avatar13.src, avatar14.src, avatar15.src, avatar16.src, avatar17.src, avatar18.src
+  ];
 
   // Mensagens predefinidas para as conversas
   const predefinedMessages = [
@@ -37,8 +68,100 @@ export function ChatList({ open, onOpenChange, username, followers = [] }: ChatL
     "Tá",
     "Ou no",
     "😍😍😍",
-    "Oi amor"
+    "Oi amor",
+    "Quando a gente se vê de novo?",
+    "Estou com saudades...",
+    "Você viu minha última foto?",
+    "Preciso te contar uma coisa",
+    "Que horas você chega?",
+    "Sonhei com você ontem",
+    "Você está livre hoje?",
+    "Tenho uma surpresa para você",
+    "Não consigo parar de pensar em você",
+    "Vamos nos encontrar?"
   ];
+
+  // Complete conversations for each person
+  const generateFullConversation = (name: string, avatar: string) => {
+    const conversationTemplates = [
+      [
+        { sender: 'them', message: 'Hey! How are you doing today?', time: '14:30' },
+        { sender: 'you', message: 'Hi! I\'m good, thanks for asking. How about you?', time: '14:32' },
+        { sender: 'them', message: 'I\'m doing great! I\'ve been thinking about you all day', time: '14:35' },
+        { sender: 'you', message: 'Really? That\'s sweet of you to say 😊', time: '14:36' },
+        { sender: 'them', message: 'I mean it! When can we meet up again?', time: '14:40' },
+        { sender: 'you', message: 'How about tonight? I\'m free after 8pm', time: '14:42' },
+        { sender: 'them', message: 'Perfect! I can\'t wait to see you 😍', time: '14:45' },
+        { sender: 'them', message: 'I have something special planned for us', time: '14:46' },
+        { sender: 'you', message: 'Now I\'m curious! What do you have in mind?', time: '14:48' },
+        { sender: 'them', message: 'It\'s a surprise, but I think you\'ll love it', time: '14:50' },
+        { sender: 'you', message: 'You always know how to make me excited', time: '14:52' },
+        { sender: 'them', message: 'That\'s because you mean everything to me ❤️', time: '14:55' }
+      ],
+      [
+        { sender: 'them', message: 'Did you see my latest post on Instagram?', time: '15:20' },
+        { sender: 'you', message: 'Yes! You look absolutely stunning 😍', time: '15:22' },
+        { sender: 'them', message: 'Thank you! I was thinking of you when I took it', time: '15:25' },
+        { sender: 'you', message: 'You always know how to make my heart skip a beat', time: '15:27' },
+        { sender: 'them', message: 'Hehe 😘 I have more photos I haven\'t shared yet', time: '15:30' },
+        { sender: 'you', message: 'I\'d love to see them sometime', time: '15:32' },
+        { sender: 'them', message: 'Maybe I can show you in person next time we meet', time: '15:35' },
+        { sender: 'you', message: 'That sounds like a plan I can\'t refuse', time: '15:37' },
+        { sender: 'them', message: 'Good, because I\'ve been wanting to spend more time with you', time: '15:40' },
+        { sender: 'you', message: 'The feeling is mutual. You\'re amazing', time: '15:42' },
+        { sender: 'them', message: 'You always know exactly what to say to make me smile', time: '15:45' }
+      ],
+      [
+        { sender: 'them', message: 'I need to tell you something important', time: '16:10' },
+        { sender: 'you', message: 'What\'s on your mind? You sound serious', time: '16:12' },
+        { sender: 'them', message: 'Don\'t worry, it\'s nothing bad. Actually, it\'s quite the opposite', time: '16:15' },
+        { sender: 'you', message: 'Now you\'ve got my full attention. Tell me!', time: '16:16' },
+        { sender: 'them', message: 'I think I\'m falling in love with you', time: '16:20' },
+        { sender: 'you', message: 'Wow... I wasn\'t expecting that, but I feel the same way', time: '16:22' },
+        { sender: 'them', message: 'Really? I was so nervous to tell you', time: '16:25' },
+        { sender: 'you', message: 'You never have to be nervous with me. I care about you deeply', time: '16:27' },
+        { sender: 'them', message: 'You\'re incredible. I\'m so lucky to have you in my life ❤️', time: '16:30' },
+        { sender: 'you', message: 'The luck is all mine. You make every day brighter', time: '16:32' },
+        { sender: 'them', message: 'I can\'t wait to see where this takes us', time: '16:35' },
+        { sender: 'you', message: 'Whatever happens, I want to experience it with you', time: '16:37' }
+      ],
+      [
+        { sender: 'them', message: 'I had the most amazing dream about us last night', time: '17:15' },
+        { sender: 'you', message: 'Oh really? I\'m intrigued. What happened in this dream?', time: '17:17' },
+        { sender: 'them', message: 'We were traveling together to this beautiful beach resort', time: '17:20' },
+        { sender: 'you', message: 'That sounds like paradise. I\'d love to make that dream a reality', time: '17:22' },
+        { sender: 'them', message: 'Maybe we should start planning a trip together', time: '17:25' },
+        { sender: 'you', message: 'I\'m already looking forward to it. Where would you want to go?', time: '17:27' },
+        { sender: 'them', message: 'Somewhere tropical where we can watch the sunset together', time: '17:30' },
+        { sender: 'you', message: 'That sounds absolutely perfect. Just you and me', time: '17:32' },
+        { sender: 'them', message: 'Exactly! No distractions, just us enjoying each other\'s company', time: '17:35' },
+        { sender: 'you', message: 'I can already picture us walking on the beach hand in hand', time: '17:37' },
+        { sender: 'them', message: 'You paint such a beautiful picture with your words', time: '17:40' },
+        { sender: 'you', message: 'It\'s easy when I\'m thinking about being with you', time: '17:42' }
+      ],
+      [
+        { sender: 'them', message: 'I\'ve been listening to our song all day', time: '18:45' },
+        { sender: 'you', message: 'Which one? We have so many songs that remind me of you', time: '18:47' },
+        { sender: 'them', message: 'The one that was playing when we first danced together', time: '18:50' },
+        { sender: 'you', message: 'How could I forget? That was such a magical moment', time: '18:52' },
+        { sender: 'them', message: 'I still get butterflies thinking about that night', time: '18:55' },
+        { sender: 'you', message: 'Me too. The way you looked at me... I knew something special was happening', time: '18:57' },
+        { sender: 'them', message: 'I felt like I was in a fairy tale', time: '19:00' },
+        { sender: 'you', message: 'Every moment with you feels like a fairy tale to me', time: '19:02' },
+        { sender: 'them', message: 'You always know how to make me feel like a princess', time: '19:05' },
+        { sender: 'you', message: 'Because that\'s exactly what you are to me', time: '19:07' },
+        { sender: 'them', message: 'I love how you make ordinary moments feel extraordinary', time: '19:10' },
+        { sender: 'you', message: 'That\'s the magic of being with someone you truly care about', time: '19:12' }
+      ]
+    ];
+
+    // Generate unique conversation based on name hash to ensure consistency
+    const nameHash = name.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+    const conversationIndex = nameHash % conversationTemplates.length;
+    return conversationTemplates[conversationIndex];
+  };
+
+
 
   const timeOptions = ["12 h", "13 h", "14 h", "18 h", "1 d", "2 d", "3 d"];
 
@@ -60,7 +183,7 @@ export function ChatList({ open, onOpenChange, username, followers = [] }: ChatL
       "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=50&h=50&fit=crop&crop=face",
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=50&h=50&fit=crop&crop=face"
     ];
-    
+
     return {
       name: randomNames[Math.floor(Math.random() * randomNames.length)],
       avatar: randomAvatars[Math.floor(Math.random() * randomAvatars.length)],
@@ -158,20 +281,22 @@ export function ChatList({ open, onOpenChange, username, followers = [] }: ChatL
 
   // Filtrar conversas baseado na busca
   const filteredConversations = searchTerm
-    ? allConversations.filter(conv => 
-        conv.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? allConversations.filter(conv =>
+      conv.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     : allConversations;
 
   // Se não há resultados na busca, mostrar perfil aleatório
   const conversations = filteredConversations.length === 0 && searchTerm
     ? [{
-        id: 999,
-        ...generateRandomProfile(),
-        unread: false,
-        muted: false
-      }]
+      id: 999,
+      ...generateRandomProfile(),
+      unread: false,
+      muted: false
+    }]
     : filteredConversations;
+
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -186,7 +311,7 @@ export function ChatList({ open, onOpenChange, username, followers = [] }: ChatL
             </div>
             <div className="flex items-center space-x-3">
               <Edit className="w-6 h-6" />
-              <button 
+              <button
                 onClick={() => onOpenChange(false)}
                 className="p-1 hover:bg-gray-800 rounded-full transition-colors"
               >
@@ -198,19 +323,19 @@ export function ChatList({ open, onOpenChange, username, followers = [] }: ChatL
 
         {/* Tabs */}
         <div className="flex border-b border-gray-800">
-          <button 
+          <button
             onClick={() => setActiveTab("primary")}
             className={`flex-1 text-center py-3 ${activeTab === "primary" ? "border-b-2 border-white font-semibold text-white" : "text-gray-400"}`}
           >
             Primary
           </button>
-          <button 
+          <button
             onClick={() => messagesUnlocked && setActiveTab("general")}
             className={`flex-1 text-center py-3 ${!messagesUnlocked ? "opacity-50 cursor-not-allowed" : ""} ${activeTab === "general" ? "border-b-2 border-white font-semibold text-white" : "text-gray-400"}`}
           >
             General
           </button>
-          <button 
+          <button
             onClick={() => messagesUnlocked && setActiveTab("requests")}
             className={`flex-1 text-center py-3 relative ${!messagesUnlocked ? "opacity-50 cursor-not-allowed" : ""} ${activeTab === "requests" ? "border-b-2 border-white font-semibold text-white" : "text-blue-400"}`}
           >
@@ -221,68 +346,121 @@ export function ChatList({ open, onOpenChange, username, followers = [] }: ChatL
           </button>
         </div>
 
+        {/* Notes Profile Slider */}
+        <div className="p-4 border-b border-gray-800">
+
+          <div className="flex space-x-4 pb-2">
+            {/* User's profile - first photo */}
+            <div className="flex-shrink-0 text-center">
+              <div className="relative mb-2">
+                <img
+                  src={avatar || avatarImages[0]}
+                  alt="Your profile"
+                  className="w-16 h-16 rounded-full object-cover border-2 border-gray-600"
+                />
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
+              </div>
+              <p className="text-white text-xs font-medium truncate w-16">
+                Your note
+              </p>
+            </div>
+
+            {/* Followers profiles with blur */}
+            {followers.slice(0, 7).map((follower, index) => (
+              <div key={index} className="flex-shrink-0 text-center">
+                <div className="relative mb-2">
+                  <img
+                    src={follower.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(follower.avatar)}` : follower.avatar}
+                    alt={follower.name}
+                    className="w-16 h-16 rounded-full object-cover border-2 border-gray-600 blur-sm"
+                  />
+                </div>
+                <p className="text-white text-xs font-medium truncate w-16 blur-sm">
+                  {follower.name.split(' ')[0]}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Search */}
         <div className="p-4">
           <div className="flex items-center bg-gray-900 rounded-lg px-3 py-2">
             <Search className="w-5 h-5 text-gray-400 mr-3" />
             <input
               type="text"
-              placeholder="Pesquisar"
+              placeholder="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="bg-transparent flex-1 text-white placeholder-gray-400 outline-none"
             />
+            {searchTerm && (
+              <X
+                className="w-5 h-5 text-gray-400 cursor-pointer"
+                onClick={() => setSearchTerm('')}
+              />
+            )}
           </div>
         </div>
 
         {/* Conversations */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-hidden pb-20 relative">
+
+
           {activeTab === "primary" && conversations.map((conv) => (
             <div
               key={conv.id}
               className="flex items-center px-4 py-3 hover:bg-gray-900/50 cursor-pointer"
+              onClick={() => {
+                setSelectedConversation(conv);
+              }}
             >
               <div className="relative">
                 <img
-                  src={conv.avatar}
+                  src={conv.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(conv.avatar)}` : conv.avatar}
                   alt={conv.name}
-                  className={`w-12 h-12 rounded-full object-cover ${!messagesUnlocked ? 'blur-sm' : ''}`}
+                  className="w-12 h-12 rounded-full object-cover blur-sm"
                 />
                 {conv.id === 1 && (
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black blur-sm"></div>
                 )}
               </div>
               <div className="flex-1 ml-3 min-w-0">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-white truncate max-w-0 flex-1">{conv.name}</h3>
+                  <h3 className="font-semibold text-white truncate blur-sm">{conv.name}</h3>
                   <div className="flex items-center space-x-2 flex-shrink-0">
-                    <span className="text-gray-400 text-sm">{conv.time}</span>
+                    <span className="text-gray-400 text-sm blur-sm">{conv.time}</span>
                     {conv.muted && (
-                      <div className="w-4 h-4 text-gray-400">
+                      <div className="w-4 h-4 text-gray-400 blur-sm">
                         <svg fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L4.617 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.617l3.766-3.793a1 1 0 011.617.793zM14.657 5.757a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-2.929 7.071 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.829a1 1 0 011.414 0A5.983 5.983 0 0115 12a5.983 5.983 0 01-1.758 4.243 1 1 0 01-1.414-1.414A3.983 3.983 0 0013 12a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clipRule="evenodd" />
+                          <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L4.617 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.617l3.766-3.793a1 1 0 011.617.793zM14.657 5.757a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-2.929 7.071 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.414 0A5.983 5.983 0 0115 12a5.983 5.983 0 01-1.758 4.243 1 1 0 11-1.414-1.414A3.987 3.987 0 0013 12a3.987 3.987 0 00-1.172-2.829 1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                       </div>
                     )}
+                    <div className="w-4 h-4 text-yellow-500">
+                      <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
-                <p className={`text-gray-400 text-sm truncate ${!messagesUnlocked && conv.id > 2 ? 'blur-sm' : ''}`}>{conv.message}</p>
+                <p className="text-gray-400 text-sm truncate blur-sm">{conv.message}</p>
               </div>
             </div>
           ))}
-          
+
           {activeTab === "general" && messagesUnlocked && (
             <div className="p-4 text-center text-gray-400">
               <p>Conversas gerais aparecerão aqui</p>
             </div>
           )}
-          
+
           {activeTab === "requests" && messagesUnlocked && (
             <div className="p-4 text-center text-gray-400">
               <p>Solicitações de mensagem aparecerão aqui</p>
             </div>
           )}
-          
+
           {(activeTab === "general" || activeTab === "requests") && !messagesUnlocked && (
             <div className="p-4 text-center text-gray-400 opacity-50">
               <p>Desbloqueie para ver este conteúdo</p>
@@ -293,12 +471,85 @@ export function ChatList({ open, onOpenChange, username, followers = [] }: ChatL
 
 
 
-        {/* Footer Button */}
-        <div className="p-4 border-t border-gray-800 mt-auto">
-          <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300">
-            Unlock full access
-          </button>
+        {/* Fixed Footer Button */}
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/95 backdrop-blur-xl border-t border-gray-800 z-50">
+          <div className="max-w-sm mx-auto">
+            <Button
+              onClick={() => setMessagesUnlocked(true)}
+              className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
+            >
+              <Unlock className="w-5 h-5 mr-2" />
+              UNLOCK MESSAGES
+            </Button>
+          </div>
         </div>
+        {/* Conversation View */}
+        {selectedConversation && (
+          <div className="absolute inset-0 bg-black z-10 flex flex-col">
+            <div className="p-4 border-b border-gray-800">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <button
+                    onClick={() => setSelectedConversation(null)}
+                    className="p-1 hover:bg-gray-800 rounded-full transition-colors"
+                  >
+                    <ArrowLeft className="w-6 h-6" />
+                  </button>
+                  <div className="flex items-center space-x-3">
+                    <img
+                      src={selectedConversation.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(selectedConversation.avatar)}` : selectedConversation.avatar}
+                      alt={selectedConversation.name}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                    <div>
+                      <h3 className="text-lg font-semibold text-white blur-sm">
+                        {selectedConversation.name}
+                      </h3>
+                      <p className="text-sm text-gray-400 blur-sm">Active now</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21L6.3 10.5a11.05 11.05 0 005.2 5.2l1.113-3.924a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 relative">
+              {generateFullConversation(selectedConversation.name, selectedConversation.avatar).map((msg: { sender: string, message: string, time: string, isImage?: boolean }, index) => (
+                <div key={index} className={`flex ${msg.sender === 'you' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg blur-sm ${msg.sender === 'you'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-700 text-white'
+                    }`}>
+                    <p className="text-sm">{msg.message}</p>
+                    <p className="text-xs opacity-70 mt-1">{msg.time}</p>
+                  </div>
+                </div>
+              ))}
+
+              {/* Centered Unlock Button */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Button
+                  onClick={() => {
+                    setMessagesUnlocked(true);
+                    setSelectedConversation(null);
+                  }}
+                  className="h-14 px-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
+                >
+                  <Unlock className="w-5 h-5 mr-2" />
+                  🔓 UNLOCK MESSAGES
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   )

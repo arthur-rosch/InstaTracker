@@ -135,8 +135,130 @@ export default function DeliveryInstaPage() {
               <PrintsSection isActive={true} followers={followers} />
               <GallerySection isActive={true} />
 
- 
+              {/* Temporary Messages Recovery Section */}
+              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-2xl"></div>
+                <div className="relative z-10">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                        <Activity className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-white font-bold text-lg md:text-xl">Temporary Messages</h3>
+                        <p className="text-gray-300 text-sm">Recovering deleted temporary messages</p>
+                      </div>
+                    </div>
+                    <div className="px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm bg-green-500/20 text-green-400 border border-green-500/30">
+                      Active
+                    </div>
+                  </div>
 
+                  {/* Recovery Steps */}
+                  <div className="space-y-4 mb-6">
+                    {/* Protection Bypass */}
+                    <div className="bg-white/5 backdrop-blur-xl border border-purple-400/30 rounded-xl p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                          <Eye className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-white font-semibold">Protection Bypass</h4>
+                          <p className="text-gray-300 text-sm">Bypassing temporary message protections...</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Media Recovery */}
+                    <div className="bg-white/5 backdrop-blur-xl border border-pink-400/30 rounded-xl p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
+                          <Activity className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-white font-semibold">Media Recovery</h4>
+                          <p className="text-gray-300 text-sm">Searching for temporary photos and videos from the last 30 days...</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Interaction Analysis */}
+                    <div className="bg-white/5 backdrop-blur-xl border border-blue-400/30 rounded-xl p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                          <Activity className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-white font-semibold">Interaction Analysis</h4>
+                          <p className="text-gray-300 text-sm">Identifying suspicious patterns in interactions...</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Analysis in Progress */}
+                  <div className="bg-orange-500/10 border border-orange-400/30 rounded-xl p-4 mb-6">
+                    <div className="flex items-center space-x-3">
+                      <Loader2 className="w-5 h-5 text-orange-400 animate-spin" />
+                      <div>
+                        <h4 className="text-white font-semibold">Analysis in progress</h4>
+                        <p className="text-gray-300 text-sm">The deep report with detailed profile analysis will be available within 7 days.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exclusive Bonus */}
+                  <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-400/30 rounded-xl p-6 mb-6">
+                    <div className="text-center mb-4">
+                      <h4 className="text-white font-bold text-lg mb-2">🎁 Exclusive Bonus!</h4>
+                      <p className="text-gray-300">You will receive the complete MemberKit by email within 24 hours with over $1000 in free content!</p>
+                    </div>
+
+                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4">
+                      <h5 className="text-purple-300 font-semibold mb-3">📧 What you will receive:</h5>
+                      <ul className="space-y-2 text-gray-300 text-sm">
+                        <li className="flex items-center space-x-2">
+                          <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                          <span>Complete MemberKit access</span>
+                        </li>
+                        <li className="flex items-center space-x-2">
+                          <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                          <span>Over $1000 in premium content</span>
+                        </li>
+                        <li className="flex items-center space-x-2">
+                          <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                          <span>Sent directly to your email</span>
+                        </li>
+                      </ul>
+                      <p className="text-yellow-400 text-sm mt-3 font-semibold">Check your inbox and spam folder</p>
+                    </div>
+                  </div>
+
+                  {/* Temporary Messages */}
+                  <div className="space-y-3">
+                    <div className="bg-white/5 backdrop-blur-xl border border-red-400/30 rounded-xl p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                          <span className="text-gray-300 text-sm">Yesterday, 23:45</span>
+                        </div>
+                        <span className="text-red-400 text-sm font-semibold">Temporary Message</span>
+                      </div>
+                    </div>
+
+                    <div className="bg-white/5 backdrop-blur-xl border border-red-400/30 rounded-xl p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                          <span className="text-gray-300 text-sm">Yesterday, 22:30</span>
+                        </div>
+                        <span className="text-red-400 text-sm font-semibold">Temporary Message</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {/* Standard Sections */}
               {standardSections.map((section) => {
@@ -150,8 +272,6 @@ export default function DeliveryInstaPage() {
                 )
               })}
             </div>
-
-
           </div>
         </div>
       </section>
@@ -159,7 +279,7 @@ export default function DeliveryInstaPage() {
   }
 
   return (
-    <section className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
+    <section className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden  mt-12">
       {/* Light points - same as hero-section */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
@@ -195,18 +315,18 @@ export default function DeliveryInstaPage() {
             </div>
 
             {/* Main Title */}
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Enter Instagram @
-            </h1>
-            <div className="inline-block bg-white/5 backdrop-blur-xl border border-purple-400/30 rounded-2xl px-6 py-4 mb-6 shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-2xl"></div>
+            <div className="inline-block bg-green-500/20 backdrop-blur-xl border border-green-400/30 rounded-2xl px-6 py-4 mb-6 shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent rounded-2xl"></div>
               <div className="relative z-10 flex items-center space-x-3">
                 <div className="text-left">
-                  <p className="text-purple-300 text-sm">Your purchase has been approved!</p>
+                  <p className="text-green-500/80 text-sm font-semibold">Your purchase has been approved!</p>
                 </div>
               </div>
             </div>
-            <p className="text-gray-300 text-lg mb-8">
+            <h1 className="text-2xl md:text-5xl font-bold text-white mb-4">
+              Enter Instagram @
+            </h1>
+            <p className="text-gray-300 text-sm mb-8">
               You can always acesse this platform using the link sent you email
             </p>
           </div>

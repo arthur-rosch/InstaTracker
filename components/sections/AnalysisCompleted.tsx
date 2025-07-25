@@ -42,9 +42,9 @@ export function AnalysisCompleted({ username, profileData, followers, followersL
       "/assets/profile/09.jpg",
       "/assets/profile/10.jpg"
     ]
-    
+
     const names = ["Ana", "Carlos", "Maria", "João", "Fernanda", "Pedro", "Julia", "Rafael", "Camila", "Lucas"]
-    
+
     return Array.from({ length: 4 }, (_, i) => ({
       name: names[Math.floor(Math.random() * names.length)],
       avatar: profileImages[Math.floor(Math.random() * profileImages.length)]
@@ -67,7 +67,7 @@ export function AnalysisCompleted({ username, profileData, followers, followersL
     }
 
     fetchUserLocation()
-    
+
     // Usar followers reais se disponíveis, senão usar fallback
     if (followers && followers.length > 0) {
       setDisplayFollowers(followers.slice(0, 4))
@@ -92,52 +92,45 @@ export function AnalysisCompleted({ username, profileData, followers, followersL
       </div>
 
       <div className="space-y-4">
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-xl">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <p className="text-white">{followers.length > 0 ? followers.length : 4} profiles from {userCity} are accessing this profile now</p>
-              {followersLoading && <span className="text-gray-400 text-sm">Loading...</span>}
-            </div>
-            <div className="flex -space-x-2">
-              {displayFollowers.map((follower, index) => (
-                <Avatar key={index} className="w-8 h-8 border-2 border-white/20">
-                  <AvatarImage
-                    src={follower.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(follower.avatar)}` : follower.avatar}
-                    alt={follower.name}
-                    className="blur-sm"
-                  />
-                  <AvatarFallback className="text-xs bg-gray-600">
-                    {follower.name.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-              ))}
-            </div>
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
+          <div className="flex -space-x-3 items-center justify-center">
+            {displayFollowers.map((follower, index) => (
+              <Avatar key={index} className="w-12 h-12 border-2 border-white/30">
+                <AvatarImage
+                  src={follower.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(follower.avatar)}` : follower.avatar}
+                  alt={follower.name}
+                  className="blur-sm"
+                />
+                <AvatarFallback className="text-xs bg-gray-600">
+                  {follower.name.slice(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+            ))}
+          </div>
+          <div className="flex items-center space-x-3 mb-4">
+            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            <p className="text-white text-lg font-medium">{followers.length > 0 ? followers.length : 4} profiles from {userCity} are accessing this profile now</p>
+            {followersLoading && <span className="text-gray-400 text-sm">Loading...</span>}
           </div>
         </div>
 
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-xl">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <p className="text-white">Stalkers identified last week</p>
-              <div className="flex -space-x-2">
-                {displayFollowers.slice(0, 3).map((follower, index) => (
-                  <Avatar key={`stalker-${index}`} className="w-6 h-6 border border-white/20">
-                    <AvatarImage
-                      src={follower.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(follower.avatar)}` : follower.avatar}
-                      alt={follower.name}
-                      className="blur-sm"
-                    />
-                    <AvatarFallback className="text-xs bg-gray-600">
-                      {follower.name.slice(0, 1).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                ))}
-              </div>
-            </div>
-            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold">+15</span>
-            </div>
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
+          <div className="flex items-center justify-center -space-x-3">
+            {displayFollowers.slice(0, 3).map((follower, index) => (
+              <Avatar key={`stalker-${index}`} className="w-12 h-12 border-2 border-white/30">
+                <AvatarImage
+                  src={follower.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(follower.avatar)}` : follower.avatar}
+                  alt={follower.name}
+                  className="blur-sm"
+                />
+                <AvatarFallback className="text-xs bg-gray-600">
+                  {follower.name.slice(0, 1).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+            ))}
+          </div>
+          <div className="flex items-center justify-center mb-4">
+            <p className="text-white text-lg font-medium">Stalkers identified last week</p>
           </div>
         </div>
 
@@ -151,32 +144,32 @@ export function AnalysisCompleted({ username, profileData, followers, followersL
               <p className="text-white">{profileData?.name || username} has a fan on the profile!</p>
             </div>
           </div>
-          
+
           <div className="grid gap-3">
             <div className="bg-red-800/20 border border-red-600/20 rounded-lg p-3">
               <p className="text-gray-300 text-sm">
                 This Super Stalker visited {profileData?.name || username}'s profile for 11 consecutive days
               </p>
             </div>
-            
+
             <div className="bg-red-800/20 border border-red-600/20 rounded-lg p-3">
               <p className="text-gray-300 text-sm">
                 {profileData?.name || username} made 3 video calls and deleted the conversation with this Stalker
               </p>
             </div>
-            
+
             <div className="bg-red-800/20 border border-red-600/20 rounded-lg p-3">
               <p className="text-gray-300 text-sm">
                 Some conversations contain sexual content beyond what we can show here
               </p>
             </div>
-            
+
             <div className="bg-red-800/20 border border-red-600/20 rounded-lg p-3">
               <p className="text-gray-300 text-sm">
                 {profileData?.name || username} added only this Stalker to close friends
               </p>
             </div>
-            
+
             <div className="bg-red-800/20 border border-red-600/20 rounded-lg p-3">
               <p className="text-gray-300 text-sm">
                 This Stalker's interaction surpasses the second place by 11 times

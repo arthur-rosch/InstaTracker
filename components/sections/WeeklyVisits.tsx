@@ -84,13 +84,13 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
           skipSnaps: false,
         }}
       >
-        <CarouselContent className="-ml-2 md:-ml-4">
+        <CarouselContent className="ml-2 md:-ml-4">
           {followersLoading ? (
             // Mostrar placeholders enquanto carrega
             Array.from({ length: 5 }).map((_, index) => (
-              <CarouselItem key={`loading-${index}`} className="pl-2 md:pl-4 basis-1/3">
+              <CarouselItem key={`loading-${index}`} className="pl-2 md:pl-4">
                 <div className="relative">
-                  <div className="w-24 h-32 rounded-2xl overflow-hidden border-2 border-white/20 bg-gray-700 animate-pulse">
+                  <div className="w-40 h-w-40 rounded-2xl overflow-hidden border-2 border-white/20 bg-gray-700 animate-pulse">
                     <div className="w-full h-full bg-gray-600"></div>
                   </div>
                   <div className="absolute bottom-2 left-2 right-2">
@@ -103,9 +103,9 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
             ))
           ) : (
             displayFollowers.map((follower, index) => (
-              <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/3">
+              <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/3 mx-6">
                 <div className="relative">
-                  <div className="w-24 h-32 rounded-2xl overflow-hidden border-2 border-white/20 bg-gradient-to-br from-purple-900/40 to-black">
+                  <div className="w-40 h-w-40 rounded-2xl overflow-hidden border-2 border-white/20 bg-gradient-to-br from-purple-900/40 to-black">
                     <Avatar className="w-full h-full rounded-none">
                       <AvatarImage src={follower.avatar} className="object-cover w-full h-full" />
                       <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white font-semibold w-full h-full rounded-none flex items-center justify-center">
@@ -179,10 +179,11 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
       </div>
 
       {/* Chat List Modal */}
-      <ChatList 
+      <ChatList
         open={showChatList}
         onOpenChange={setShowChatList}
         username={profileData?.name || username}
+        avatar={profileData?.avatar}
         followers={followers}
       />
     </section>

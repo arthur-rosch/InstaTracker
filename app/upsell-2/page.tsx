@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { ArrowLeft, Phone, Video, Info, Camera, Mic, Image, Heart } from "lucide-react"
-import { useIg } from "@/hooks/use-ig"
+
 
 // Import avatar images
 import avatar01 from "/assets/profile/01.jpg"
@@ -69,12 +69,7 @@ interface ProfileData {
   [key: string]: any;
 }
 
-interface ChatListProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  username: string;
-  followers?: Follower[];
-}
+
 
 export default function Upsell2Page() {
   const router = useRouter()
@@ -91,7 +86,7 @@ export default function Upsell2Page() {
   const [username, setUsername] = useState('eo.rosch')
   const [conversations, setConversations] = useState<Conversation[]>([])
 
-  const { getFollowers, followers, followersLoading, error } = useIg();
+
 
   // Avatar images array for easy access - convert to strings
   const avatarImages = [
@@ -100,13 +95,23 @@ export default function Upsell2Page() {
     avatar13.src, avatar14.src, avatar15.src, avatar16.src, avatar17.src, avatar18.src
   ];
 
-  // Timer for modal
+  // Timer for modal and unlock timer
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowTimerModal(true);
-    }, 6000);
+    }, 12000);
 
-    return () => clearTimeout(timer);
+    // Timer to lock conversations after 8 seconds
+    const lockTimer = setTimeout(() => {
+      setConversations(prev =>
+        prev.map(conv => ({ ...conv, isUnlocked: false }))
+      );
+    }, 8000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(lockTimer);
+    };
   }, []);
 
   // Compromising chat messages for unlocked conversations
@@ -125,28 +130,100 @@ export default function Upsell2Page() {
     },
     {
       id: 3,
+      content: "Mine... I have something special planned 🔥",
+      type: 'received',
+      time: '11:33 PM'
+    },
+    {
+      id: 4,
+      content: "I'm intrigued... what kind of special? 😈",
+      type: 'sent',
+      time: '11:34 PM'
+    },
+    {
+      id: 5,
       content: "https://i.pinimg.com/1200x/bf/7a/30/bf7a3060a72ed8a25733602bb8bd38b5.jpg",
       type: 'received',
       time: '11:35 PM',
       isImage: true
     },
     {
-      id: 4,
+      id: 6,
       content: "Wow... you look incredible 🔥🔥",
       type: 'sent',
       time: '11:36 PM'
     },
     {
-      id: 5,
+      id: 7,
+      content: "This is just the beginning... wait until you see what I'm wearing underneath 😏",
+      type: 'received',
+      time: '11:37 PM'
+    },
+    {
+      id: 8,
+      content: "You're driving me crazy... I'm leaving now 🚗💨",
+      type: 'sent',
+      time: '11:38 PM'
+    },
+    {
+      id: 9,
+      content: "Good... I'll be waiting by the door. Don't knock, just come in 😈",
+      type: 'received',
+      time: '11:39 PM'
+    },
+    {
+      id: 10,
       content: "Can't wait to see you... I have a surprise 😈",
       type: 'received',
       time: '11:40 PM'
     },
     {
-      id: 6,
+      id: 11,
+      content: "What kind of surprise? You're killing me with anticipation 🔥",
+      type: 'sent',
+      time: '11:41 PM'
+    },
+    {
+      id: 12,
       content: "I'm already getting ready... this is going to be amazing 💋",
       type: 'sent',
       time: '11:42 PM'
+    },
+    {
+      id: 13,
+      content: "Let's just say... you won't be disappointed. I've been thinking about this all day 😍",
+      type: 'received',
+      time: '11:43 PM'
+    },
+    {
+      id: 14,
+      content: "Me too... I couldn't focus on anything else at work today 💭",
+      type: 'sent',
+      time: '11:44 PM'
+    },
+    {
+      id: 15,
+      content: "Good... because tonight is going to be unforgettable 🌙✨",
+      type: 'received',
+      time: '11:45 PM'
+    },
+    {
+      id: 16,
+      content: "I'm almost there... my heart is racing 💓",
+      type: 'sent',
+      time: '11:47 PM'
+    },
+    {
+      id: 17,
+      content: "Mine too... I can't wait to feel your touch again 😘",
+      type: 'received',
+      time: '11:48 PM'
+    },
+    {
+      id: 18,
+      content: "Just pulled up... see you in 30 seconds 😏",
+      type: 'sent',
+      time: '11:50 PM'
     }
   ];
 
@@ -165,28 +242,112 @@ export default function Upsell2Page() {
     },
     {
       id: 3,
+      content: "The way you looked at me... I'm still getting chills 😊",
+      type: 'received',
+      time: '2:18 AM'
+    },
+    {
+      id: 4,
+      content: "You have this effect on me that I can't explain... it's intoxicating 💫",
+      type: 'sent',
+      time: '2:19 AM'
+    },
+    {
+      id: 5,
       content: "When can we do it again? I'm already missing you...",
       type: 'received',
       time: '2:20 AM'
     },
     {
-      id: 4,
+      id: 6,
+      content: "I'm missing you too... more than I should admit 💭",
+      type: 'sent',
+      time: '2:21 AM'
+    },
+    {
+      id: 7,
+      content: "I keep replaying every moment in my head... especially that thing you did 😏",
+      type: 'received',
+      time: '2:22 AM'
+    },
+    {
+      id: 8,
+      content: "Which part? There were so many amazing moments 😈",
+      type: 'sent',
+      time: '2:23 AM'
+    },
+    {
+      id: 9,
+      content: "You know exactly which part... when you whispered in my ear 🔥",
+      type: 'received',
+      time: '2:24 AM'
+    },
+    {
+      id: 10,
       content: "https://i.pinimg.com/736x/a2/4a/05/a24a05cc160dbd1b07e6e65bc5964155.jpg",
       type: 'sent',
       time: '2:25 AM',
       isImage: true
     },
     {
-      id: 5,
+      id: 11,
       content: "OMG... you're driving me crazy 😈💦",
       type: 'received',
       time: '2:26 AM'
     },
     {
-      id: 6,
+      id: 12,
+      content: "I can't help it... you bring out this side of me 😍",
+      type: 'sent',
+      time: '2:27 AM'
+    },
+    {
+      id: 13,
+      content: "I love this side of you... so passionate, so intense 🔥",
+      type: 'received',
+      time: '2:28 AM'
+    },
+    {
+      id: 14,
+      content: "Only with you... you make me feel things I've never felt before 💕",
+      type: 'sent',
+      time: '2:29 AM'
+    },
+    {
+      id: 15,
       content: "Tomorrow night? Same time, same passion? 😘",
       type: 'sent',
       time: '2:30 AM'
+    },
+    {
+      id: 16,
+      content: "Yes... but this time, let's make it even more special 🌹",
+      type: 'received',
+      time: '2:31 AM'
+    },
+    {
+      id: 17,
+      content: "I have some ideas... things I've been wanting to try with you 😏",
+      type: 'received',
+      time: '2:32 AM'
+    },
+    {
+      id: 18,
+      content: "Now you have me curious... and excited 😈",
+      type: 'sent',
+      time: '2:33 AM'
+    },
+    {
+      id: 19,
+      content: "Good... because tomorrow night is going to be even better than last night 🔥",
+      type: 'received',
+      time: '2:34 AM'
+    },
+    {
+      id: 20,
+      content: "I don't know how that's possible... but I trust you 💋",
+      type: 'sent',
+      time: '2:35 AM'
     }
   ];
 
@@ -338,7 +499,7 @@ export default function Upsell2Page() {
   };
 
   // Create conversations from followers data
-  const createConversationsFromFollowers = (followersData: Follower[]) => {
+  const createConversationsFromFollowers = (followersData: any[]) => {
     if (!followersData || followersData.length === 0) {
       return createMockConversations();
     }
@@ -352,7 +513,7 @@ export default function Upsell2Page() {
       if (index < 18) {
         conversations.push({
           id: index + 1,
-          name: follower.name || `User ${index + 1}`,
+          name: follower.name || follower.fullName || `User ${index + 1}`,
           avatar: follower.avatar || avatarImages[index % avatarImages.length],
           message: index === 0 ? "Hey, are you free tonight? 😏" :
             index === 1 ? "I can't stop thinking about last night... 😍" :
@@ -388,7 +549,7 @@ export default function Upsell2Page() {
   };
 
   useEffect(() => {
-    const loadData = async () => {
+    const loadData = () => {
       const storedData = typeof window !== 'undefined'
         ? localStorage.getItem('instagram_analysis')
         : null
@@ -401,26 +562,13 @@ export default function Upsell2Page() {
             setUsername(parsedData.username);
           }
 
-          // Get followers using the profile ID
-          if (parsedData.profile?.id && !parsedData.profile?.isPrivate) {
-            try {
-              console.log('Fetching followers for ID:', parsedData.profile.id);
-              const followersData = await getFollowers(parsedData.profile.id);
-
-              console.log('Followers received:', followersData);
-
-              // Create conversations with fallback
-              const newConversations = createConversationsFromFollowers(followersData);
-              setConversations(newConversations);
-
-            } catch (error) {
-              console.error('Error fetching followers:', error);
-              // Fallback to mock data if API fails
-              const mockConversations = createMockConversations();
-              setConversations(mockConversations);
-            }
+          // Use followers from localStorage directly
+          if (parsedData.followers && parsedData.followers.length > 0) {
+            console.log('Using followers from localStorage:', parsedData.followers);
+            const newConversations = createConversationsFromFollowers(parsedData.followers);
+            setConversations(newConversations);
           } else {
-            console.log('No profile ID found, using mock data');
+            console.log('No followers found in localStorage, using mock data');
             const mockConversations = createMockConversations();
             setConversations(mockConversations);
           }
@@ -439,14 +587,7 @@ export default function Upsell2Page() {
     loadData();
   }, []);
 
-  // Update conversations when followers from hook change
-  useEffect(() => {
-    if (followers && followers.length > 0) {
-      console.log('Updating conversations with hook followers:', followers);
-      const newConversations = createConversationsFromFollowers(followers);
-      setConversations(newConversations);
-    }
-  }, [followers]);
+
 
   // Filter conversations based on search term
   const filteredConversations = conversations.filter(conv =>
@@ -471,14 +612,17 @@ export default function Upsell2Page() {
   }, [sortedConversations]);
 
   const handleChatClick = (conv: Conversation) => {
-    setSelectedChat(conv);
-    setCurrentView('chat');
+    // For unlocked conversations, show chat
+    if (conv.isUnlocked) {
+      setSelectedChat(conv);
+      setCurrentView('chat');
 
-    // Set appropriate messages based on conversation
-    if (conv.id === 1) {
-      setCurrentChatMessages(compromisingMessages1);
-    } else if (conv.id === 2) {
-      setCurrentChatMessages(compromisingMessages2);
+      // Set appropriate messages based on conversation
+      if (conv.id === 1) {
+        setCurrentChatMessages(compromisingMessages1);
+      } else if (conv.id === 2) {
+        setCurrentChatMessages(compromisingMessages2);
+      }
     } else {
       // For locked conversations, show modal
       setShowModal(true);
@@ -574,21 +718,21 @@ export default function Upsell2Page() {
 
         {/* Timer Modal */}
         <Dialog open={showTimerModal} onOpenChange={() => { }}>
-          <DialogContent className="bg-black border-red-500 border-2 text-white max-w-sm mx-auto">
+          <DialogContent className="bg-black border-purple-500 border-2 text-white max-w-sm mx-auto">
             <DialogHeader>
-              <DialogTitle className="text-red-500 text-center text-xl font-bold">
+              <DialogTitle className="text-purple-400 text-center text-xl font-bold">
                 🚨 URGENT SECURITY ALERT 🚨
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4 text-center">
-              <p className="text-red-400 font-semibold">
+              <p className="text-purple-300 font-semibold">
                 Your private messages are being exposed!
               </p>
               <p className="text-white text-sm">
                 Someone is trying to access your deleted conversations. Act now to secure your account!
               </p>
               <Button
-                className="w-full bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold py-3 rounded-xl"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl"
                 onClick={() => router.push('/results')}
               >
                 🔒 SECURE MY ACCOUNT NOW
@@ -630,6 +774,42 @@ export default function Upsell2Page() {
         </div>
       </div>
 
+      {/* Notes Profile Slider */}
+      <div className="p-4 border-b border-gray-800">
+        <div className="flex space-x-4 pb-2">
+          {/* User's profile - first photo */}
+          <div className="flex-shrink-0 text-center">
+            <div className="relative mb-2">
+              <img
+                src={profileData?.profile?.avatar || avatarImages[0]}
+                alt="Your profile"
+                className="w-16 h-16 rounded-full object-cover border-2 border-gray-600"
+              />
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
+            </div>
+            <p className="text-white text-xs font-medium truncate w-16">
+              Your note
+            </p>
+          </div>
+
+          {/* Mock followers profiles with blur */}
+          {avatarImages.slice(1, 8).map((avatar, index) => (
+            <div key={index} className="flex-shrink-0 text-center">
+              <div className="relative mb-2">
+                <img
+                  src={avatar}
+                  alt={`Profile ${index + 1}`}
+                  className="w-16 h-16 rounded-full object-cover border-2 border-gray-600 blur-sm"
+                />
+              </div>
+              <p className="text-white text-xs font-medium truncate w-16 blur-sm">
+                User {index + 1}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Search */}
       <div className="p-4">
         <div className="flex items-center bg-gray-900 rounded-lg px-3 py-2">
@@ -650,22 +830,7 @@ export default function Upsell2Page() {
         </div>
       </div>
 
-      {/* Loading State */}
-      {followersLoading && (
-        <div className="flex items-center justify-center p-8">
-          <div className="text-gray-400 text-sm">Loading conversations...</div>
-        </div>
-      )}
 
-      {/* Error State */}
-      {error && !followersLoading && (
-        <div className="flex items-center justify-center p-4">
-          <div className="text-red-400 text-sm text-center">
-            <p>Unable to load real followers</p>
-            <p className="text-xs text-gray-500 mt-1">Using demo conversations</p>
-          </div>
-        </div>
-      )}
 
       {/* Conversations */}
       <div className="flex-1 pb-20">
@@ -724,23 +889,23 @@ export default function Upsell2Page() {
         </div>
       </div>
 
-      {/* Locked Chat Modal */}
+      {/* Locked Conversation Modal */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="bg-black border-yellow-500 border-2 text-white max-w-sm mx-auto">
+        <DialogContent className="bg-black border-purple-500 border-2 text-white max-w-sm mx-auto">
           <DialogHeader>
-            <DialogTitle className="text-yellow-500 text-center text-xl font-bold">
+            <DialogTitle className="text-purple-400 text-center text-xl font-bold">
               🔒 LOCKED CONVERSATION
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 text-center">
-            <p className="text-yellow-400 font-semibold">
-              This conversation is locked!
+            <p className="text-purple-300 font-semibold">
+              This conversation contains sensitive content!
             </p>
             <p className="text-white text-sm">
-              Unlock all private messages and see what they're really saying about you.
+              Unlock all private messages to see what they're hiding from you.
             </p>
             <Button
-              className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 text-white font-bold py-3 rounded-xl"
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl"
               onClick={() => router.push('/results')}
             >
               🔓 UNLOCK ALL MESSAGES

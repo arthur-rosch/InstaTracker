@@ -109,6 +109,7 @@ export function MainActivities({ username, profileData, followers, followersLoad
         open={showChatList}
         onOpenChange={setShowChatList}
         username={username}
+        avatar={profileData?.avatar}
         followers={followers}
       />
     </section>

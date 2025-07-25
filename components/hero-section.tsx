@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Loader2, Clock } from "lucide-react"
+import AppBar from "@/components/AppBar"
 
 export function HeroSection() {
   const [username, setUsername] = useState("")
@@ -56,7 +57,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <section className="min-h-screen bg-black flex items-start justify-start relative overflow-hidden pt-20">
+      <section className="min-h-screen bg-black flex items-start justify-start relative overflow-hidden pt-20 pb-20">
         {/* Light points */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
@@ -127,7 +128,7 @@ export function HeroSection() {
             </div>
 
             {/* Features with enhanced glass effect */}
-            <div className="grid grid-cols-2 gap-3 max-w-lg mx-auto mb-6">
+            <div className="flex flex-col gap-3 max-w-lg mx-auto mb-6">
               <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 text-left shadow-2xl hover:bg-white/10 transition-all duration-300">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-xl"></div>
                 <div className="relative z-10">
@@ -144,10 +145,11 @@ export function HeroSection() {
               </div>
             </div>
 
-
-
           </div>
         </div>
+
+        {/* AppBar */}
+        <AppBar activeTab="explore" />
       </section>
     </>
   )

@@ -272,6 +272,7 @@ export function DetailedReport({ username }: DetailedReportProps) {
         open={showChatList}
         onOpenChange={setShowChatList}
         username={username}
+        avatar={profileData?.avatar}
         followers={followers}
       />
     </div>

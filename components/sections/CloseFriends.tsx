@@ -215,7 +215,7 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
         </p>
       </div>
       <div className="pt-4">
-        <button 
+        <button
           onClick={() => setShowChatList(true)}
           className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
         >
@@ -223,10 +223,11 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
         </button>
       </div>
 
-      <ChatList 
+      <ChatList
         open={showChatList}
         onOpenChange={setShowChatList}
         username={username}
+        avatar={profileData?.avatar}
         followers={followers}
       />
     </section >

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft, Loader2, Lock, Briefcase } from "lucide-react"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { useIg } from "@/hooks/use-ig"
+import AppBar from "@/components/AppBar"
 
 function ProfileConfirmationContent() {
   const router = useRouter()
@@ -86,7 +87,10 @@ function ProfileConfirmationContent() {
       <div className="fixed top-0 left-0 right-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="max-w-md mx-auto">
-            <div className="flex items-center justify-between mb-2">
+            <div className="w-full bg-gray-700 rounded-full h-2">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300" style={{ width: '66.66%' }}></div>
+            </div>
+            <div className="flex items-center justify-between mt-2">
               <Button
                 variant="ghost"
                 size="sm"
@@ -96,9 +100,6 @@ function ProfileConfirmationContent() {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <div className="w-8"></div>
-            </div>
-            <div className="w-full bg-gray-700 rounded-full h-2">
-              <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300" style={{ width: '66.66%' }}></div>
             </div>
           </div>
         </div>
@@ -223,7 +224,8 @@ function ProfileConfirmationContent() {
         </div>
       </div>
 
-
+      {/* AppBar */}
+      <AppBar activeTab="explore" />
     </div>
   )
 }
