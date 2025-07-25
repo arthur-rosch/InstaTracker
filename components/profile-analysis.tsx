@@ -1,11 +1,20 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react"
+
+import { useState, useEffect, Suspense, useRef } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { ArrowLeft, Star, Check } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { Carousel, CarouselContent, CarouselItem, CarouselApi } from "@/components/ui/carousel"
 import AppBar from "@/components/AppBar"
+
+// Import logo images
+import logo1 from "/assets/logos/imgi_16_default.png"
+import logo2 from "/assets/logos/imgi_17_default.png"
+import logo3 from "/assets/logos/imgi_18_default.png"
+import logo4 from "/assets/logos/imgi_19_default.png"
+import reviewsLogo from "/assets/logos/imgi_2_reviewsio-logo.75fd9fc5.png"
 
 // Import all profile images
 import profile01 from "/assets/profile/01.jpg"
@@ -26,7 +35,7 @@ import profile15 from "/assets/profile/15.jpg"
 import profile16 from "/assets/profile/16.jpg"
 import profile17 from "/assets/profile/17.jpg"
 import profile18 from "/assets/profile/18.jpg"
-import profile019 from "/assets/profile/019.jpg"
+
 import profile20 from "/assets/profile/20.jpg"
 import profile21 from "/assets/profile/21.jpg"
 import profile22 from "/assets/profile/22.jpg"
@@ -98,41 +107,34 @@ const reviews = [
   },
 ]
 
-// Company logos for sliding carousel
+// Company logos for sliding carousel - Using imported local assets
 const companies = [
   {
-    name: "TechCrunch",
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3ETechCrunch%3C/text%3E%3C/svg%3E"
+    name: "Company 1",
+    logo: logo1
   },
   {
-    name: "Forbes",
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EForbes%3C/text%3E%3C/svg%3E"
+    name: "Company 2",
+    logo: logo2
   },
   {
-    name: "Wired",
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EWired%3C/text%3E%3C/svg%3E"
+    name: "Company 3",
+    logo: logo3
   },
   {
-    name: "Mashable",
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EMashable%3C/text%3E%3C/svg%3E"
+    name: "Company 4",
+    logo: logo4
   },
   {
-    name: "The Verge",
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EThe Verge%3C/text%3E%3C/svg%3E"
+    name: "Reviews.io",
+    logo: reviewsLogo
   },
   {
-    name: "Engadget",
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EEngadget%3C/text%3E%3C/svg%3E"
-  },
-  {
-    name: "VentureBeat",
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EVentureBeat%3C/text%3E%3C/svg%3E"
-  },
-  {
-    name: "Business Insider",
-    logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Ctext x='10' y='25' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='%23ffffff'%3EBusiness Insider%3C/text%3E%3C/svg%3E"
-  },
+    name: "Company 1",
+    logo: logo1
+  }
 ]
+
 
 // Random profile photos for blur effect during analysis
 const randomProfiles = [
@@ -154,7 +156,7 @@ const randomProfiles = [
   profile16,
   profile17,
   profile18,
-  profile019,
+
   profile20,
   profile21,
   profile22,
@@ -174,6 +176,7 @@ function ProfileAnalysisContent() {
   const [currentReview, setCurrentReview] = useState(0)
   const [showButton, setShowButton] = useState(false)
   const [profileData, setProfileData] = useState(getProfileFromStorage())
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
 
   // Update profile data from localStorage on mount
   useEffect(() => {
@@ -228,6 +231,17 @@ function ProfileAnalysisContent() {
 
     return () => clearInterval(profileTimer)
   }, []) // Empty dependency array to run only once
+
+  // Carousel autoplay
+  useEffect(() => {
+    if (!carouselApi) return
+
+    const autoplay = setInterval(() => {
+      carouselApi.scrollNext()
+    }, 2000)
+
+    return () => clearInterval(autoplay)
+  }, [carouselApi])
 
   const handleBack = () => {
     router.back()
@@ -366,58 +380,80 @@ function ProfileAnalysisContent() {
             </div>
           </div>
 
-          {/* Testimonials */}
-          <div className="space-y-4 mb-6">
-            <div className="bg-white/5 rounded-2xl p-4">
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="relative w-8 h-8 rounded-full overflow-hidden">
-                  <img
-                    src="/images/profile-testimonial-1.jpg"
-                    alt="User"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold text-xs">@mar***_silva</h3>
-                  <p className="text-gray-400 text-xs">2min ago</p>
+          {/* Reviews Section - User Reviews */}
+          <div className="space-y-6">
+            {/* Rating Header - Rating Header with Statistics */}
+            <div className="text-center">
+              {/* Title and Stars - Overall Rating Display */}
+              <div className="flex items-center justify-center space-x-2 mb-2">
+                <span className="text-2xl font-bold text-white">Excellent</span>
+                <div className="flex space-x-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} className="w-6 h-6 text-yellow-400 fill-current" />
+                  ))}
                 </div>
               </div>
-              <p className="text-gray-300 text-xs mb-3 leading-relaxed">
-                "I found out who was stalking my profile! Worth every penny!"
+              {/* Numerical Statistics - Average and Total Reviews */}
+              <p className="text-gray-300">
+                <span className="font-bold text-white">4.75</span> based on{" "}
+                <span className="font-bold text-white">338</span> reviews
               </p>
-              <div className="flex space-x-1">
-                <span className="text-yellow-400 text-sm">★</span>
-                <span className="text-yellow-400 text-sm">★</span>
-                <span className="text-yellow-400 text-sm">★</span>
-                <span className="text-yellow-400 text-sm">★</span>
-                <span className="text-yellow-400 text-sm">★</span>
+            </div>
+
+            {/* Review Card - Individual User Review Card */}
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
+              <div className="space-y-4">
+                {/* Review Header - Avatar and User Name */}
+                <div className="flex items-center space-x-3">
+                  {/* User Avatar - Profile Picture */}
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                    <img
+                      src="/images/profile-testimonial-1.jpg"
+                      alt="User"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  {/* User Information - Name and Rating */}
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-white">@maria.silva...</h3>
+                      {/* Individual Rating Stars */}
+                      <div className="flex space-x-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star key={star} className="w-4 h-4 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Verification Badge - Customer Status */}
+                <div className="flex items-center space-x-2">
+                  <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                    <Check className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-gray-300 text-sm">Verified Customer</span>
+                </div>
+
+                {/* Testimonial Text - User Comment */}
+                <p className="text-gray-300 leading-relaxed text-sm">Descobri quem estava stalkeando meu perfil! Valeu cada centavo! 🔍✨</p>
+
+                {/* Timestamp - Comment Date */}
+                <div className="text-right">
+                  <p className="text-gray-400 text-sm">2 days ago</p>
+                </div>
               </div>
             </div>
 
-            <div className="bg-white/5 rounded-2xl p-4">
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="relative w-8 h-8 rounded-full overflow-hidden">
-                  <img
-                    src="/images/profile-testimonial-2.jpg"
-                    alt="User"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold text-xs">@carlos***_m</h3>
-                  <p className="text-gray-400 text-xs">5min ago</p>
-                </div>
-              </div>
-              <p className="text-gray-300 text-xs mb-3 leading-relaxed">
-                "Thought my ex-girlfriend had moved on... Still watches all my stories. This app revealed the truth I needed to know!"
-              </p>
-              <div className="flex space-x-1">
-                <span className="text-yellow-400 text-sm">★</span>
-                <span className="text-yellow-400 text-sm">★</span>
-                <span className="text-yellow-400 text-sm">★</span>
-                <span className="text-yellow-400 text-sm">★</span>
-                <span className="text-yellow-400 text-sm">★</span>
-              </div>
+            {/* Review Indicators - Navigation Indicators */}
+            <div className="flex justify-center space-x-2">
+              {reviews.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-colors ${index === currentReview ? "bg-white" : "bg-white/30"
+                    }`}
+                />
+              ))}
             </div>
           </div>
 
@@ -425,36 +461,35 @@ function ProfileAnalysisContent() {
           <div className="space-y-6">
             <p className="text-gray-300 font-medium text-center text-sm">INSTACHECK WAS FEATURED IN</p>
 
-            {/* Sliding Logos */}
-            <div className="relative overflow-hidden py-4">
-              <div className="flex animate-slide space-x-12">
-                {/* First set of logos */}
-                {companies.map((company, index) => (
-                  <div
-                    key={`first-${index}`}
-                    className="flex-shrink-0 flex items-center justify-center min-w-[140px] h-12"
-                  >
-                    <img
-                      src={company.logo}
-                      alt={company.name}
-                      className="h-10 w-auto filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
-                ))}
-                {/* Duplicate set for seamless loop */}
-                {companies.map((company, index) => (
-                  <div
-                    key={`second-${index}`}
-                    className="flex-shrink-0 flex items-center justify-center min-w-[140px] h-12"
-                  >
-                    <img
-                      src={company.logo}
-                      alt={company.name}
-                      className="h-10 w-auto filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
-                ))}
-              </div>
+            {/* Carousel Logos */}
+            <div className="py-6">
+              <Carousel
+                setApi={setCarouselApi}
+                opts={{
+                  align: "start",
+                  loop: true,
+                  dragFree: true,
+                  containScroll: "trimSnaps"
+                }}
+                className="w-full max-w-6xl mx-auto"
+              >
+                <CarouselContent className="-ml-6 md:-ml-8">
+                  {companies.map((company, index) => {
+                    return (
+                      <CarouselItem key={index} className="pl-6 md:pl-8 basis-1/2 md:basis-1/3 lg:basis-1/4">
+                        <div className="flex items-center justify-center h-16 mx-4">
+                          <img
+                            src={company.logo.src}
+                            alt={company.name}
+                            height={48}
+                            className="max-h-12 w-auto object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity duration-300"
+                          />
+                        </div>
+                      </CarouselItem>
+                    );
+                  })}
+                </CarouselContent>
+              </Carousel>
             </div>
           </div>
         </div>
@@ -478,15 +513,6 @@ function ProfileAnalysisContent() {
       {!showButton && <AppBar activeTab="explore" />}
 
       <style jsx>{`
-        @keyframes slide {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        
         @keyframes fadeIn {
           0% {
             opacity: 0;
@@ -494,10 +520,6 @@ function ProfileAnalysisContent() {
           100% {
             opacity: 0.7;
           }
-        }
-        
-        .animate-slide {
-          animation: slide 20s linear infinite;
         }
       `}</style>
     </div>

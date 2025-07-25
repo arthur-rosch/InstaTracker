@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { useInstagramToast } from "@/components/ui/instagram-toast"
 
 // Import avatar images
 import avatar01 from "/assets/profile/01.jpg"
@@ -48,6 +49,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("primary");
   const [selectedConversation, setSelectedConversation] = useState<any>(null);
+  const { showToast, ToastContainer } = useInstagramToast();
 
 
 
@@ -296,6 +298,39 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
     }]
     : filteredConversations;
 
+  // Simulate Instagram message notifications
+  useEffect(() => {
+    const simulateNotifications = () => {
+      const randomConversation = conversations[Math.floor(Math.random() * conversations.length)];
+      const messages = [
+        "Hey! Como você está?",
+        "Viu minha última foto?",
+        "Que tal sairmos hoje?",
+        "Obrigado pela curtida! ❤️",
+        "Você está online?",
+        "Boa noite! 🌙",
+        "Que dia incrível!",
+        "Saudades de você"
+      ];
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      
+      showToast(randomConversation.avatar, randomConversation.name, randomMessage);
+    };
+
+    // Show first notification after 3 seconds
+    const firstTimeout = setTimeout(simulateNotifications, 6000);
+    
+    // Then show notifications every 8-15 seconds
+    const interval = setInterval(() => {
+      simulateNotifications();
+    }, 15000); // Random between 8-15 seconds
+
+    return () => {
+      clearTimeout(firstTimeout);
+      clearInterval(interval);
+    };
+  }, [showToast, conversations]);
+
 
 
   return (
@@ -330,17 +365,17 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
             Primary
           </button>
           <button
-            onClick={() => messagesUnlocked && setActiveTab("general")}
-            className={`flex-1 text-center py-3 ${!messagesUnlocked ? "opacity-50 cursor-not-allowed" : ""} ${activeTab === "general" ? "border-b-2 border-white font-semibold text-white" : "text-gray-400"}`}
+            className="flex-1 text-center py-3 opacity-30 cursor-not-allowed text-gray-500"
+            disabled
           >
             General
           </button>
           <button
-            onClick={() => messagesUnlocked && setActiveTab("requests")}
-            className={`flex-1 text-center py-3 relative ${!messagesUnlocked ? "opacity-50 cursor-not-allowed" : ""} ${activeTab === "requests" ? "border-b-2 border-white font-semibold text-white" : "text-blue-400"}`}
+            className="flex-1 text-center py-3 relative opacity-30 cursor-not-allowed text-gray-500"
+            disabled
           >
             Requests
-            <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-gray-600 text-gray-400 text-xs rounded-full w-5 h-5 flex items-center justify-center opacity-50">
               2
             </span>
           </button>
@@ -404,76 +439,71 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
         </div>
 
         {/* Conversations */}
-        <div className="flex-1 overflow-hidden pb-20 relative">
-
-
-          {activeTab === "primary" && conversations.map((conv) => (
-            <div
-              key={conv.id}
-              className="flex items-center px-4 py-3 hover:bg-gray-900/50 cursor-pointer"
-              onClick={() => {
-                setSelectedConversation(conv);
-              }}
-            >
-              <div className="relative">
-                <img
-                  src={conv.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(conv.avatar)}` : conv.avatar}
-                  alt={conv.name}
-                  className="w-12 h-12 rounded-full object-cover blur-sm"
-                />
-                {conv.id === 1 && (
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black blur-sm"></div>
-                )}
-              </div>
-              <div className="flex-1 ml-3 min-w-0">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-white truncate blur-sm">{conv.name}</h3>
-                  <div className="flex items-center space-x-2 flex-shrink-0">
-                    <span className="text-gray-400 text-sm blur-sm">{conv.time}</span>
-                    {conv.muted && (
-                      <div className="w-4 h-4 text-gray-400 blur-sm">
+        <div className="flex-1 overflow-y-auto relative">
+          <div className="pb-24">
+            {activeTab === "primary" && conversations.map((conv) => (
+              <div
+                key={conv.id}
+                className="flex items-center px-4 py-3 hover:bg-gray-900/50 cursor-pointer"
+                onClick={() => {
+                  setSelectedConversation(conv);
+                }}
+              >
+                <div className="relative">
+                  <img
+                    src={conv.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(conv.avatar)}` : conv.avatar}
+                    alt={conv.name}
+                    className="w-12 h-12 rounded-full object-cover blur-sm"
+                  />
+                  {conv.id === 1 && (
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black blur-sm"></div>
+                  )}
+                </div>
+                <div className="flex-1 ml-3 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold text-white truncate blur-sm">{conv.name}</h3>
+                    <div className="flex items-center space-x-2 flex-shrink-0">
+                      <span className="text-gray-400 text-sm blur-sm">{conv.time}</span>
+                      {conv.muted && (
+                        <div className="w-4 h-4 text-gray-400 blur-sm">
+                          <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L4.617 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.617l3.766-3.793a1 1 0 011.617.793zM14.657 5.757a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-2.929 7.071 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.414 0A5.983 5.983 0 0115 12a5.983 5.983 0 01-1.758 4.243 1 1 0 11-1.414-1.414A3.987 3.987 0 0013 12a3.987 3.987 0 00-1.172-2.829 1 1 0 010-1.414z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      )}
+                      <div className="w-4 h-4 text-yellow-500">
                         <svg fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L4.617 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.617l3.766-3.793a1 1 0 011.617.793zM14.657 5.757a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-2.929 7.071 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.414 0A5.983 5.983 0 0115 12a5.983 5.983 0 01-1.758 4.243 1 1 0 11-1.414-1.414A3.987 3.987 0 0013 12a3.987 3.987 0 00-1.172-2.829 1 1 0 010-1.414z" clipRule="evenodd" />
+                          <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
                         </svg>
                       </div>
-                    )}
-                    <div className="w-4 h-4 text-yellow-500">
-                      <svg fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
-                      </svg>
                     </div>
                   </div>
+                  <p className="text-gray-400 text-sm truncate blur-sm">{conv.message}</p>
                 </div>
-                <p className="text-gray-400 text-sm truncate blur-sm">{conv.message}</p>
               </div>
-            </div>
-          ))}
+            ))}
 
-          {activeTab === "general" && messagesUnlocked && (
-            <div className="p-4 text-center text-gray-400">
-              <p>Conversas gerais aparecerão aqui</p>
-            </div>
-          )}
+            {activeTab === "general" && messagesUnlocked && (
+              <div className="p-4 text-center text-gray-400">
+                <p>Conversas gerais aparecerão aqui</p>
+              </div>
+            )}
 
-          {activeTab === "requests" && messagesUnlocked && (
-            <div className="p-4 text-center text-gray-400">
-              <p>Solicitações de mensagem aparecerão aqui</p>
-            </div>
-          )}
+            {activeTab === "requests" && messagesUnlocked && (
+              <div className="p-4 text-center text-gray-400">
+                <p>Solicitações de mensagem aparecerão aqui</p>
+              </div>
+            )}
 
-          {(activeTab === "general" || activeTab === "requests") && !messagesUnlocked && (
-            <div className="p-4 text-center text-gray-400 opacity-50">
-              <p>Desbloqueie para ver este conteúdo</p>
-            </div>
-          )}
-        </div>
+            {(activeTab === "general" || activeTab === "requests") && !messagesUnlocked && (
+              <div className="p-4 text-center text-gray-400 opacity-50">
+                <p>Desbloqueie para ver este conteúdo</p>
+              </div>
+            )}
+          </div>
 
-
-
-
-        {/* Fixed Footer Button */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/95 backdrop-blur-xl border-t border-gray-800 z-50">
-          <div className="max-w-sm mx-auto">
+          {/* Fixed Footer Button */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent">
             <Button
               onClick={() => setMessagesUnlocked(true)}
               className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
@@ -521,35 +551,54 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 relative">
-              {generateFullConversation(selectedConversation.name, selectedConversation.avatar).map((msg: { sender: string, message: string, time: string, isImage?: boolean }, index) => (
-                <div key={index} className={`flex ${msg.sender === 'you' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg blur-sm ${msg.sender === 'you'
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-700 text-white'
-                    }`}>
-                    <p className="text-sm">{msg.message}</p>
-                    <p className="text-xs opacity-70 mt-1">{msg.time}</p>
+            <div className="flex-1 overflow-y-auto relative">
+              <div className="p-4 space-y-4 pb-24">
+                {generateFullConversation(selectedConversation.name, selectedConversation.avatar).map((msg: { sender: string, message: string, time: string, isImage?: boolean }, index) => (
+                  <div key={index} className={`flex ${msg.sender === 'you' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg blur-sm ${msg.sender === 'you'
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-700 text-white'
+                      }`}>
+                      <p className="text-sm">{msg.message}</p>
+                      <p className="text-xs opacity-70 mt-1">{msg.time}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
-
-              {/* Centered Unlock Button */}
-              <div className="absolute inset-0 flex items-center justify-center">
+                ))}
+              </div>
+              
+              {/* Middle Unlock Button - Always centered */}
+              <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
                 <Button
                   onClick={() => {
                     setMessagesUnlocked(true);
                     setSelectedConversation(null);
                   }}
-                  className="h-14 px-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
+                  className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl px-8"
                 >
                   <Unlock className="w-5 h-5 mr-2" />
-                  🔓 UNLOCK MESSAGES
+                  UNLOCK MESSAGES
+                </Button>
+              </div>
+              
+              {/* Fixed Footer Button */}
+              <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent z-20">
+                <Button
+                  onClick={() => {
+                    setMessagesUnlocked(true);
+                    setSelectedConversation(null);
+                  }}
+                  className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
+                >
+                  <Unlock className="w-5 h-5 mr-2" />
+                  UNLOCK MESSAGES
                 </Button>
               </div>
             </div>
           </div>
         )}
+        
+        {/* Toast Container */}
+        <ToastContainer />
       </DialogContent>
     </Dialog>
   )

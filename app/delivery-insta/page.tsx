@@ -90,8 +90,15 @@ export default function DeliveryInstaPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
             {/* Header Section - same structure as delivery */}
-            <div className="text-center mb-12">
+            <div className="text-center mb-12 mt-8">
               {/* Profile Badge - same as delivery welcome badge */}
+
+              {/* Main Title - same as delivery */}
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                Delivery Report
+              </h1>
+              <p className="text-gray-300 text-lg mb-8">Complete activity report for @{currentUsername}</p>
+
               <div className="inline-block bg-white/5 backdrop-blur-xl border border-purple-400/30 rounded-2xl px-6 py-4 mb-6 shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-2xl"></div>
                 <div className="relative z-10 flex items-center space-x-3">
@@ -108,12 +115,6 @@ export default function DeliveryInstaPage() {
                   </button>
                 </div>
               </div>
-
-              {/* Main Title - same as delivery */}
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                Delivery Report
-              </h1>
-              <p className="text-gray-300 text-lg mb-8">Complete activity report for @{currentUsername}</p>
             </div>
 
             {/* Report Flex - All cards in a column */}

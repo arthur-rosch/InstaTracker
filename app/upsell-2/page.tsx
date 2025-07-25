@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { ArrowLeft, Phone, Video, Info, Camera, Mic, Image, Heart } from "lucide-react"
+import { useInstagramToast } from "@/components/ui/instagram-toast"
 
 
 // Import avatar images
@@ -82,9 +83,9 @@ export default function Upsell2Page() {
   const [selectedChat, setSelectedChat] = useState<Conversation | null>(null)
   const [chatBlurred, setChatBlurred] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [showTimerModal, setShowTimerModal] = useState(false)
   const [username, setUsername] = useState('eo.rosch')
   const [conversations, setConversations] = useState<Conversation[]>([])
+  const { showToast, ToastContainer } = useInstagramToast()
 
 
 
@@ -95,13 +96,8 @@ export default function Upsell2Page() {
     avatar13.src, avatar14.src, avatar15.src, avatar16.src, avatar17.src, avatar18.src
   ];
 
-  // Timer for modal and unlock timer
+  // Timer to lock conversations after 8 seconds
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowTimerModal(true);
-    }, 12000);
-
-    // Timer to lock conversations after 8 seconds
     const lockTimer = setTimeout(() => {
       setConversations(prev =>
         prev.map(conv => ({ ...conv, isUnlocked: false }))
@@ -109,10 +105,44 @@ export default function Upsell2Page() {
     }, 8000);
 
     return () => {
-      clearTimeout(timer);
       clearTimeout(lockTimer);
     };
   }, []);
+
+  // Simulate Instagram message notifications
+  useEffect(() => {
+    const simulateNotifications = () => {
+      const randomConversation = conversations[Math.floor(Math.random() * conversations.length)];
+      if (randomConversation) {
+        const messages = [
+          "Hey! Como você está?",
+          "Viu minha última foto?",
+          "Que tal sairmos hoje?",
+          "Obrigado pela curtida! ❤️",
+          "Você está online?",
+          "Boa noite! 🌙",
+          "Que dia incrível!",
+          "Saudades de você"
+        ];
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+        showToast(randomConversation.avatar, randomConversation.name, randomMessage);
+      }
+    };
+
+    // Show first notification after 6 seconds
+    const firstTimeout = setTimeout(simulateNotifications, 4000);
+
+    // Then show notifications every 15 seconds
+    const interval = setInterval(() => {
+      simulateNotifications();
+    }, 15000);
+
+    return () => {
+      clearTimeout(firstTimeout);
+      clearInterval(interval);
+    };
+  }, [showToast, conversations]);
 
   // Compromising chat messages for unlocked conversations
   const compromisingMessages1: ChatMessage[] = [
@@ -716,30 +746,7 @@ export default function Upsell2Page() {
           </div>
         </div>
 
-        {/* Timer Modal */}
-        <Dialog open={showTimerModal} onOpenChange={() => { }}>
-          <DialogContent className="bg-black border-purple-500 border-2 text-white max-w-sm mx-auto">
-            <DialogHeader>
-              <DialogTitle className="text-purple-400 text-center text-xl font-bold">
-                🚨 URGENT SECURITY ALERT 🚨
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 text-center">
-              <p className="text-purple-300 font-semibold">
-                Your private messages are being exposed!
-              </p>
-              <p className="text-white text-sm">
-                Someone is trying to access your deleted conversations. Act now to secure your account!
-              </p>
-              <Button
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl"
-                onClick={() => router.push('/results')}
-              >
-                🔒 SECURE MY ACCOUNT NOW
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+
       </div>
     )
   }
@@ -882,62 +889,44 @@ export default function Upsell2Page() {
         <div className="max-w-sm mx-auto">
           <Button
             className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
-            onClick={() => router.push('/results')}
+            onClick={() => router.push('/payment')}
           >
-            VIEW SECRET MESSAGES 🔍
+            🔓 UNLOCK MESSAGES
           </Button>
         </div>
       </div>
 
       {/* Locked Conversation Modal */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="bg-black border-purple-500 border-2 text-white max-w-sm mx-auto">
-          <DialogHeader>
-            <DialogTitle className="text-purple-400 text-center text-xl font-bold">
-              🔒 LOCKED CONVERSATION
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 text-center">
-            <p className="text-purple-300 font-semibold">
-              This conversation contains sensitive content!
-            </p>
-            <p className="text-white text-sm">
-              Unlock all private messages to see what they're hiding from you.
-            </p>
-            <Button
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl"
-              onClick={() => router.push('/results')}
-            >
-              🔓 UNLOCK ALL MESSAGES
-            </Button>
+        <DialogContent className="sm:max-w-md bg-[#1a1a2e] border-none rounded-2xl">
+          <div className="text-center p-6">
+            <div className="mb-6">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
+                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-bold text-white mb-3">
+                Secret Messages Detected!
+              </h2>
+              <p className="text-gray-300 text-sm leading-relaxed mb-6">
+                We found hidden and deleted messages in this conversation. Click below to reveal all secret content.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Button
+                className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-4 rounded-lg transition-all duration-200 text-sm"
+              >
+                🔍 REVEAL SECRET MESSAGES 🔍
+              </Button>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
 
-      {/* Timer Modal */}
-      <Dialog open={showTimerModal} onOpenChange={() => { }}>
-        <DialogContent className="bg-black border-red-500 border-2 text-white max-w-sm mx-auto">
-          <DialogHeader>
-            <DialogTitle className="text-red-500 text-center text-xl font-bold">
-              🚨 URGENT SECURITY ALERT 🚨
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 text-center">
-            <p className="text-red-400 font-semibold">
-              Your private messages are being exposed!
-            </p>
-            <p className="text-white text-sm">
-              Someone is trying to access your deleted conversations. Act now to secure your account!
-            </p>
-            <Button
-              className="w-full bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold py-3 rounded-xl"
-              onClick={() => router.push('/results')}
-            >
-              🔒 SECURE MY ACCOUNT NOW
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ToastContainer />
+
     </div>
   )
 }
