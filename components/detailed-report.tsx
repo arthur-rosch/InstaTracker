@@ -156,34 +156,34 @@ export function DetailedReport({ username }: DetailedReportProps) {
           <div className="absolute bottom-20 right-20 w-28 h-28 bg-purple-400/20 rounded-full blur-2xl animate-pulse delay-500"></div>
           <div className="absolute top-1/2 left-1/3 w-20 h-20 bg-pink-400/15 rounded-full blur-xl animate-pulse delay-1500"></div>
         </div>
-        
+
         <div className="relative z-10 text-center space-y-6">
           <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
           <div className="space-y-2">
-            <div className="text-white text-xl font-semibold">Coletando informações...</div>
-            <div className="text-gray-400 text-sm max-w-xs mx-auto">Aguarde enquanto analisamos o perfil e coletamos todos os dados necessários</div>
+            <div className="text-white text-xl font-semibold">Collecting information...</div>
+            <div className="text-gray-400 text-sm max-w-xs mx-auto">Please wait while we analyze the profile and gather all necessary data</div>
           </div>
-          
+
           {/* Progress indicators */}
           <div className="space-y-3">
             <div className="flex items-center justify-center space-x-2">
               <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-              <span className="text-gray-300 text-sm">Verificando perfil</span>
+              <span className="text-gray-300 text-sm">Checking profile</span>
             </div>
             <div className="flex items-center justify-center space-x-2">
               <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse delay-300"></div>
-              <span className="text-gray-300 text-sm">Carregando seguidores</span>
+              <span className="text-gray-300 text-sm">Loading followers</span>
             </div>
             <div className="flex items-center justify-center space-x-2">
               <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-600"></div>
-              <span className="text-gray-300 text-sm">Preparando relatório</span>
+              <span className="text-gray-300 text-sm">Preparing report</span>
             </div>
           </div>
         </div>
       </div>
     );
   }
-
+  
 
 
   return (
