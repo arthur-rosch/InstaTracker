@@ -43,6 +43,7 @@ export function DetailedReport({ username }: DetailedReportProps) {
   const [isPrivateProfile, setIsPrivateProfile] = useState(false);
   const [showUrgentButton, setShowUrgentButton] = useState(false);
   const [showChatList, setShowChatList] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { followers, getFollowers, followersLoading, setFollowersFromStorage } = useIg();
 
   // Array of local images for private profiles
@@ -77,7 +78,7 @@ export function DetailedReport({ username }: DetailedReportProps) {
     }, 2500);
 
     // Get data from localStorage
-    const getProfileFromStorage = () => {
+    const getProfileFromStorage = async () => {
       try {
         const stored = localStorage.getItem('instagram_analysis');
         if (stored) {
@@ -99,27 +100,37 @@ export function DetailedReport({ username }: DetailedReportProps) {
               console.log('Private profile detected - using mock data');
               const mockFollowers = generateMockFollowers();
               setFollowersFromStorage(mockFollowers);
+              // Simulate loading time for private profiles
+              setTimeout(() => {
+                setIsLoading(false);
+              }, 1500);
             } else {
               // For public profiles, use original logic
               if (data.followers && data.followers.length > 0) {
                 console.log('Using followers from localStorage');
                 setFollowersFromStorage(data.followers);
+                setIsLoading(false);
               } else {
-                getFollowers(data.profile.id).then((fetchedFollowers) => {
-                  if (fetchedFollowers && fetchedFollowers.length > 0) {
-                    const updatedData = {
-                      ...data,
-                      followers: fetchedFollowers
-                    };
-                    localStorage.setItem('instagram_analysis', JSON.stringify(updatedData));
-                  }
-                });
+                const fetchedFollowers = await getFollowers(data.profile.id);
+                if (fetchedFollowers && fetchedFollowers.length > 0) {
+                  const updatedData = {
+                    ...data,
+                    followers: fetchedFollowers
+                  };
+                  localStorage.setItem('instagram_analysis', JSON.stringify(updatedData));
+                }
+                setIsLoading(false);
               }
             }
+          } else {
+            setIsLoading(false);
           }
+        } else {
+          setIsLoading(false);
         }
       } catch (error) {
         console.error('Error loading data from localStorage:', error);
+        setIsLoading(false);
       }
     };
 
@@ -134,10 +145,41 @@ export function DetailedReport({ username }: DetailedReportProps) {
     router.back()
   }
 
-  if (!isClient) {
+  if (!isClient || isLoading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white">Loading...</div>
+      <div className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center">
+        {/* Background light points */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-40 right-32 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-32 left-16 w-40 h-40 bg-blue-500/15 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          <div className="absolute bottom-20 right-20 w-28 h-28 bg-purple-400/20 rounded-full blur-2xl animate-pulse delay-500"></div>
+          <div className="absolute top-1/2 left-1/3 w-20 h-20 bg-pink-400/15 rounded-full blur-xl animate-pulse delay-1500"></div>
+        </div>
+        
+        <div className="relative z-10 text-center space-y-6">
+          <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <div className="space-y-2">
+            <div className="text-white text-xl font-semibold">Coletando informações...</div>
+            <div className="text-gray-400 text-sm max-w-xs mx-auto">Aguarde enquanto analisamos o perfil e coletamos todos os dados necessários</div>
+          </div>
+          
+          {/* Progress indicators */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-center space-x-2">
+              <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+              <span className="text-gray-300 text-sm">Verificando perfil</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2">
+              <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse delay-300"></div>
+              <span className="text-gray-300 text-sm">Carregando seguidores</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-600"></div>
+              <span className="text-gray-300 text-sm">Preparando relatório</span>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -48,7 +48,7 @@ export function InstagramToast({ isVisible, onClose, avatar, name, message }: In
         {/* Profile Picture */}
         <div className="relative flex-shrink-0">
           <img
-            src={avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(avatar)}` : avatar}
+            src={avatar}
             alt={name}
             className="w-10 h-10 rounded-full object-cover blur-sm"
           />

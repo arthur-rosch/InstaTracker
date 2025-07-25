@@ -201,7 +201,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
       name: follower.name,
       message: predefinedMessages[index % predefinedMessages.length],
       time: timeOptions[index % timeOptions.length],
-      avatar: follower.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(follower.avatar)}` : follower.avatar,
+      avatar: follower.avatar,
       unread: false,
       muted: index === 2
     }))
@@ -313,13 +313,13 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
         "Saudades de você"
       ];
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-      
+
       showToast(randomConversation.avatar, randomConversation.name, randomMessage);
     };
 
     // Show first notification after 3 seconds
     const firstTimeout = setTimeout(simulateNotifications, 6000);
-    
+
     // Then show notifications every 8-15 seconds
     const interval = setInterval(() => {
       simulateNotifications();
@@ -405,7 +405,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
               <div key={index} className="flex-shrink-0 text-center">
                 <div className="relative mb-2">
                   <img
-                    src={follower.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(follower.avatar)}` : follower.avatar}
+                    src={follower.avatar}
                     alt={follower.name}
                     className="w-16 h-16 rounded-full object-cover border-2 border-gray-600 blur-sm"
                   />
@@ -451,7 +451,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
               >
                 <div className="relative">
                   <img
-                    src={conv.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(conv.avatar)}` : conv.avatar}
+                    src={conv.avatar}
                     alt={conv.name}
                     className="w-12 h-12 rounded-full object-cover blur-sm"
                   />
@@ -489,7 +489,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
               </div>
             )}
 
-            {activeTab === "requests" && messagesUnlocked && (
+            {activeTab === "s" && messagesUnlocked && (
               <div className="p-4 text-center text-gray-400">
                 <p>Solicitações de mensagem aparecerão aqui</p>
               </div>
@@ -503,7 +503,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
           </div>
 
           {/* Fixed Footer Button */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent">
+          <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent">
             <Button
               onClick={() => setMessagesUnlocked(true)}
               className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
@@ -527,7 +527,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
                   </button>
                   <div className="flex items-center space-x-3">
                     <img
-                      src={selectedConversation.avatar.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(selectedConversation.avatar)}` : selectedConversation.avatar}
+                      src={selectedConversation.avatar}
                       alt={selectedConversation.name}
                       className="w-8 h-8 rounded-full object-cover"
                     />
@@ -556,8 +556,8 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
                 {generateFullConversation(selectedConversation.name, selectedConversation.avatar).map((msg: { sender: string, message: string, time: string, isImage?: boolean }, index) => (
                   <div key={index} className={`flex ${msg.sender === 'you' ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg blur-sm ${msg.sender === 'you'
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gray-700 text-white'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-700 text-white'
                       }`}>
                       <p className="text-sm">{msg.message}</p>
                       <p className="text-xs opacity-70 mt-1">{msg.time}</p>
@@ -565,7 +565,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
                   </div>
                 ))}
               </div>
-              
+
               {/* Middle Unlock Button - Always centered */}
               <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
                 <Button
@@ -579,7 +579,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
                   UNLOCK MESSAGES
                 </Button>
               </div>
-              
+
               {/* Fixed Footer Button */}
               <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent z-20">
                 <Button
@@ -596,7 +596,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
             </div>
           </div>
         )}
-        
+
         {/* Toast Container */}
         <ToastContainer />
       </DialogContent>

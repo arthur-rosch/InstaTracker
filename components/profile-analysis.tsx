@@ -90,18 +90,18 @@ const analysisTopics = [
 // Mock reviews data
 const reviews = [
   {
-    name: "@mar***_silva",
-    time: "2min ago",
+    name: "@maria.silva...",
+    time: "2 days ago",
     rating: 5,
-    text: "Found out who was stalking my profile! Worth every penny!",
+    text: "Thought my ex-girlfriend had moved on... 😤 Still watches all my stories. This app revealed the truth I needed to know!",
     verified: true,
     avatar: "/images/profile-testimonial-1.jpg",
   },
   {
-    name: "@carlos***_m",
-    time: "5min ago",
+    name: "@jessica.santos...",
+    time: "1 day ago",
     rating: 5,
-    text: "Amazing! Now I know who views my stories repeatedly.",
+    text: "Finally discovered who's been checking my profile daily! This app is incredible and totally worth it! 🔥",
     verified: true,
     avatar: "/images/profile-testimonial-2.jpg",
   },
@@ -404,7 +404,7 @@ function ProfileAnalysisContent() {
                   {/* User Avatar - Profile Picture */}
                   <div className="relative w-10 h-10 rounded-full overflow-hidden">
                     <img
-                      src="/images/profile-testimonial-1.jpg"
+                      src={reviews[currentReview].avatar}
                       alt="User"
                       className="w-full h-full object-cover"
                     />
@@ -412,7 +412,7 @@ function ProfileAnalysisContent() {
                   {/* User Information - Name and Rating */}
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-white">@maria.silva...</h3>
+                      <h3 className="text-lg font-semibold text-white">{reviews[currentReview].name}</h3>
                       {/* Individual Rating Stars */}
                       <div className="flex space-x-1">
                         {[1, 2, 3, 4, 5].map((star) => (
@@ -432,11 +432,11 @@ function ProfileAnalysisContent() {
                 </div>
 
                 {/* Testimonial Text - User Comment */}
-                <p className="text-gray-300 leading-relaxed text-sm">Descobri quem estava stalkeando meu perfil! Valeu cada centavo! 🔍✨</p>
+                <p className="text-gray-300 leading-relaxed text-sm">{reviews[currentReview].text}</p>
 
                 {/* Timestamp - Comment Date */}
                 <div className="text-right">
-                  <p className="text-gray-400 text-sm">2 days ago</p>
+                  <p className="text-gray-400 text-sm">{reviews[currentReview].time}</p>
                 </div>
               </div>
             </div>

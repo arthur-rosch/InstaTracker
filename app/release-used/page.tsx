@@ -85,7 +85,7 @@ function ReleaseUsedContent() {
                 <div className="w-full flex items-center justify-center">
                   <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-full p-1">
                     <Avatar className="w-full h-full rounded-full">
-                      <AvatarImage src={`/api/image-proxy?url=${encodeURIComponent(profileData.avatar)}`} />
+                      <AvatarImage src={profileData.avatar} />
                     </Avatar>
                   </div>
                 </div>
