@@ -19,7 +19,7 @@ export default function ProfilesSection({ isActive, profile }: ProfilesSectionPr
   }
 
   // Use proxy API for avatar
-  const avatarUrl = `/api/image-proxy?url=${encodeURIComponent(profile.avatar)}`
+  const avatarUrl = profile.avatar
 
   return (
     <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer col-span-2">
@@ -37,11 +37,10 @@ export default function ProfilesSection({ isActive, profile }: ProfilesSectionPr
                 <p className="text-gray-300 text-sm">Similar profiles and connections</p>
               </div>
             </div>
-            <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${
-              isActive
+            <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${isActive
                 ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                 : 'bg-red-500/20 text-red-400 border border-red-500/30'
-            }`}>
+              }`}>
               Active
             </div>
           </div>

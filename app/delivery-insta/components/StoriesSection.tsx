@@ -111,7 +111,7 @@ function mapStories(stories: Story[], followers: Follower[]) {
     .filter(story => story.image)
     .map((story, index) => {
       // Usar a API proxy para as imagens das stories
-      const proxyImageUrl = `/api/image-proxy?url=${encodeURIComponent(story.image!.url)}`;
+      const proxyImageUrl = story.image!.url;
 
       return {
         id: story.id,
