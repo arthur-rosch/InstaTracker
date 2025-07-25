@@ -124,7 +124,7 @@ export function useInstagramToast() {
         <div
           key={toast.id}
           style={{ transform: `translateY(${index * 80}px)` }}
-          className="absolute top-0 left-0 w-full"
+          className="absolute top-4 left-0 w-full"
         >
           <InstagramToast
             isVisible={toast.isVisible}

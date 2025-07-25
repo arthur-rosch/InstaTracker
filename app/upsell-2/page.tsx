@@ -840,7 +840,7 @@ export default function Upsell2Page() {
 
 
       {/* Conversations */}
-      <div className="flex-1 pb-20">
+      <div className="flex-1 pb-24">
         {(searchTerm ? filteredConversations : sortedConversations).map((conv) => (
           <div
             key={conv.id}
@@ -885,7 +885,7 @@ export default function Upsell2Page() {
       </div>
 
       {/* Fixed Footer Button */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/95 backdrop-blur-xl border-t border-gray-800 z-50">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/95 backdrop-blur-xl border-t border-gray-800 z-[9999] min-h-[88px]">
         <div className="max-w-sm mx-auto">
           <Button
             className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
