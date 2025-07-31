@@ -1,0 +1,22 @@
+'use client'
+import { ProfileConfirmation } from "../components/profile-confirmation"
+import { useEffect } from 'react'
+
+declare global {
+  interface Window {
+    pixelId: string;
+  }
+}
+
+export default function ConfirmPage() {
+  useEffect(() => {
+    window.pixelId = "68784e037cf5a59f3a129655";
+    const script = document.createElement("script");
+    script.async = true;
+    script.defer = true;
+    script.src = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
+    document.head.appendChild(script);
+  }, []);
+
+  return <ProfileConfirmation />
+}
