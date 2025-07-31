@@ -25,7 +25,7 @@ function ReleaseUsedContent() {
 
   useEffect(() => {
     setIsClient(true)
-    
+
     // Add pixel script
     window.pixelId = "68784e037cf5a59f3a129655";
     const script = document.createElement("script");
@@ -55,12 +55,12 @@ function ReleaseUsedContent() {
 
   const handleViewExistingReport = () => {
     if (username) {
-      router.push(`/results?username=${username.replace('@', '')}`)
+      router.push(`/de/results?username=${username.replace('@', '')}`)
     }
   }
 
   const handleNewAnalysis = () => {
-    router.push('/')
+    router.push('/de')
   }
 
   // Don't render anything until client-side hydration is complete

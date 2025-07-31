@@ -59,10 +59,10 @@ const getProfileFromStorage = () => {
       try {
         const data = JSON.parse(stored)
         return {
-        name: data.profile?.fullName || "Utente sconosciuto",
-        username: data.username || "sconosciuto",
-        avatar: data.profile?.avatar || "/placeholder.svg?height=60&width=60",
-      }
+          name: data.profile?.fullName || "Utente sconosciuto",
+          username: data.username || "sconosciuto",
+          avatar: data.profile?.avatar || "/placeholder.svg?height=60&width=60",
+        }
       } catch (error) {
         console.error('Error parsing localStorage data:', error)
       }
@@ -244,7 +244,7 @@ function ProfileAnalysisContent() {
   }
 
   const handleGenerateReport = () => {
-    router.push(`/report?username=${username}`)
+    router.push(`/it/report?username=${username}`)
   }
 
   return (

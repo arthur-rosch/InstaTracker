@@ -132,7 +132,7 @@ export default function DeliveryPage() {
                     } ${selectedService === service.id ? 'ring-2 ring-purple-500/50' : ''}`}
                   onClick={() => {
                     if (service.id === 'instagram' && service.status === 'Aktiv') {
-                      router.push('/delivery-insta')
+                      router.push('/de/delivery-insta')
                     } else {
                       setSelectedService(service.id)
                     }

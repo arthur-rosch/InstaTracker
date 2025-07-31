@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { AlertTriangle, Clock, Users, Lock, MapPin } from "lucide-react"
-import MapboxMap from "@/app/delivery-insta/components/MapboxMap"
+import MapboxMap from "@/app/en/delivery-insta/components/MapboxMap"
 import { ChatList } from "./ChatList"
 
 interface Follower {

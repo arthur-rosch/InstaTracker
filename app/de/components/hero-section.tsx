@@ -27,7 +27,7 @@ export function HeroSection() {
         const data = JSON.parse(stored)
         if (data.profile && data.profile.name === cleanUsername) {
           // Já existe análise, redirecionar para tela de consulta já utilizada
-          router.push(`/release-used?username=${cleanUsername}`)
+          router.push(`/de/release-used?username=${cleanUsername}`)
           setIsLoading(false)
           return
         }
@@ -40,7 +40,7 @@ export function HeroSection() {
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
     // Redirect to confirmation page
-    router.push(`/confirm?username=${cleanUsername}`)
+    router.push(`/de/confirm?username=${cleanUsername}`)
     setIsLoading(false)
   }
 

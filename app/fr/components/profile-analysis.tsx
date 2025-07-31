@@ -244,7 +244,7 @@ function ProfileAnalysisContent() {
   }
 
   const handleGenerateReport = () => {
-    router.push(`/report?username=${username}`)
+    router.push(`/fr/report?username=${username}`)
   }
 
   return (

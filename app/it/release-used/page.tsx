@@ -47,7 +47,7 @@ function ReleaseUsedContent() {
 
   const handleViewExistingReport = () => {
     if (username) {
-      router.push(`/results?username=${username.replace('@', '')}`)
+      router.push(`/it/results?username=${username.replace('@', '')}`)
     }
   }
 

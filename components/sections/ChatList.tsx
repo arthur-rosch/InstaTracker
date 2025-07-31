@@ -91,9 +91,9 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
 
   // Avatar images array for easy access
   const avatarImages = [
-    avatar01.src, avatar02.src, avatar03.src, avatar04.src, avatar05.src, avatar06.src,
-    avatar07.src, avatar08.src, avatar09.src, avatar10.src, avatar11.src, avatar12.src,
-    avatar13.src, avatar14.src, avatar15.src, avatar16.src, avatar17.src, avatar18.src
+    avatar01, avatar02, avatar03, avatar04, avatar05, avatar06,
+    avatar07, avatar08, avatar09, avatar10, avatar11, avatar12,
+    avatar13, avatar14, avatar15, avatar16, avatar17, avatar18
   ];
 
   // Mensagens predefinidas para as conversas
@@ -560,9 +560,9 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
           </div>
 
           {/* Fixed Footer Button */}
-          <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent">
+          <div className="fixed bottom-0 left-0 right-0 p-4 pb-safe bg-gradient-to-t from-black via-black/95 to-transparent">
             <Button
-              onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR', '_blank')}
+              onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR')}
               className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
             >
               <Unlock className="w-5 h-5 mr-2" />

@@ -47,12 +47,12 @@ function ReleaseUsedContent() {
 
   const handleViewExistingReport = () => {
     if (username) {
-      router.push(`/results?username=${username.replace('@', '')}`)
+      router.push(`/en/results?username=${username.replace('@', '')}`)
     }
   }
 
   const handleNewAnalysis = () => {
-    router.push('/')
+    router.push('/en')
   }
 
   // Don't render anything until client-side hydration is complete

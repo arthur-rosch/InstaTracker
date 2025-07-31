@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { AlertTriangle, Clock, Users, Lock, MapPin } from "lucide-react"
-import MapboxMap from "@/app/delivery-insta/components/MapboxMap"
+import MapboxMap from "../../delivery-insta/components/MapboxMap"
 import { ChatList } from "./ChatList"
 
 interface Follower {
@@ -70,7 +70,7 @@ export function MainActivities({ username, profileData, followers, followersLoad
           onClick={() => setShowChatList(true)}
           className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
         >
-Acceder a Instagram en Tiempo Real
+          Acceder a Instagram en Tiempo Real
         </button>
       </div>
 
