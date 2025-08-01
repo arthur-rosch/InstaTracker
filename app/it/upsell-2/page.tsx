@@ -13,14 +13,6 @@ import {
 import { ArrowLeft, Phone, Video, Info, Camera, Mic, Image, Heart } from "lucide-react"
 import { useInstagramToast } from "@/components/ui/instagram-toast"
 
-// Declare global interfaces for JSX
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      [elemName: string]: any;
-    }
-  }
-}
 
 // Avatar image paths as strings
 const avatar01 = "/assets/profile/01.jpg"
@@ -781,7 +773,7 @@ export default function Upsell2Page() {
                 className="w-full h-12 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-xs shadow-xl"
                 onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHSB?upsell=true', '_blank')}
               >
-RECUPERA TUTTI I MESSAGGI ELIMINATI
+                RECUPERA TUTTI I MESSAGGI ELIMINATI
               </Button>
             </div>
           </div>
@@ -793,9 +785,9 @@ RECUPERA TUTTI I MESSAGGI ELIMINATI
   }
 
   return (
-    <div className="min-h-screen bg-black text-white max-w-sm mx-auto">
+    <div className="relative min-h-screen bg-black text-white max-w-sm mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-800">
+      <div className="fixed flex items-center justify-between p-4 border-b border-gray-800 bg-black z-10 w-full">
         <div className="flex items-center space-x-4">
           <ArrowLeft className="w-6 h-6" onClick={() => router.back()} />
           <span className="text-lg font-semibold">{username}</span>
@@ -807,15 +799,15 @@ RECUPERA TUTTI I MESSAGGI ELIMINATI
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-800">
+      <div className=" flex border-b border-gray-800">
         <div className="flex-1 text-center py-3 border-b-2 border-white font-semibold">
-Principale
+          Principale
         </div>
         <div className="flex-1 text-center py-3 text-gray-400 opacity-50">
-Generale
+          Generale
         </div>
         <div className="flex-1 text-center py-3 text-blue-400 opacity-50 relative">
-Richieste
+          Richieste
           <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
             2
           </span>
@@ -836,7 +828,7 @@ Richieste
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
             </div>
             <p className="text-white text-xs font-medium truncate w-16">
-La tua nota
+              La tua nota
             </p>
           </div>
 

@@ -14,14 +14,7 @@ import {
 import { ArrowLeft, Phone, Video, Info, Camera, Mic, Image, Heart } from "lucide-react"
 import { useInstagramToast } from "@/components/ui/instagram-toast"
 
-// Declare global interfaces for JSX
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      [elemName: string]: any;
-    }
-  }
-}
+
 
 // Avatar image paths as strings
 const avatar01 = "/assets/profile/01.jpg"
@@ -794,9 +787,9 @@ export default function Upsell2Page() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white max-w-sm mx-auto">
+    <div className="min-h-screen bg-black text-white max-w-sm mx-auto flex flex-col pt-[64px]">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-800">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-between p-4 border-b border-gray-800 max-w-sm mx-auto">
         <div className="flex items-center space-x-4">
           <ArrowLeft className="w-6 h-6" onClick={() => router.back()} />
           <span className="text-lg font-semibold">{username}</span>
@@ -808,7 +801,7 @@ export default function Upsell2Page() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-800">
+      <div className=" flex border-b border-gray-800">
         <div className="flex-1 text-center py-3 border-b-2 border-white font-semibold">
           Principal
         </div>

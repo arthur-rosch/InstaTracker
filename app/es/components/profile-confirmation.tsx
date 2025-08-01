@@ -45,7 +45,7 @@ function ProfileConfirmationContent() {
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
     // Redirect to release page
-    router.push(`/results?username=${username}`)
+    router.push(`/es/results?username=${username}`)
   }
 
   // Don't render anything until client-side hydration is complete

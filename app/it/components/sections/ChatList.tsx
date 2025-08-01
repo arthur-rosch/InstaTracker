@@ -412,6 +412,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
             </div>
           </div>
         </DialogHeader>
+          <div className="flex-grow overflow-y-auto pb-[88px]">
 
         {/* Tabs */}
         <div className="flex border-b border-gray-800">
@@ -560,7 +561,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
           </div>
 
           {/* Fixed Footer Button */}
-          <div className="fixed bottom-0 left-0 right-0 p-4 pb-safe bg-gradient-to-t from-black via-black/95 to-transparent">
+          <div className="absolute bottom-0 w-full p-4 pb-safe">
             <Button
               onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR')}
               className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
@@ -675,7 +676,8 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
 
         {/* Toast Container for Chat List View */}
         {!selectedConversation && <ToastContainer />}
-      </DialogContent>
+      </div>
+        </DialogContent>
     </Dialog>
   )
 }

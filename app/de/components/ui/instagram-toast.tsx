@@ -34,7 +34,7 @@ export function InstagramToast({ isVisible, onClose, avatar, name, message }: In
   if (!shouldRender) return null
 
   return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+    <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-50">
       <div
         className={cn(
           "bg-black border border-gray-600 rounded-xl p-3 shadow-2xl transition-all duration-300 ease-out",
@@ -85,7 +85,7 @@ export function InstagramToast({ isVisible, onClose, avatar, name, message }: In
   )
 }
 
-// Hook zur Verwaltung mehrerer Instagram-Toasts
+// Hook para gerenciar múltiplos toasts do Instagram
 export function useInstagramToast() {
   const [toasts, setToasts] = useState<Array<{
     id: string
