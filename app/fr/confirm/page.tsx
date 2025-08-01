@@ -9,10 +9,6 @@ declare global {
   }
 }
 
-export const metadata: Metadata = {
-  title: "Confirmer le profil - InstaTracker"
-}
-
 export default function ConfirmPage() {
   useEffect(() => {
     window.pixelId = "68784e037cf5a59f3a129655";

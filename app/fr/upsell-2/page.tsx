@@ -9,8 +9,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { ArrowLeft, Phone, Video, Info, Camera, Mic, Image, Heart } from "lucide-react"
+import { ArrowLeft, Phone, Video, Info, Camera, Mic, Image, Heart, Search, X, Edit } from "lucide-react"
 import { useInstagramToast } from "@/components/ui/instagram-toast"
+import { useRouter } from "next/navigation"
 
 // Declare global interfaces for JSX
 declare global {
@@ -780,7 +781,7 @@ export default function Upsell2Page() {
                 className="w-full h-12 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-xs shadow-xl"
                 onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHSB?upsell=true', '_blank')}
               >
-RÉCUPÉRER TOUS LES MESSAGES SUPPRIMÉS
+                RÉCUPÉRER TOUS LES MESSAGES SUPPRIMÉS
               </Button>
             </div>
           </div>
@@ -808,13 +809,13 @@ RÉCUPÉRER TOUS LES MESSAGES SUPPRIMÉS
       {/* Tabs */}
       <div className="flex border-b border-gray-800">
         <div className="flex-1 text-center py-3 border-b-2 border-white font-semibold">
-Principal
+          Principal
         </div>
         <div className="flex-1 text-center py-3 text-gray-400 opacity-50">
-Général
+          Général
         </div>
         <div className="flex-1 text-center py-3 text-blue-400 opacity-50 relative">
-Demandes
+          Demandes
           <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
             2
           </span>
@@ -835,7 +836,7 @@ Demandes
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
             </div>
             <p className="text-white text-xs font-medium truncate w-16">
-Votre note
+              Votre note
             </p>
           </div>
 
