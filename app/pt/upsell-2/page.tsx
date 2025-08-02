@@ -1,6 +1,7 @@
 "use client"
 
-import React, { useState, useEffect, useMemo } from "react"
+import * as React from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import { Edit, Search, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -13,14 +14,7 @@ import {
 import { ArrowLeft, Phone, Video, Info, Camera, Mic, Image, Heart } from "lucide-react"
 import { useInstagramToast } from "@/components/ui/instagram-toast"
 
-// Declare global interfaces for JSX
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      [elemName: string]: any;
-    }
-  }
-}
+
 
 // Avatar image paths as strings
 const avatar01 = "/assets/profile/01.jpg"
@@ -154,14 +148,14 @@ export default function Upsell2Page() {
       const randomConversation = conversations[Math.floor(Math.random() * conversations.length)];
       if (randomConversation) {
         const messages = [
-          "Hey! Como você está?",
-          "Viu minha última foto?",
+          "Olá! Como você está?",
+          "Você viu minha última foto?",
           "Que tal sairmos hoje?",
-          "Obrigado pela curtida! ❤️",
+          "Obrigado pelo like! ❤️",
           "Você está online?",
           "Boa noite! 🌙",
           "Que dia incrível!",
-          "Saudades de você"
+          "Estou com saudades"
         ];
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
@@ -189,25 +183,25 @@ export default function Upsell2Page() {
   const compromisingMessages1: ChatMessage[] = [
     {
       id: 1,
-      content: "Hey, are you free tonight? 😏",
+      content: "Ei, você está livre esta noite? 😏",
       type: 'received',
       time: '11:30 PM'
     },
     {
       id: 2,
-      content: "Yes, my place or yours? 😘",
+      content: "Sim, na minha casa ou na sua? 😘",
       type: 'sent',
       time: '11:32 PM'
     },
     {
       id: 3,
-      content: "Mine... I have something special planned 🔥",
+      content: "Na minha casa... tenho algo especial planejado 🔥",
       type: 'received',
       time: '11:33 PM'
     },
     {
       id: 4,
-      content: "I'm intrigued... what kind of special? 😈",
+      content: "Isso me deixa curioso... que tipo de especial? 😈",
       type: 'sent',
       time: '11:34 PM'
     },
@@ -220,79 +214,79 @@ export default function Upsell2Page() {
     },
     {
       id: 6,
-      content: "Wow... you look incredible 🔥🔥",
+      content: "Uau... você está incrível 🔥🔥",
       type: 'sent',
       time: '11:36 PM'
     },
     {
       id: 7,
-      content: "This is just the beginning... wait until you see what I'm wearing underneath 😏",
+      content: "Isso é só o começo... espere para ver o que estou usando por baixo 😏",
       type: 'received',
       time: '11:37 PM'
     },
     {
       id: 8,
-      content: "You're driving me crazy... I'm leaving now 🚗💨",
+      content: "Você me deixa louco... já estou a caminho 🚗💨",
       type: 'sent',
       time: '11:38 PM'
     },
     {
       id: 9,
-      content: "Good... I'll be waiting by the door. Don't knock, just come in 😈",
+      content: "Certo... estarei esperando por você na porta. Não bata, apenas entre 😈",
       type: 'received',
       time: '11:39 PM'
     },
     {
       id: 10,
-      content: "Can't wait to see you... I have a surprise 😈",
+      content: "Mal posso esperar para te ver... tenho uma surpresa 😈",
       type: 'received',
       time: '11:40 PM'
     },
     {
       id: 11,
-      content: "What kind of surprise? You're killing me with anticipation 🔥",
+      content: "Que surpresa? Você está me matando de expectativa 🔥",
       type: 'sent',
       time: '11:41 PM'
     },
     {
       id: 12,
-      content: "I'm already getting ready... this is going to be amazing 💋",
+      content: "Já estou me preparando... vai ser incrível 💋",
       type: 'sent',
       time: '11:42 PM'
     },
     {
       id: 13,
-      content: "Let's just say... you won't be disappointed. I've been thinking about this all day 😍",
+      content: "Digamos que... você não vai se decepcionar. Pensei nisso o dia todo 😍",
       type: 'received',
       time: '11:43 PM'
     },
     {
       id: 14,
-      content: "Me too... I couldn't focus on anything else at work today 💭",
+      content: "Eu também... não consegui me concentrar em mais nada no trabalho hoje 💭",
       type: 'sent',
       time: '11:44 PM'
     },
     {
       id: 15,
-      content: "Good... because tonight is going to be unforgettable 🌙✨",
+      content: "Certo... porque esta noite será inesquecível 🌙✨",
       type: 'received',
       time: '11:45 PM'
     },
     {
       id: 16,
-      content: "I'm almost there... my heart is racing 💓",
+      content: "Estou quase lá... meu coração está disparado 💓",
       type: 'sent',
       time: '11:47 PM'
     },
     {
       id: 17,
-      content: "Mine too... I can't wait to feel your touch again 😘",
+      content: "O meu também... mal posso esperar para sentir seu toque novamente 😘",
       type: 'received',
       time: '11:48 PM'
     },
     {
       id: 18,
-      content: "Just pulled up... see you in 30 seconds 😏",
+      content: "Acabei de chegar... te vejo em 30 segundos 😏",
       type: 'sent',
       time: '11:50 PM'
     }
@@ -301,55 +295,55 @@ export default function Upsell2Page() {
   const compromisingMessages2: ChatMessage[] = [
     {
       id: 1,
-      content: "I can't stop thinking about last night... 😍",
+      content: "Não consigo parar de pensar na noite passada... 😍",
       type: 'received',
       time: '2:15 AM'
     },
     {
       id: 2,
-      content: "Me neither... you were incredible 🔥",
+      content: "Eu também não... você foi incrível 🔥",
       type: 'sent',
       time: '2:17 AM'
     },
     {
       id: 3,
-      content: "The way you looked at me... I'm still getting chills 😊",
+      content: "O jeito que você me olhou... ainda me dá arrepios 😊",
       type: 'received',
       time: '2:18 AM'
     },
     {
       id: 4,
-      content: "You have this effect on me that I can't explain... it's intoxicating 💫",
+      content: "Você tem esse efeito em mim que não consigo explicar... é inebriante 💫",
       type: 'sent',
       time: '2:19 AM'
     },
     {
       id: 5,
-      content: "When can we do it again? I'm already missing you...",
+      content: "Quando podemos fazer de novo? Já estou com saudades...",
       type: 'received',
       time: '2:20 AM'
     },
     {
       id: 6,
-      content: "I'm missing you too... more than I should admit 💭",
+      content: "Eu também estou com saudades... mais do que eu deveria admitir 💭",
       type: 'sent',
       time: '2:21 AM'
     },
     {
       id: 7,
-      content: "I keep replaying every moment in my head... especially that thing you did 😏",
+      content: "Estou revivendo cada momento na minha cabeça... especialmente o que você fez 😏",
       type: 'received',
       time: '2:22 AM'
     },
     {
       id: 8,
-      content: "Which part? There were so many amazing moments 😈",
+      content: "Que parte? Houve tantos momentos incríveis 😈",
       type: 'sent',
       time: '2:23 AM'
     },
     {
       id: 9,
-      content: "You know exactly which part... when you whispered in my ear 🔥",
+      content: "Você sabe exatamente qual parte... quando você sussurrou no meu ouvido 🔥",
       type: 'received',
       time: '2:24 AM'
     },
@@ -362,61 +356,61 @@ export default function Upsell2Page() {
     },
     {
       id: 11,
-      content: "OMG... you're driving me crazy 😈💦",
+      content: "OMG... você me deixa louco 😈💦",
       type: 'received',
       time: '2:26 AM'
     },
     {
       id: 12,
-      content: "I can't help it... you bring out this side of me 😍",
+      content: "Não consigo evitar... você traz esse lado de mim à tona 😍",
       type: 'sent',
       time: '2:27 AM'
     },
     {
       id: 13,
-      content: "I love this side of you... so passionate, so intense 🔥",
+      content: "Eu amo esse lado seu... tão apaixonado, tão intenso 🔥",
       type: 'received',
       time: '2:28 AM'
     },
     {
       id: 14,
-      content: "Only with you... you make me feel things I've never felt before 💕",
+      content: "Só com você... você me faz sentir coisas que nunca senti antes 💕",
       type: 'sent',
       time: '2:29 AM'
     },
     {
       id: 15,
-      content: "Tomorrow night? Same time, same passion? 😘",
+      content: "Amanhã à noite? Mesma hora, mesma paixão? 😘",
       type: 'sent',
       time: '2:30 AM'
     },
     {
       id: 16,
-      content: "Yes... but this time, let's make it even more special 🌹",
+      content: "Sim... mas desta vez vamos tornar ainda mais especial 🌹",
       type: 'received',
       time: '2:31 AM'
     },
     {
       id: 17,
-      content: "I have some ideas... things I've been wanting to try with you 😏",
+      content: "Tenho algumas ideias... coisas que eu queria experimentar com você 😏",
       type: 'received',
       time: '2:32 AM'
     },
     {
       id: 18,
-      content: "Now you have me curious... and excited 😈",
+      content: "Jetzt machst du mich neugierig... und aufgeregt 😈",
       type: 'sent',
       time: '2:33 AM'
     },
     {
       id: 19,
-      content: "Good... because tomorrow night is going to be even better than last night 🔥",
+      content: "Gut... denn morgen Abend wird noch besser als letzte Nacht 🔥",
       type: 'received',
       time: '2:34 AM'
     },
     {
       id: 20,
-      content: "I don't know how that's possible... but I trust you 💋",
+      content: "Não sei como isso é possível... mas confio em você 💋",
       type: 'sent',
       time: '2:35 AM'
     }
@@ -431,7 +425,7 @@ export default function Upsell2Page() {
         id: 1,
         name: "Sarah Johnson",
         avatar: avatarImages[0],
-        message: "Hey, are you free tonight? 😏",
+        message: "Ei, você está livre esta noite? 😏",
         time: "2m",
         isUnlocked: true
       },
@@ -439,7 +433,7 @@ export default function Upsell2Page() {
         id: 2,
         name: "Emma Wilson",
         avatar: avatarImages[1],
-        message: "I can't stop thinking about last night... 😍",
+        message: "Não consigo parar de pensar na noite passada... 😍",
         time: "5m",
         isUnlocked: true
       },
@@ -447,7 +441,7 @@ export default function Upsell2Page() {
         id: 3,
         name: "Mike Chen",
         avatar: avatarImages[2],
-        message: "Thanks for the recommendation!",
+        message: "Obrigado pela recomendação!",
         time: "1h",
         muted: true,
       },
@@ -455,28 +449,28 @@ export default function Upsell2Page() {
         id: 4,
         name: "Alex Rodriguez",
         avatar: avatarImages[3],
-        message: "The party was amazing!",
+        message: "A festa foi incrível!",
         time: "2h",
       },
       {
         id: 5,
         name: "Jessica Taylor",
         avatar: avatarImages[4],
-        message: "Let's grab coffee soon",
+        message: "Vamos tomar um café em breve",
         time: "3h",
       },
       {
         id: 6,
         name: "David Kim",
         avatar: avatarImages[5],
-        message: "Great meeting you yesterday!",
+        message: "Foi ótimo te conhecer ontem!",
         time: "4h",
       },
       {
         id: 7,
         name: "Lisa Anderson",
         avatar: avatarImages[6],
-        message: "Can you send me that link?",
+        message: "Você pode me enviar este link?",
         time: "5h",
         muted: true,
       },
@@ -484,28 +478,28 @@ export default function Upsell2Page() {
         id: 8,
         name: "Carlos Martinez",
         avatar: avatarImages[7],
-        message: "See you at the gym!",
+        message: "Te vejo na academia!",
         time: "6h",
       },
       {
         id: 9,
         name: "Rachel Green",
         avatar: avatarImages[8],
-        message: "Thanks for the help today",
+        message: "Obrigado pela ajuda hoje",
         time: "7h",
       },
       {
         id: 10,
         name: "Tom Wilson",
         avatar: avatarImages[9],
-        message: "Movie night this weekend?",
+        message: "Noite de cinema neste fim de semana?",
         time: "8h",
       },
       {
         id: 11,
         name: "Sophie Brown",
         avatar: avatarImages[10],
-        message: "Love your new profile pic!",
+        message: "Eu amo sua nova foto de perfil!",
         time: "9h",
         muted: true,
       },
@@ -513,7 +507,7 @@ export default function Upsell2Page() {
         id: 12,
         name: "Jake Thompson",
         avatar: avatarImages[11],
-        message: "Happy birthday! 🎉",
+        message: "Feliz aniversário! 🎉",
         time: "10h",
         muted: true,
       },
@@ -521,7 +515,7 @@ export default function Upsell2Page() {
         id: 13,
         name: "Maya Patel",
         avatar: avatarImages[12],
-        message: "Dinner was amazing!",
+        message: "O jantar foi incrível!",
         time: "11h",
         muted: true,
       },
@@ -529,7 +523,7 @@ export default function Upsell2Page() {
         id: 14,
         name: "Chris Lee",
         avatar: avatarImages[13],
-        message: "Good luck with your presentation",
+        message: "Boa sorte na sua apresentação",
         time: "12h",
         muted: true,
       },
@@ -537,7 +531,7 @@ export default function Upsell2Page() {
         id: 15,
         name: "Amanda Davis",
         avatar: avatarImages[14],
-        message: "Can't wait for vacation!",
+        message: "Mal posso esperar pelas férias!",
         time: "13h",
         muted: true,
       },
@@ -545,7 +539,7 @@ export default function Upsell2Page() {
         id: 16,
         name: "Ryan Clark",
         avatar: avatarImages[15],
-        message: "Thanks for the recommendation",
+        message: "Obrigado pela recomendação",
         time: "14h",
         muted: true,
       },
@@ -553,7 +547,7 @@ export default function Upsell2Page() {
         id: 17,
         name: "Nicole White",
         avatar: avatarImages[16],
-        message: "See you tomorrow!",
+        message: "Até amanhã!",
         time: "15h",
         muted: true,
       },
@@ -561,7 +555,7 @@ export default function Upsell2Page() {
         id: 18,
         name: "Kevin Johnson",
         avatar: avatarImages[17],
-        message: "Great job on the project",
+        message: "Excelente trabalho no projeto",
         time: "16h",
         muted: true,
       }
@@ -586,11 +580,11 @@ export default function Upsell2Page() {
           id: index + 1,
           name: follower.name || follower.fullName || `User ${index + 1}`,
           avatar: follower.avatar || avatarImages[index % avatarImages.length],
-          message: index === 0 ? "Hey, are you free tonight? 😏" :
-            index === 1 ? "I can't stop thinking about last night... 😍" :
-              index < 5 ? "Hey! How are you doing?" :
-                index < 10 ? "Thanks for the recommendation!" :
-                  "Let's grab coffee soon",
+          message: index === 0 ? "Ei, você está livre esta noite? 😏" :
+            index === 1 ? "Não consigo parar de pensar na noite passada... 😍" :
+              index < 5 ? "Olá! Como você está?" :
+                index < 10 ? "Obrigado pela recomendação!" :
+                  "Vamos tomar um café em breve",
           time: index === 0 ? "2m" :
             index === 1 ? "5m" :
               index < 5 ? "1h" :
@@ -730,7 +724,7 @@ export default function Upsell2Page() {
 
         {/* Messages */}
         <div className="flex-1 p-4 space-y-4 overflow-y-auto pb-20">
-          {currentChatMessages.map((message) => (
+          {currentChatMessages.map((message: ChatMessage) => (
             <div key={message.id} className={`flex ${message.type === 'sent' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${message.type === 'sent'
                 ? 'bg-blue-500 text-white'
@@ -763,7 +757,7 @@ export default function Upsell2Page() {
               <div className="flex-1 flex items-center bg-gray-800 rounded-full px-4 py-2">
                 <input
                   type="text"
-                  placeholder="Message..."
+                  placeholder="Mensagem..."
                   className="bg-transparent flex-1 text-white placeholder-gray-400 outline-none text-sm"
                 />
                 <div className="flex items-center space-x-2 ml-2">
@@ -778,10 +772,10 @@ export default function Upsell2Page() {
             {/* Action Button */}
             <div className="mt-4">
               <Button
-                className="w-full h-12 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-sm shadow-xl"
+                className="w-full h-12 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-xs shadow-xl"
                 onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHSB?upsell=true', '_blank')}
               >
-                🚨 RECOVER ALL DELETED MESSAGES 🚨
+                RECUPERAR TODAS AS MENSAGENS APAGADAS
               </Button>
             </div>
           </div>
@@ -797,7 +791,7 @@ export default function Upsell2Page() {
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-between p-4 border-b border-gray-800 max-w-sm mx-auto">
         <div className="flex items-center space-x-4">
-          <ArrowLeft className="w-6 h-6" onClick={() => router.back()} />
+          <ArrowLeft className="w-6 h-6" onClick={() => router.push('/pt')} />
           <span className="text-lg font-semibold">{username}</span>
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -809,13 +803,13 @@ export default function Upsell2Page() {
       {/* Tabs */}
       <div className=" flex border-b border-gray-800">
         <div className="flex-1 text-center py-3 border-b-2 border-white font-semibold">
-          Primary
+          Principal
         </div>
         <div className="flex-1 text-center py-3 text-gray-400 opacity-50">
-          General
+          Geral
         </div>
         <div className="flex-1 text-center py-3 text-blue-400 opacity-50 relative">
-          Requests
+          Solicitações
           <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
             2
           </span>
@@ -836,7 +830,7 @@ export default function Upsell2Page() {
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
             </div>
             <p className="text-white text-xs font-medium truncate w-16">
-              Your note
+              Sua Nota
             </p>
           </div>
 
@@ -864,10 +858,10 @@ export default function Upsell2Page() {
           <Search className="w-5 h-5 text-gray-400 mr-3" />
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Pesquisar"
             className="bg-transparent flex-1 text-white placeholder-gray-400 outline-none"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
           />
           {searchTerm && (
             <X
@@ -883,7 +877,7 @@ export default function Upsell2Page() {
       {/* Conversations */}
       <div className="flex-1 pb-24">
         <ToastContainer />
-        {(searchTerm ? filteredConversations : sortedConversations).map((conv) => (
+        {(searchTerm ? filteredConversations : sortedConversations).map((conv: Conversation) => (
           <div
             key={conv.id}
             className="flex items-center px-4 py-3 hover:bg-gray-900/50 cursor-pointer"
@@ -930,10 +924,10 @@ export default function Upsell2Page() {
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/95 backdrop-blur-xl border-t border-gray-800 z-[9999] min-h-[88px]">
         <div className="max-w-sm mx-auto">
           <Button
-            className="w-full h-12 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-sm shadow-xl"
+            className="w-full h-12 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-xs shadow-xl"
             onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHSB?upsell=true', '_blank')}
           >
-            🚨 RECOVER ALL DELETED MESSAGES 🚨
+            RECUPERAR TODAS AS MENSAGENS APAGADAS
           </Button>
         </div>
       </div>
@@ -949,10 +943,10 @@ export default function Upsell2Page() {
                 </svg>
               </div>
               <h2 className="text-xl font-bold text-white mb-3">
-                Secret Messages Detected!
+                Mensagens Secretas Descobertas!
               </h2>
               <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                We found hidden and deleted messages in this conversation. Click below to reveal all secret content.
+                Encontramos mensagens ocultas e apagadas nesta conversa. Clique abaixo para revelar todo o conteúdo secreto.
               </p>
             </div>
 
@@ -961,7 +955,7 @@ export default function Upsell2Page() {
                 className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-4 rounded-lg transition-all duration-200 text-sm border-none"
                 onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHSB?upsell=true', '_blank')}
               >
-                🔍 REVEAL SECRET MESSAGES 🔍
+                🔍 REVELAR MENSAGENS SECRETAS 🔍
               </Button>
             </div>
           </div>
