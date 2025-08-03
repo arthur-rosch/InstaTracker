@@ -442,7 +442,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
           {/* Notes Profile Slider */}
           <div className="p-4 border-b border-gray-800">
 
-            <div className="flex space-x-4 pb-2">
+            <div className="flex space-x-4 pb-2 overflow-x-hidden">
               {/* User's profile - first photo */}
               <div className="flex-shrink-0 text-center">
                 <div className="relative mb-2">

@@ -60,7 +60,7 @@ export function AnalysisCompleted({ username, profileData, followers, followersL
         if (data.city) {
           setUserCity(data.city)
         }
-      } catch (error) {
+cd      } catch (error) {
         console.log('Erro ao buscar localização:', error)
         // Mantém São Leopoldo como fallback
       }
