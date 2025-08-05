@@ -96,100 +96,100 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
     avatar13, avatar14, avatar15, avatar16, avatar17, avatar18
   ];
 
-  // Vordefinierte Nachrichten für die Unterhaltungen
+  // Mensagens predefinidas para as conversas
   const predefinedMessages = [
-    "Ich kann es kaum erwarten, dich heute Abend zu sehen, wenn er nicht zu Hause ist 😈",
-    "Ich habe den ganzen Tag an unser Geheimnis gedacht...",
-    "hat einen Anhang gesendet",
-    "Du hast einen Anhang gesendet",
-    "Du: DMs",
-    "Ja",
-    "Oder nein",
+    "Mal posso esperar para te ver hoje à noite quando ele não estiver em casa 😈",
+    "Passei o dia todo pensando no nosso segredo...",
+    "enviou um anexo",
+    "Você enviou um anexo",
+    "Você: DMs",
+    "Sim",
+    "Ou não",
     "😍😍😍",
-    "Hallo Schatz",
-    "Wann sehen wir uns wieder?",
-    "Ich vermisse dich...",
-    "Hast du mein letztes Foto gesehen?",
-    "Ich muss dir etwas erzählen",
-    "Um wie viel Uhr kommst du an?",
-    "Ich habe letzte Nacht von dir geträumt",
-    "Bist du heute frei?",
-    "Ich habe eine Überraschung für dich",
-    "Ich kann nicht aufhören, an dich zu denken",
-    "Treffen wir uns?"
+    "Olá, querido(a)",
+    "Quando nos veremos de novo?",
+    "Sinto sua falta...",
+    "Você viu minha última foto?",
+    "Preciso te contar uma coisa",
+    "A que horas você chega?",
+    "Sonhei com você na noite passada",
+    "Você está livre hoje?",
+    "Tenho uma surpresa para você",
+    "Não consigo parar de pensar em você",
+    "Vamos nos encontrar?"
   ];
 
   // Complete conversations for each person
   const generateFullConversation = (name: string, avatar: string) => {
     const conversationTemplates = [
       [
-        { sender: 'them', message: 'Hallo! Wie geht es dir heute?', time: '14:30' },
-        { sender: 'you', message: 'Hallo! Mir geht es gut, danke der Nachfrage. Und dir?', time: '14:32' },
-        { sender: 'them', message: 'Mir geht es großartig! Ich habe den ganzen Tag an dich gedacht', time: '14:35' },
-        { sender: 'you', message: 'Wirklich? Wie süß von dir, das zu sagen 😊', time: '14:36' },
-        { sender: 'them', message: 'Ich meine es ernst! Wann können wir uns wieder sehen?', time: '14:40' },
-        { sender: 'you', message: 'Wie wäre es heute Abend? Ich bin nach 20 Uhr frei', time: '14:42' },
-        { sender: 'them', message: 'Perfekt! Ich kann es kaum erwarten, dich zu sehen 😍', time: '14:45' },
-        { sender: 'them', message: 'Ich habe etwas Besonderes für uns geplant', time: '14:46' },
-        { sender: 'you', message: 'Jetzt bin ich neugierig! Was hast du vor?', time: '14:48' },
-        { sender: 'them', message: 'Es ist eine Überraschung, aber ich denke, es wird dir gefallen', time: '14:50' },
-        { sender: 'you', message: 'Du weißt immer, wie du mich begeistern kannst', time: '14:52' },
-        { sender: 'them', message: 'Das liegt daran, dass du alles für mich bedeutest ❤️', time: '14:55' }
+        { sender: 'them', message: 'Olá! Como você está hoje?', time: '14:30' },
+        { sender: 'you', message: 'Olá! Estou bem, obrigado por perguntar. E você?', time: '14:32' },
+        { sender: 'them', message: 'Estou ótimo! Pensei em você o dia todo', time: '14:35' },
+        { sender: 'you', message: 'Sério? Que fofo da sua parte dizer isso 😊', time: '14:36' },
+        { sender: 'them', message: 'Estou falando sério! Quando podemos nos ver de novo?', time: '14:40' },
+        { sender: 'you', message: 'Que tal hoje à noite? Estou livre depois das 20h', time: '14:42' },
+        { sender: 'them', message: 'Perfeito! Mal posso esperar para te ver 😍', time: '14:45' },
+        { sender: 'them', message: 'Planejei algo especial para nós', time: '14:46' },
+        { sender: 'you', message: 'Agora estou curiosa! O que você planejou?', time: '14:48' },
+        { sender: 'them', message: 'É uma surpresa, mas acho que você vai gostar', time: '14:50' },
+        { sender: 'you', message: 'Você sempre sabe como me animar', time: '14:52' },
+        { sender: 'them', message: 'É porque você significa tudo para mim ❤️', time: '14:55' }
       ],
       [
-        { sender: 'them', message: 'Hast du meinen letzten Instagram-Post gesehen?', time: '15:20' },
-        { sender: 'you', message: 'Ja! Du siehst absolut umwerfend aus 😍', time: '15:22' },
-        { sender: 'them', message: 'Danke! Ich habe an dich gedacht, als ich ihn gemacht habe', time: '15:25' },
-        { sender: 'you', message: 'Du weißt immer, wie du mein Herz zum Rasen bringst', time: '15:27' },
-        { sender: 'them', message: 'Hehe 😘 Ich habe noch mehr Fotos, die ich noch nicht geteilt habe', time: '15:30' },
-        { sender: 'you', message: 'Ich würde sie gerne mal sehen', time: '15:32' },
-        { sender: 'them', message: 'Vielleicht kann ich sie dir persönlich zeigen, wenn wir uns das nächste Mal sehen', time: '15:35' },
-        { sender: 'you', message: 'Das klingt nach einem Plan, den ich nicht ablehnen kann', time: '15:37' },
-        { sender: 'them', message: 'Gut, denn ich wollte schon länger mehr Zeit mit dir verbringen', time: '15:40' },
-        { sender: 'you', message: 'Das Gefühl ist gegenseitig. Du bist unglaublich', time: '15:42' },
-        { sender: 'them', message: 'Du weißt immer genau, was du sagen musst, um mich zum Lächeln zu bringen', time: '15:45' }
+        { sender: 'them', message: 'Você viu minha última postagem no Instagram?', time: '15:20' },
+        { sender: 'you', message: 'Sim! Você está absolutamente deslumbrante 😍', time: '15:22' },
+        { sender: 'them', message: 'Obrigado! Pensei em você quando a fiz', time: '15:25' },
+        { sender: 'you', message: 'Você sempre sabe como fazer meu coração disparar', time: '15:27' },
+        { sender: 'them', message: 'Hehe 😘 Tenho mais fotos que ainda não compartilhei', time: '15:30' },
+        { sender: 'you', message: 'Eu adoraria vê-las', time: '15:32' },
+        { sender: 'them', message: 'Talvez eu possa mostrá-las pessoalmente na próxima vez que nos virmos', time: '15:35' },
+        { sender: 'you', message: 'Isso soa como um plano que não posso recusar', time: '15:37' },
+        { sender: 'them', message: 'Bom, porque eu queria passar mais tempo com você há muito tempo', time: '15:40' },
+        { sender: 'you', message: 'O sentimento é mútuo. Você é incrível', time: '15:42' },
+        { sender: 'them', message: 'Você sempre sabe exatamente o que dizer para me fazer sorrir', time: '15:45' }
       ],
       [
-        { sender: 'them', message: 'Ich muss dir etwas Wichtiges sagen', time: '16:10' },
-        { sender: 'you', message: 'Was hast du vor? Du klingst ernst', time: '16:12' },
-        { sender: 'them', message: 'Mach dir keine Sorgen, es ist nichts Schlimmes. Eigentlich ist es das Gegenteil', time: '16:15' },
-        { sender: 'you', message: 'Jetzt hast du meine volle Aufmerksamkeit. Sag es mir!', time: '16:16' },
-        { sender: 'them', message: 'Ich glaube, ich verliebe mich in dich', time: '16:20' },
-        { sender: 'you', message: 'Wow... Das habe ich nicht erwartet, aber ich fühle genauso', time: '16:22' },
-        { sender: 'them', message: 'Wirklich? Ich war so nervös, es dir zu sagen', time: '16:25' },
-        { sender: 'you', message: 'Du musst bei mir nie nervös sein. Du bedeutest mir viel', time: '16:27' },
-        { sender: 'them', message: 'Du bist unglaublich. Ich bin so glücklich, dich in meinem Leben zu haben ❤️', time: '16:30' },
-        { sender: 'you', message: 'Das Glück ist ganz auf meiner Seite. Du machst jeden Tag heller', time: '16:32' },
-        { sender: 'them', message: 'Ich kann es kaum erwarten zu sehen, wohin uns das führt', time: '16:35' },
-        { sender: 'you', message: 'Was auch immer passiert, ich möchte es mit dir erleben', time: '16:37' }
+        { sender: 'them', message: 'Preciso te dizer algo importante', time: '16:10' },
+        { sender: 'you', message: 'O que você está aprontando? Você parece sério', time: '16:12' },
+        { sender: 'them', message: 'Não se preocupe, não é nada ruim. Na verdade, é o oposto', time: '16:15' },
+        { sender: 'you', message: 'Agora você tem toda a minha atenção. Me diga!', time: '16:16' },
+        { sender: 'them', message: 'Acho que estou me apaixonando por você', time: '16:20' },
+        { sender: 'you', message: 'Uau... Eu não esperava por isso, mas sinto o mesmo', time: '16:22' },
+        { sender: 'them', message: 'Sério? Eu estava tão nervosa para te contar', time: '16:25' },
+        { sender: 'you', message: 'Você nunca precisa ficar nervosa comigo. Você significa muito para mim', time: '16:27' },
+        { sender: 'them', message: 'Você é incrível. Estou tão feliz por ter você na minha vida ❤️', time: '16:30' },
+        { sender: 'you', message: 'A sorte está toda do meu lado. Você ilumina cada dia', time: '16:32' },
+        { sender: 'them', message: 'Mal posso esperar para ver onde isso nos leva', time: '16:35' },
+        { sender: 'you', message: 'Aconteça o que acontecer, quero vivenciar isso com você', time: '16:37' }
       ],
       [
-        { sender: 'them', message: 'Tuve el sueño más increíble sobre nosotros anoche', time: '17:15' },
-        { sender: 'you', message: '¿En serio? Me intriga. ¿Qué pasó en ese sueño?', time: '17:17' },
-        { sender: 'them', message: 'Estábamos viajando juntos a este hermoso resort de playa', time: '17:20' },
-        { sender: 'you', message: 'Das klingt wie das Paradies. Ich würde diesen Traum gerne wahr werden lassen', time: '17:22' },
-        { sender: 'them', message: 'Tal vez deberíamos empezar a planear un viaje juntos', time: '17:25' },
-        { sender: 'you', message: 'Ya estoy esperándolo con ansias. ¿A dónde te gustaría ir?', time: '17:27' },
-        { sender: 'them', message: 'A algún lugar tropical donde podamos ver el atardecer juntos', time: '17:30' },
-        { sender: 'you', message: 'Eso suena absolutamente perfecto. Solo tú y yo', time: '17:32' },
-        { sender: 'them', message: '¡Exactamente! Sin distracciones, solo nosotros disfrutando de nuestra compañía', time: '17:35' },
-        { sender: 'you', message: 'Ya puedo imaginarnos caminando por la playa tomados de la mano', time: '17:37' },
-        { sender: 'them', message: 'Pintas una imagen tan hermosa con tus palabras', time: '17:40' },
-        { sender: 'you', message: 'Es fácil cuando estoy pensando en estar contigo', time: '17:42' }
+        { sender: 'them', message: 'Tive o sonho mais incrível sobre nós ontem à noite', time: '17:15' },
+        { sender: 'you', message: 'Sério? Fiquei intrigado. O que aconteceu nesse sonho?', time: '17:17' },
+        { sender: 'them', message: 'Estávamos viajando juntos para um lindo resort de praia', time: '17:20' },
+        { sender: 'you', message: 'Isso soa como o paraíso. Eu adoraria fazer esse sonho se tornar realidade', time: '17:22' },
+        { sender: 'them', message: 'Talvez devêssemos começar a planejar uma viagem juntos', time: '17:25' },
+        { sender: 'you', message: 'Já estou ansioso por isso. Para onde você gostaria de ir?', time: '17:27' },
+        { sender: 'them', message: 'Para algum lugar tropical onde possamos ver o pôr do sol juntos', time: '17:30' },
+        { sender: 'you', message: 'Isso soa absolutamente perfeito. Só você e eu', time: '17:32' },
+        { sender: 'them', message: 'Exatamente! Sem distrações, apenas nós aproveitando nossa companhia', time: '17:35' },
+        { sender: 'you', message: 'Já consigo nos imaginar caminhando pela praia de mãos dadas', time: '17:37' },
+        { sender: 'them', message: 'Você pinta uma imagem tão linda com suas palavras', time: '17:40' },
+        { sender: 'you', message: 'É fácil quando estou pensando em estar com você', time: '17:42' }
       ],
       [
-        { sender: 'them', message: 'He estado escuchando nuestra canción todo el día', time: '18:45' },
-        { sender: 'you', message: '¿Cuál? Tenemos tantas canciones que me recuerdan a ti', time: '18:47' },
-        { sender: 'them', message: 'La que sonaba cuando bailamos juntos por primera vez', time: '18:50' },
-        { sender: 'you', message: '¿Cómo podría olvidarlo? Fue un momento tan mágico', time: '18:52' },
-        { sender: 'them', message: 'Todavía siento mariposas pensando en esa noche', time: '18:55' },
-        { sender: 'you', message: 'Yo también. La forma en que me miraste... Supe que algo especial estaba pasando', time: '18:57' },
-        { sender: 'them', message: 'Me sentí como si estuviera en un cuento de hadas', time: '19:00' },
-        { sender: 'you', message: 'Jeder Moment mit dir fühlt sich wie ein Märchen für mich an', time: '19:02' },
-        { sender: 'them', message: 'Du weißt immer, wie du mich wie eine Prinzessin fühlen lässt', time: '19:05' },
-        { sender: 'you', message: 'Weil das genau das ist, was du für mich bist', time: '19:07' },
-        { sender: 'them', message: 'Ich liebe es, wie du gewöhnliche Momente außergewöhnlich machst', time: '19:10' },
-        { sender: 'you', message: 'Das ist die Magie, mit jemandem zusammen zu sein, der dir wirklich wichtig ist', time: '19:12' }
+        { sender: 'them', message: 'Estive ouvindo nossa música o dia todo', time: '18:45' },
+        { sender: 'you', message: 'Qual? Temos tantas músicas que me lembram você', time: '18:47' },
+        { sender: 'them', message: 'Aquela que tocava quando dançamos juntos pela primeira vez', time: '18:50' },
+        { sender: 'you', message: 'Como eu poderia esquecer? Foi um momento tão mágico', time: '18:52' },
+        { sender: 'them', message: 'Ainda sinto borboletas pensando naquela noite', time: '18:55' },
+        { sender: 'you', message: 'Eu também. O jeito que você me olhou... Eu soube que algo especial estava acontecendo', time: '18:57' },
+        { sender: 'them', message: 'Eu me senti como se estivesse em um conto de fadas', time: '19:00' },
+        { sender: 'you', message: 'Cada momento com você parece um conto de fadas para mim', time: '19:02' },
+        { sender: 'them', message: 'Você sempre sabe como me fazer sentir como uma princesa', time: '19:05' },
+        { sender: 'you', message: 'Porque é exatamente isso que você é para mim', time: '19:07' },
+        { sender: 'them', message: 'Eu amo como você torna momentos comuns extraordinários', time: '19:10' },
+        { sender: 'you', message: 'Essa é a magia de estar com alguém que realmente se importa com você', time: '19:12' }
       ]
     ];
 
@@ -203,7 +203,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
 
   const timeOptions = ["12 h", "13 h", "14 h", "18 h", "1 d", "2 d", "3 d"];
 
-  // Funktion zur Generierung eines zufälligen Profils
+  // Função para gerar um perfil aleatório
   const generateRandomProfile = () => {
     const randomNames = [
       "Ana Silva", "Carlos Santos", "María Oliveira", "João Costa", "Fernanda Lima",
@@ -230,7 +230,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
     };
   };
 
-  // Erstelle Gespräche mit API-Followern oder Fallback zu fiktiven Daten
+  // Cria conversas com seguidores da API ou fallback para dados fictícios
   const allConversations = followers.length > 0
     ? followers.slice(0, 9).map((follower, index) => ({
       id: index + 1,
@@ -261,7 +261,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
       {
         id: 3,
         name: "Leandro Ludwig",
-        message: "Leandro hat eine Datei gesendet",
+        message: "Leandro enviou um arquivo",
         time: "14 h",
         avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face",
         unread: false,
@@ -270,7 +270,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
       {
         id: 4,
         name: "Gabriel Santana",
-        message: "Du hast eine Datei gesendet",
+        message: "Você enviou um arquivo",
         time: "18 h",
         avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face",
         unread: false
@@ -278,7 +278,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
       {
         id: 5,
         name: "João 🔥",
-        message: "Du: DMs",
+        message: "Você: DMs",
         time: "1 d",
         avatar: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=50&h=50&fit=crop&crop=face",
         unread: false
@@ -286,7 +286,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
       {
         id: 6,
         name: "Shau",
-        message: "Ja",
+        message: "Sim",
         time: "1 d",
         avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=50&h=50&fit=crop&crop=face",
         unread: false
@@ -294,7 +294,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
       {
         id: 7,
         name: "Louise Cachoeira",
-        message: "Du hast eine Datei gesendet",
+        message: "Você enviou um arquivo",
         time: "1 d",
         avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face",
         unread: false
@@ -302,7 +302,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
       {
         id: 8,
         name: "biladem 💥💥",
-        message: "Oder nein",
+        message: "Ou não",
         time: "2 d",
         avatar: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=50&h=50&fit=crop&crop=face",
         unread: false
@@ -310,21 +310,21 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
       {
         id: 9,
         name: "Veronica Pereira Ricardo",
-        message: "Du hast eine Datei gesendet",
+        message: "Você enviou um arquivo",
         time: "2 d",
         avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=50&h=50&fit=crop&crop=face",
         unread: false
       }
     ];
 
-  // Gespräche basierend auf der Suche filtern
+  // Filtra conversas com base na pesquisa
   const filteredConversations = searchTerm
     ? allConversations.filter(conv =>
       conv.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
     : allConversations;
 
-  // Wenn keine Suchergebnisse vorhanden sind, zufälliges Profil anzeigen
+  // Se não houver resultados de pesquisa, exibe um perfil aleatório
   const conversations = filteredConversations.length === 0 && searchTerm
     ? [{
       id: 999,
@@ -339,14 +339,14 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
     const simulateNotifications = () => {
       const randomConversation = conversations[Math.floor(Math.random() * conversations.length)];
       const messages = [
-        "¡Hola! ¿Cómo estás?",
-        "¿Viste mi última foto?",
-        "¿Qué tal si salimos hoy?",
-        "¡Gracias por el like! ❤️",
-        "¿Estás en línea?",
-        "¡Buenas noches! 🌙",
-        "¡Qué día increíble!",
-        "Te extraño"
+        "Olá! Como você está?",
+        "Você viu minha última foto?",
+        "Que tal sairmos hoje?",
+        "Obrigado pelo like! ❤️",
+        "Você está online?",
+        "Boa noite! 🌙",
+        "Que dia incrível!",
+        "Sinto sua falta"
       ];
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
@@ -420,19 +420,19 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
             onClick={() => setActiveTab("primary")}
             className={`flex-1 text-center py-3 ${activeTab === "primary" ? "border-b-2 border-white font-semibold text-white" : "text-gray-400"}`}
           >
-            Hauptseite
+            Principal
           </button>
           <button
             className="flex-1 text-center py-3 opacity-30 cursor-not-allowed text-gray-500"
             disabled
           >
-            Allgemein
+            Geral
           </button>
           <button
             className="flex-1 text-center py-3 relative opacity-30 cursor-not-allowed text-gray-500"
             disabled
           >
-            Anfragen
+            Solicitações
             <span className="absolute -top-1 -right-1 bg-gray-600 text-gray-400 text-xs rounded-full w-5 h-5 flex items-center justify-center opacity-50">
               2
             </span>
@@ -448,13 +448,13 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
               <div className="relative mb-2">
                 <img
                   src={avatar || avatarImages[0].src}
-                  alt="Tu perfil"
+                  alt="Seu perfil"
                   className="w-16 h-16 rounded-full object-cover border-2 border-gray-600"
                 />
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
               </div>
               <p className="text-white text-xs font-medium truncate w-16">
-                Deine Notiz
+                Sua nota
               </p>
             </div>
 
@@ -482,7 +482,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
             <Search className="w-5 h-5 text-gray-400 mr-3" />
             <input
               type="text"
-              placeholder="Suchen"
+              placeholder="Pesquisar"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="bg-transparent flex-1 text-white placeholder-gray-400 outline-none"
@@ -543,19 +543,19 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
 
             {activeTab === "general" && messagesUnlocked && (
               <div className="p-4 text-center text-gray-400">
-                <p>Allgemeine Unterhaltungen werden hier angezeigt</p>
+                <p>Conversas gerais serão exibidas aqui</p>
               </div>
             )}
 
             {activeTab === "s" && messagesUnlocked && (
               <div className="p-4 text-center text-gray-400">
-                <p>Nachrichtenanfragen werden hier angezeigt</p>
+                <p>Solicitações de mensagens serão exibidas aqui</p>
               </div>
             )}
 
             {(activeTab === "general" || activeTab === "requests") && !messagesUnlocked && (
               <div className="p-4 text-center text-gray-400 opacity-50">
-                <p>Entsperren, um diesen Inhalt zu sehen</p>
+                <p>Desbloqueie para ver este conteúdo</p>
               </div>
             )}
           </div>
@@ -568,7 +568,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
               className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
             >
               <Unlock className="w-5 h-5 mr-2" />
-              NACHRICHTEN ENTSPERREN
+              DESBLOQUEAR MENSAGENS
             </Button>
             </div>
           </div>
@@ -601,7 +601,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
                         </h3>
 
                       </div>
-                      <p className="text-sm text-gray-400 blur-sm">Jetzt aktiv</p>
+                      <p className="text-sm text-gray-400 blur-sm">Ativo agora</p>
                     </div>
                   </div>
                 </div>
@@ -650,14 +650,14 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
                     <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-3">
                       <Unlock className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-white font-bold text-lg mb-2">Gesperrter Inhalt</h3>
-                    <p className="text-gray-300 text-sm mb-4">Inhalt für Minderjährige eingeschränkt</p>
+                    <h3 className="text-white font-bold text-lg mb-2">Conteúdo Bloqueado</h3>
+                    <p className="text-gray-300 text-sm mb-4">Conteúdo restrito para menores</p>
                   </div>
                   <Button
                     onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR', '_blank')}
                     className="w-full h-12 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition-opacity"
                   >
-                    🔒 PREMIUM ERFORDERLICH
+                    🔒 PREMIUM NECESSÁRIO
                   </Button>
                 </div>
               </div>
@@ -669,7 +669,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
                   className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
                 >
                   <Unlock className="w-5 h-5 mr-2" />
-                  NACHRICHTEN ENTSPERREN
+                  DESBLOQUEAR MENSAGENS
                 </Button>
               </div>
             </div>

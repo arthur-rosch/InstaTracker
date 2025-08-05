@@ -22,17 +22,17 @@ interface InteractionsDetectedProps {
 }
 
 const mockInteractions = [
-  { text: "5 Screenshots deiner Stories", icon: Eye },
-  { text: "Sah deine Stories 13 Mal", icon: Eye },
-  { text: "Teilte deine Stories 13 Mal", icon: UserCheck },
-  { text: "Speicherte 15 deiner Beiträge", icon: Heart }
+  { text: "5 Capturas de tela de suas histórias", icon: Eye },
+  { text: "Viu suas histórias 13 vezes", icon: Eye },
+  { text: "Compartilhou suas histórias 13 vezes", icon: UserCheck },
+  { text: "Salvou 15 de suas publicações", icon: Heart }
 ]
 
 export function InteractionsDetected({ username, profileData, followers, followersLoading }: InteractionsDetectedProps) {
   return (
     <section className="space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-white mb-2">Erkannte Interaktionen</h2>
+        <h2 className="text-2xl font-bold text-white mb-2">Interações detectadas</h2>
       </div>
 
       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl space-y-4">

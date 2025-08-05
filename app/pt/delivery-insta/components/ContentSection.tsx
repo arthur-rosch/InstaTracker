@@ -19,8 +19,8 @@ export default function ContentSection({ isActive }: ContentSectionProps) {
                 <Eye className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg md:text-xl">Inhalt</h3>
-                <p className="text-gray-300 text-sm">Stories, Beiträge, geteilte Inhalte ansehen...</p>
+                <h3 className="text-white font-bold text-lg md:text-xl">Conteúdo</h3>
+                <p className="text-gray-300 text-sm">Ver Stories, publicações, conteúdo compartilhado...</p>
               </div>
             </div>
             <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${
@@ -35,7 +35,7 @@ export default function ContentSection({ isActive }: ContentSectionProps) {
           {/* Content Types Progress Bars */}
           <div className="space-y-6 mt-6">
             <div className="space-y-4">
-              <h4 className="text-white font-semibold text-base">Am meisten geteilter Inhaltstyp</h4>
+              <h4 className="text-white font-semibold text-base">Tipo de conteúdo mais compartilhado</h4>
               
               {/* Stories */}
               <div className="space-y-2">
@@ -51,7 +51,7 @@ export default function ContentSection({ isActive }: ContentSectionProps) {
               {/* Publications */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-300 text-sm">Beiträge</span>
+                  <span className="text-gray-300 text-sm">Publicações</span>
                   <span className="text-white text-sm font-medium">{Math.floor(Math.random() * 50) + 30}%</span>
                 </div>
                 <div className="w-full bg-gray-700 rounded-full h-2">
@@ -74,14 +74,14 @@ export default function ContentSection({ isActive }: ContentSectionProps) {
 
             {/* Content shared this week */}
             <div className="space-y-4">
-              <h4 className="text-white font-semibold text-base">Diese Woche geteilte Inhalte</h4>
+              <h4 className="text-white font-semibold text-base">Conteúdo compartilhado esta semana</h4>
               <div className="bg-white/5 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-300 text-sm">Insgesamt geteilt</span>
+                  <span className="text-gray-300 text-sm">Total compartilhado</span>
                   <span className="text-white font-medium">{Math.floor(Math.random() * 100) + 50}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-300 text-sm">Durchschnitt pro Tag</span>
+                  <span className="text-gray-300 text-sm">Média por dia</span>
                   <span className="text-white font-medium">{Math.floor(Math.random() * 15) + 5}</span>
                 </div>
               </div>

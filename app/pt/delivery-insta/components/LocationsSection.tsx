@@ -19,11 +19,11 @@ interface LocationData {
 
 export default function LocationsSection({ isActive }: LocationsSectionProps) {
   const [detectedLocation, setDetectedLocation] = useState<LocationData>({
-    city: "Laden...",
-    country: "Laden...",
+    city: "Carregando...",
+    country: "Carregando...",
     coordinates: { lat: 0, lng: 0 },
     timestamp: new Date().toLocaleString('de-DE'),
-    ip: "Erkennung..."
+    ip: "Detectando..."
   })
   const [isLoading, setIsLoading] = useState(true)
 
@@ -34,7 +34,7 @@ export default function LocationsSection({ isActive }: LocationsSectionProps) {
         <div className="flex items-center justify-center h-full">
           <div className="text-center">
             <div className="w-8 h-8 bg-gray-500 rounded-full mx-auto mb-2 animate-spin"></div>
-            <p className="text-white text-sm">Karte wird geladen...</p>
+            <p className="text-white text-sm">Carregando mapa...</p>
           </div>
         </div>
       ),
@@ -50,14 +50,14 @@ export default function LocationsSection({ isActive }: LocationsSectionProps) {
         const data = await response.json()
 
         setDetectedLocation({
-          city: data.city || "Unbekannt",
-          country: data.country_name || "Unbekannt",
+          city: data.city || "Desconhecido",
+          country: data.country_name || "Desconhecido",
           coordinates: {
             lat: parseFloat(data.latitude) || 0,
             lng: parseFloat(data.longitude) || 0
           },
           timestamp: new Date().toLocaleString('de-DE'),
-          ip: data.ip || "Unbekannt",
+          ip: data.ip || "Desconhecido",
           region: data.region || undefined
         })
       } catch (error) {
@@ -90,8 +90,8 @@ export default function LocationsSection({ isActive }: LocationsSectionProps) {
                 <MapPin className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg md:text-xl">Standort</h3>
-                <p className="text-gray-300 text-sm">Das Telefon, das Sie überwachen möchten, wurde kürzlich an diesem Ort lokalisiert</p>
+                <h3 className="text-white font-bold text-lg md:text-xl">Localização</h3>
+                <p className="text-gray-300 text-sm">O telefone que você deseja monitorar foi localizado recentemente neste local</p>
               </div>
             </div>
             <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${isActive
@@ -114,7 +114,7 @@ export default function LocationsSection({ isActive }: LocationsSectionProps) {
                   <div className="flex items-center justify-center h-full">
                     <div className="text-center">
                       <div className="w-8 h-8 bg-gray-500 rounded-full mx-auto mb-2 animate-spin"></div>
-                      <p className="text-white text-sm">Karte wird geladen...</p>
+                      <p className="text-white text-sm">Carregando mapa...</p>
                     </div>
                   </div>
                 ) : (

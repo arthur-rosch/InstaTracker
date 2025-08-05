@@ -92,14 +92,14 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
         {/* Header with green circle and star */}
         <div className="flex items-center justify-center mb-6">
           <div className="bg-green-500 rounded-full w-12 h-12 flex items-center justify-center mr-4">
-            <Star className="w-6 h-6 text-white fill-white" />
-          </div>
-          <h2 className="text-3xl font-bold text-white">Enge Freunde</h2>
+          <Star className="w-6 h-6 text-white fill-white" />
+        </div>
+        <h2 className="text-3xl font-bold text-white">Amigos Próximos</h2>
         </div>
 
         {/* Subtitle */}
         <p className="text-gray-300 text-lg mb-8">
-          @{profileData?.name || username} und {displayFollowers.length || 4} andere Personen fügten dieses Profil zu engen Freunden hinzu
+          @{profileData?.name || username} e {displayFollowers.length || 4} outras pessoas adicionaram este perfil aos amigos próximos
         </p>
 
         {/* Profile avatars - AvatarGroup style */}
@@ -211,7 +211,7 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
 
         {/* Bottom text */}
         <p className="text-gray-400 text-sm">
-          ...und 2 andere Personen, die {username} nicht folgen
+          ...e 2 outras pessoas que não seguem {username}
         </p>
       </div>
       <div className="pt-4">
@@ -219,7 +219,7 @@ export function CloseFriends({ username, profileData, followers, followersLoadin
           onClick={() => setShowChatList(true)}
           className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
         >
-Stories in Echtzeit ansehen
+Ver histórias em tempo real
         </button>
       </div>
 

@@ -30,24 +30,24 @@ export default function PrintsSection({ isActive, followers }: PrintsSectionProp
   const generatePrints = (followers: Follower[]) => {
     const messageTemplates = [
       [
-        { text: "Was machst du dieses Wochenende?", time: "14:32", isRead: true },
-        { text: "Warum? Vermisst du mich?😏", time: "14:35", isRead: true, sender: "me" },
-        { text: "HAHA ein bisschen 🙈", time: "14:36", isRead: false }
+        { text: "O que você vai fazer neste fim de semana?", time: "14:32", isRead: true },
+        { text: "Por quê? Você sente minha falta?😏", time: "14:35", isRead: true, sender: "me" },
+        { text: "HAHA um pouco 🙈", time: "14:36", isRead: false }
       ],
       [
-        { text: "Hast du meine Story gestern gesehen?", time: "22:15", isRead: true },
-        { text: "Ja, habe ich... du sahst wunderschön aus 🔥", time: "22:18", isRead: true, sender: "me" },
-        { text: "Danke, Schatz ❤️ Ich vermisse dich", time: "22:20", isRead: false }
+        { text: "Você viu minha história ontem?", time: "22:15", isRead: true },
+        { text: "Sim, eu vi... você estava linda 🔥", time: "22:18", isRead: true, sender: "me" },
+        { text: "Obrigado, querida ❤️ Sinto sua falta", time: "22:20", isRead: false }
       ],
       [
-        { text: "Hallo Süßer 😘", time: "19:45", isRead: true },
-        { text: "Hallo Prinzessin, wie war dein Tag?", time: "19:50", isRead: true, sender: "me" },
-        { text: "Besser jetzt, wo du geantwortet hast 💕", time: "19:52", isRead: false }
+        { text: "Olá, querido 😘", time: "19:45", isRead: true },
+        { text: "Olá, princesa, como foi seu dia?", time: "19:50", isRead: true, sender: "me" },
+        { text: "Melhor agora que você respondeu 💕", time: "19:52", isRead: false }
       ],
       [
-        { text: "Ich vermisse dich...", time: "23:30", isRead: true },
-        { text: "Ich auch... wann können wir uns sehen?", time: "23:33", isRead: true, sender: "me" },
-        { text: "Morgen? Meine Eltern sind nicht zu Hause 😏", time: "23:35", isRead: false }
+        { text: "Sinto sua falta...", time: "23:30", isRead: true },
+        { text: "Eu também... quando podemos nos ver?", time: "23:33", isRead: true, sender: "me" },
+        { text: "Amanhã? Meus pais não estão em casa 😏", time: "23:35", isRead: false }
       ]
     ];
 

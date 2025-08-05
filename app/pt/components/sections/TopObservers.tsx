@@ -22,9 +22,9 @@ interface TopObserversProps {
 }
 
 const mockTopObservers = [
-  { username: "@g********", action: "42 Beiträge gespeichert" },
-  { username: "@d********", action: "65 Profilaufrufe" },
-  { username: "@k********", action: "52 Stories angesehen" }
+  { username: "@g********", action: "42 Publicações salvas" },
+  { username: "@d********", action: "65 Visualizações de perfil" },
+  { username: "@k********", action: "52 Histórias visualizadas" }
 ]
 
 const ActivityItem = ({ username, action, icon: Icon }: {
@@ -45,8 +45,8 @@ export function TopObservers({ username, profileData, followers, followersLoadin
   return (
     <section className="space-y-6">
       <div className="text-center mb-6">
-        <h3 className="text-xl font-bold text-white mb-2">Deine wichtigsten Beobachter</h3>
-        <p className="text-gray-300">Diese Profile interagieren am meisten mit deinem Inhalt</p>
+        <h3 className="text-xl font-bold text-white mb-2">Seus principais observadores</h3>
+        <p className="text-gray-300">Esses perfis interagem mais com seu conteúdo</p>
       </div>
 
       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl space-y-4">

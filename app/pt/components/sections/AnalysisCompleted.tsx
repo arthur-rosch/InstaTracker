@@ -109,7 +109,7 @@ cd      } catch (error) {
           </div>
           <div className="flex items-center space-x-3 mb-4">
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <p className="text-white text-lg font-medium">{followers.length > 0 ? followers.length : 4} Profile aus {userCity} greifen jetzt auf dieses Profil zu</p>
+            <p className="text-white text-lg font-medium">{followers.length > 0 ? followers.length : 4} Perfis de {userCity} estão acessando este perfil agora</p>
             {followersLoading && <span className="text-gray-400 text-sm">Laden...</span>}
           </div>
         </div>
@@ -141,7 +141,7 @@ cd      } catch (error) {
             </div>
             <div>
               <h3 className="text-red-400 font-bold text-lg">Super-Stalker encontrado!</h3>
-              <p className="text-white">{profileData?.name || username} hat einen Fan im Profil!</p>
+              <p className="text-white">{profileData?.name || username} tem um fã no perfil!</p>
             </div>
           </div>
 

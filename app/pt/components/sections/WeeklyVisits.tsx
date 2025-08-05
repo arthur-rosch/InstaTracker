@@ -31,7 +31,7 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
   const [api, setApi] = useState<CarouselApi>();
   const autoScrollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Verwende nur die ersten 5 Follower für das Karussell
+  // Use apenas os primeiros 5 seguidores para o carrossel
   const displayFollowers = followers.slice(0, 5);
 
   // Auto-scroll effect
@@ -53,7 +53,7 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
 
     startAutoScroll();
 
-    // Stoppe Auto-Scroll, wenn der Benutzer interagiert
+    // Parar o auto-scroll quando o usuário interage
     api.on("pointerDown", stopAutoScroll);
     api.on("pointerUp", () => {
       setTimeout(startAutoScroll, 1000); // Retomar após 3 segundos
@@ -71,7 +71,7 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
         <div className="text-white text-lg">↓</div>
         <h3 className="text-xl font-bold text-white">Última semana</h3>
         <p className="text-gray-400">16/07 - 22/07</p>
-        <p className="text-white font-semibold">Besuchten dieses Profil diese Woche 2 bis 7 Mal:</p>
+        <p className="text-white font-semibold">Visitaram este perfil de 2 a 7 vezes esta semana:</p>
       </div>
 
       <Carousel
@@ -127,7 +127,7 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
         </CarouselContent>
       </Carousel>
 
-      <p className="text-center text-orange-400 font-semibold">... y más:</p>
+      <p className="text-center text-orange-400 font-semibold">... e mais:</p>
 
       {/* Statistics Cards */}
       <div className="space-y-4">
@@ -136,7 +136,7 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
             <div className="flex items-center space-x-3">
               <div className="text-4xl font-bold text-red-400">19</div>
               <div>
-                <p className="text-white font-semibold">Follower von {profileData?.name || username} haben sexuelle Interessen</p>
+                <p className="text-white font-semibold">Seguidores de {profileData?.name || username} têm interesses sexuais</p>
               </div>
             </div>
             <div className="text-2xl">❤️</div>
@@ -148,7 +148,7 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
             <div className="flex items-center space-x-3">
               <div className="text-4xl font-bold text-orange-400">3</div>
               <div>
-                <p className="text-white font-semibold">Conversaciones de {profileData?.name || username} en Direct contienen Desnudos</p>
+                <p className="text-white font-semibold">Conversas de {profileData?.name || username} no Direct contêm Nudez</p>
               </div>
             </div>
             <div className="text-2xl">🔥</div>
@@ -160,7 +160,7 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
             <div className="flex items-center space-x-2">
               <div className="text-2xl">⚠️</div>
               <div>
-                <p className="text-white font-semibold">Profile wurden in den Stories und Beiträgen von {profileData?.name || username} eingeschränkt</p>
+                <p className="text-white font-semibold">Perfis foram restritos nas histórias e publicações de {profileData?.name || username}</p>
               </div>
             </div>
             <div className="text-2xl">🚫</div>
@@ -174,7 +174,7 @@ export function WeeklyVisits({ username, profileData, followers, followersLoadin
           onClick={() => setShowChatList(!showChatList)}
           className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
         >
-          {showChatList ? 'Gespräche ausblenden' : 'Gespräche in Echtzeit ansehen'}
+          {showChatList ? 'Ocultar conversas' : 'Ver conversas em tempo real'}
         </button>
       </div>
 

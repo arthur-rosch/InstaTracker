@@ -50,10 +50,10 @@ export default function MapboxMap({ position, city, country, ip, zoom = 13 }: Ma
       .setLngLat([lng, lat])
       .setHTML(`
          <div class="p-3 min-w-[200px]">
-           <h4 class="text-white font-semibold text-sm">Erkannter Standort</h4>
+           <h4 class="text-white font-semibold text-sm">Localização Detectada</h4>
            <p class="text-gray-300 text-xs">📍 ${city}, ${country}</p>
            <p class="text-gray-400 text-xs">IP: ${ip}</p>
-           <p class="text-gray-400 text-xs">Genauigkeit: ±50m</p>
+           <p class="text-gray-400 text-xs">Precisão: ±50m</p>
          </div>
        `)
       .addTo(map.current)

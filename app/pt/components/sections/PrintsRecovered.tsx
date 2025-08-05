@@ -32,28 +32,28 @@ export function PrintsRecovered({ username, profileData, followers, followersLoa
     <section className="space-y-6">
       <div className="text-center">
         <h2 className="text-2xl font-bold">
-          <span className="instagram-gradient-text">Screenshots</span> wiederhergestellt
+          <span className="instagram-gradient-text">Capturas de tela</span> recuperadas
         </h2>
-        <p className="text-gray-300 mt-2">Unsere künstliche Intelligenz suchte</p>
+        <p className="text-gray-300 mt-2">Nossa inteligência artificial procurou</p>
         <p className="text-white font-semibold">
-          auf ganz Instagram <span className="text-gray-400">nach Direct-Unterhaltungen von</span>
+          em todo o Instagram <span className="text-gray-400">por conversas diretas de</span>
         </p>
         <p className="instagram-gradient-text font-semibold">@{username}</p>
       </div>
 
       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl text-center">
-        <h3 className="text-xl font-bold text-white mb-4">4 Screenshots extrahiert</h3>
-        <h4 className="text-lg font-semibold text-white mb-4">aus den DMs von @{username}</h4>
-        <p className="text-gray-300 mb-2">Wir haben mehrere Nachrichten mit</p>
+        <h3 className="text-xl font-bold text-white mb-4">4 Capturas de tela extraídas</h3>
+        <h4 className="text-lg font-semibold text-white mb-4">das DMs de @{username}</h4>
+        <p className="text-gray-300 mb-2">Encontramos várias mensagens com</p>
         <p className="text-white font-semibold">
-          <span className="text-red-400">sexuellem Inhalt</span> und{" "}
-          <span className="text-red-400">expliziter Nacktheit</span> entdeckt
+          <span className="text-red-400">conteúdo sexual</span> e{" "}
+          <span className="text-red-400">nudez explícita</span>
         </p>
       </div>
 
       {/* DM Prints Carousel */}
       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
-        <h4 className="text-lg font-semibold text-white mb-4 text-center">DM-Unterhaltungen</h4>
+        <h4 className="text-lg font-semibold text-white mb-4 text-center">Conversas de DM</h4>
         <Carousel 
           className="w-full max-w-xs mx-auto"
           opts={{
@@ -82,9 +82,9 @@ export function PrintsRecovered({ username, profileData, followers, followersLoa
       <div className="bg-red-900/20 border border-red-500/30 rounded-2xl p-4 shadow-xl">
         <div className="flex items-center space-x-3">
           <AlertTriangle className="w-6 h-6 text-red-400" />
-          <p className="text-red-400 font-semibold">Verlassen Sie diese Seite nicht.</p>
+          <p className="text-red-400 font-semibold">Não saia desta página.</p>
         </div>
-        <p className="text-white text-center mt-2">Wir erlauben nur EINE ANSICHT pro Gerät.</p>
+        <p className="text-white text-center mt-2">Permitimos apenas UMA VISUALIZAÇÃO por dispositivo.</p>
       </div>
     </section>
   )

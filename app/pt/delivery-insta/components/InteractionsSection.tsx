@@ -55,8 +55,8 @@ export default function InteractionsSection({ isActive, followers }: Interaction
                 <Activity className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg md:text-xl">Interaktionen</h3>
-                <p className="text-gray-300 text-sm">DMs, Stalker, Weiterleitungen ansehen...</p>
+                <h3 className="text-white font-bold text-lg md:text-xl">Interações</h3>
+                <p className="text-gray-300 text-sm">Ver DMs, Stalkers, Redirecionamentos...</p>
               </div>
             </div>
             <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${isActive
@@ -96,7 +96,7 @@ export default function InteractionsSection({ isActive, followers }: Interaction
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
                     <div className="text-purple-400 font-bold text-2xl md:text-3xl">85%</div>
-                    <div className="text-gray-400 text-sm">Rate</div>
+                    <div className="text-gray-400 text-sm">Taxa</div>
                   </div>
                 </div>
               </div>
@@ -107,18 +107,18 @@ export default function InteractionsSection({ isActive, followers }: Interaction
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-4 h-4 bg-purple-500 rounded-full"></div>
-                  <span className="text-white text-base font-medium">85% Stories angesehen</span>
+                  <span className="text-white text-base font-medium">85% Histórias visualizadas</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-4 h-4 bg-gray-600 rounded-full"></div>
-                  <span className="text-gray-400 text-base">15% Nicht angesehen</span>
+                  <span className="text-gray-400 text-base">15% Não visualizadas</span>
                 </div>
               </div>
             </div>
 
             {/* Followers Section */}
             <div className="text-center">
-              <p className="text-white font-semibold text-base mb-4">Follower ansehen</p>
+              <p className="text-white font-semibold text-base mb-4">Ver Seguidores</p>
               <div 
                 className="flex items-center justify-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => setIsModalOpen(true)}
@@ -141,10 +141,10 @@ export default function InteractionsSection({ isActive, followers }: Interaction
 
             {/* Shared Profile Section */}
             <div className="text-center">
-              <p className="text-white font-semibold text-base mb-4">Dein Profil wurde diese Woche geteilt</p>
+              <p className="text-white font-semibold text-base mb-4">Seu perfil foi compartilhado esta semana</p>
               <div className="flex items-center justify-center space-x-3">
                 <span className="text-purple-400 font-bold text-2xl">11</span>
-                <span className="text-gray-400 text-base">Personen</span>
+                <span className="text-gray-400 text-base">Pessoas</span>
                 <div className="text-purple-400">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
@@ -160,7 +160,7 @@ export default function InteractionsSection({ isActive, followers }: Interaction
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="bg-black/95 border border-white/20 text-white w-[95vw] max-w-lg max-h-[85vh] overflow-hidden">
           <DialogHeader className="flex flex-row items-center justify-between pb-4">
-            <DialogTitle className="text-lg md:text-xl font-bold">Follower ({displayFollowers.length})</DialogTitle>
+            <DialogTitle className="text-lg md:text-xl font-bold">Seguidores ({displayFollowers.length})</DialogTitle>
             <Button
               variant="ghost"
               size="sm"
@@ -189,7 +189,7 @@ export default function InteractionsSection({ isActive, followers }: Interaction
                   className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white text-xs md:text-sm px-3 py-1 flex-shrink-0"
                   onClick={() => window.open(`https://instagram.com/${follower.username}`, '_blank')}
                 >
-                  Ansehen
+                  Ver
                 </Button>
               </div>
             ))}

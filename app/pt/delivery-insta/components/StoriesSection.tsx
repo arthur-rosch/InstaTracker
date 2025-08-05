@@ -105,12 +105,12 @@ const storiesData = [
   }
 ]
 
-// Funktion zur Normalisierung von Stories
+// Função para normalizar Stories
 function mapStories(stories: Story[], followers: Follower[]) {
   return stories
     .filter(story => story.image)
     .map((story, index) => {
-      // Verwende die Proxy-API für Story-Bilder
+      // Use a API de proxy para imagens de Story
       const proxyImageUrl = story.image!.url;
 
       return {
@@ -125,7 +125,7 @@ function mapStories(stories: Story[], followers: Follower[]) {
     });
 }
 
-// Funktion zur Normalisierung von Highlights
+// Função para normalizar Highlights
 function mapHighlights(highlights: Highlight[], followers: Follower[]) {
   const highlightItems: {
     id: string;
@@ -137,7 +137,7 @@ function mapHighlights(highlights: Highlight[], followers: Follower[]) {
   highlights.forEach((highlight) => {
     highlight.items.forEach((item, itemIndex) => {
       if (item.image?.url) {
-        // Verwende die Proxy-API für Highlight-Bilder
+        // Use a API de proxy para imagens de Highlight
         const proxyImageUrl = item.image.url;
 
         highlightItems.push({
@@ -169,7 +169,7 @@ export default function StoriesSection({
     viewers: { id: number; avatar: string }[];
   }[] = [];
 
-  // Priorisiere Stories, dann Highlights, dann Mock-Daten
+  // Priorize Stories, depois Highlights, depois dados Mock
   if (stories && stories.length > 0) {
     displayStories = mapStories(stories, followers);
   } else if (highlights && highlights.length > 0) {
@@ -190,7 +190,7 @@ export default function StoriesSection({
             </div>
             <div>
               <h3 className="text-white font-bold text-lg md:text-xl">Stories</h3>
-              <p className="text-gray-300 text-sm">Stories, die pausiert wurden</p>
+              <p className="text-gray-300 text-sm">Stories que foram pausadas</p>
             </div>
           </div>
           <div className={`px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${isActive
@@ -221,7 +221,7 @@ export default function StoriesSection({
                         <div className="space-y-2">
                           {/* Paused Profiles Text */}
                           <div className="text-white font-semibold text-sm">
-                            {story.pausedProfiles} Profile pausiert für +13s
+                            {story.pausedProfiles} perfis pausados por +13s
                           </div>
                           {/* Avatars */}
                           <div className="flex -space-x-2">

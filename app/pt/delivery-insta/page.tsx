@@ -95,9 +95,9 @@ export default function DeliveryInstaPage() {
 
               {/* Main Title - same as delivery */}
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                Lieferbericht
+                Relatório de Entrega
               </h1>
-              <p className="text-gray-300 text-lg mb-8">Vollständiger Aktivitätsbericht für @{currentUsername}</p>
+              <p className="text-gray-300 text-lg mb-8">Relatório de Atividade Completo para @{currentUsername}</p>
 
               <div className="inline-block bg-white/5 backdrop-blur-xl border border-purple-400/30 rounded-2xl px-6 py-4 mb-6 shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-2xl"></div>
@@ -105,7 +105,7 @@ export default function DeliveryInstaPage() {
                   <Instagram className="w-6 h-6 text-purple-400" />
                   <div className="text-left">
                     <h2 className="text-white font-bold text-lg">@{currentUsername}</h2>
-                    <p className="text-purple-300 text-sm">Vollständige Instagram-Analyse</p>
+                    <p className="text-purple-300 text-sm">Análise Completa do Instagram</p>
                   </div>
                   <button
                     onClick={handleBackToForm}
@@ -147,8 +147,8 @@ export default function DeliveryInstaPage() {
                         <Activity className="w-6 h-6 md:w-8 md:h-8 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-white font-bold text-lg md:text-xl">Temporäre Nachrichten</h3>
-                        <p className="text-gray-300 text-sm">Wiederherstellung gelöschter temporärer Nachrichten</p>
+                        <h3 className="text-white font-bold text-lg md:text-xl">Mensagens Temporárias</h3>
+                        <p className="text-gray-300 text-sm">Recuperação de mensagens temporárias excluídas</p>
                       </div>
                     </div>
                     <div className="px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm bg-green-500/20 text-green-400 border border-green-500/30">
@@ -165,8 +165,8 @@ export default function DeliveryInstaPage() {
                           <Eye className="w-4 h-4 text-white" />
                         </div>
                         <div className="flex-1">
-                          <h4 className="text-white font-semibold">Schutz umgehen</h4>
-                          <p className="text-gray-300 text-sm">Umgehung des Schutzes temporärer Nachrichten...</p>
+                          <h4 className="text-white font-semibold">Contornar Proteção</h4>
+                          <p className="text-gray-300 text-sm">Contornando a proteção de mensagens temporárias...</p>
                         </div>
                       </div>
                     </div>
@@ -178,8 +178,8 @@ export default function DeliveryInstaPage() {
                           <Activity className="w-4 h-4 text-white" />
                         </div>
                         <div className="flex-1">
-                          <h4 className="text-white font-semibold">Medien-Wiederherstellung</h4>
-                          <p className="text-gray-300 text-sm">Suche nach temporären Fotos und Videos der letzten 30 Tage...</p>
+                          <h4 className="text-white font-semibold">Recuperação de Mídia</h4>
+                          <p className="text-gray-300 text-sm">Buscando fotos e vídeos temporários dos últimos 30 dias...</p>
                         </div>
                       </div>
                     </div>
@@ -191,8 +191,8 @@ export default function DeliveryInstaPage() {
                           <Activity className="w-4 h-4 text-white" />
                         </div>
                         <div className="flex-1">
-                          <h4 className="text-white font-semibold">Interaktionsanalyse</h4>
-                          <p className="text-gray-300 text-sm">Identifizierung verdächtiger Interaktionsmuster...</p>
+                          <h4 className="text-white font-semibold">Análise de Interação</h4>
+                          <p className="text-gray-300 text-sm">Identificando padrões de interação suspeitos...</p>
                         </div>
                       </div>
                     </div>
@@ -203,8 +203,8 @@ export default function DeliveryInstaPage() {
                     <div className="flex items-center space-x-3">
                       <Loader2 className="w-5 h-5 text-orange-400 animate-spin" />
                       <div>
-                        <h4 className="text-white font-semibold">Analyse läuft</h4>
-                        <p className="text-gray-300 text-sm">Der detaillierte Bericht mit ausführlicher Profilanalyse wird in 7 Tagen verfügbar sein.</p>
+                        <h4 className="text-white font-semibold">Análise em Andamento</h4>
+                        <p className="text-gray-300 text-sm">O relatório detalhado com análise aprofundada do perfil estará disponível em 7 dias.</p>
                       </div>
                     </div>
                   </div>
@@ -212,27 +212,27 @@ export default function DeliveryInstaPage() {
                   {/* Exclusive Bonus */}
                   <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-400/30 rounded-xl p-6 mb-6">
                     <div className="text-center mb-4">
-                      <h4 className="text-white font-bold text-lg mb-2">🎁 Exklusiver Bonus!</h4>
-                      <p className="text-gray-300">Du erhältst das komplette MemberKit per E-Mail in 24 Stunden mit über 1000$ an kostenlosen Inhalten!</p>
+                      <h4 className="text-white font-bold text-lg mb-2">🎁 Bônus Exclusivo!</h4>
+                      <p className="text-gray-300">Você receberá o MemberKit completo por e-mail em 24 horas com mais de US$ 1000 em conteúdo gratuito!</p>
                     </div>
 
                     <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4">
-                      <h5 className="text-purple-300 font-semibold mb-3">📧 Was du erhältst:</h5>
+                      <h5 className="text-purple-300 font-semibold mb-3">📧 O que você receberá:</h5>
                       <ul className="space-y-2 text-gray-300 text-sm">
                         <li className="flex items-center space-x-2">
                           <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                          <span>Vollzugang zum MemberKit</span>
+                          <span>Acesso total ao MemberKit</span>
                         </li>
                         <li className="flex items-center space-x-2">
                           <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                          <span>Über 1000$ an Premium-Inhalten</span>
+                          <span>Mais de US$ 1000 em conteúdo premium</span>
                         </li>
                         <li className="flex items-center space-x-2">
                           <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                          <span>Direkt an deine E-Mail gesendet</span>
+                          <span>Enviado diretamente para o seu e-mail</span>
                         </li>
                       </ul>
-                      <p className="text-yellow-400 text-sm mt-3 font-semibold">Überprüfe deinen Posteingang und Spam-Ordner</p>
+                      <p className="text-yellow-400 text-sm mt-3 font-semibold">Verifique sua caixa de entrada e pasta de spam</p>
                     </div>
                   </div>
 
@@ -242,9 +242,9 @@ export default function DeliveryInstaPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                          <span className="text-gray-300 text-sm">Yesterday, 23:45</span>
+                          <span className="text-gray-300 text-sm">Ontem, 23:45</span>
                         </div>
-                        <span className="text-red-400 text-sm font-semibold">Temporäre Nachricht</span>
+                        <span className="text-red-400 text-sm font-semibold">Mensagem Temporária</span>
                       </div>
                     </div>
 
@@ -252,9 +252,9 @@ export default function DeliveryInstaPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                          <span className="text-gray-300 text-sm">Yesterday, 22:30</span>
+                          <span className="text-gray-300 text-sm">Ontem, 22:30</span>
                         </div>
-                        <span className="text-red-400 text-sm font-semibold">Mensaje Temporal</span>
+                        <span className="text-red-400 text-sm font-semibold">Mensagem Temporária</span>
                       </div>
                     </div>
                   </div>
@@ -298,7 +298,7 @@ export default function DeliveryInstaPage() {
             className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors mb-8"
           >
             <ArrowLeft className="w-5 h-5" />
-            <span>Zurück zu Diensten</span>
+            <span>Voltar aos Serviços</span>
           </button>
 
           {/* Header Section */}
@@ -309,8 +309,8 @@ export default function DeliveryInstaPage() {
               <div className="relative z-10 flex items-center space-x-3">
                 <Instagram className="w-8 h-8 text-purple-400" />
                 <div className="text-left">
-                  <h2 className="text-white font-bold text-xl">Instagram-Spion</h2>
-                  <p className="text-purple-300 text-sm">Zugriff auf DMs, Stalker, Weiterleitungen...</p>
+                  <h2 className="text-white font-bold text-xl">Espião do Instagram</h2>
+                  <p className="text-purple-300 text-sm">Acesso a DMs, Stalkers, Redirecionamentos...</p>
                 </div>
               </div>
             </div>
@@ -320,15 +320,15 @@ export default function DeliveryInstaPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent rounded-2xl"></div>
               <div className="relative z-10 flex items-center space-x-3">
                 <div className="text-left">
-                  <p className="text-green-500/80 text-sm font-semibold">Dein Kauf wurde genehmigt!</p>
+                  <p className="text-green-500/80 text-sm font-semibold">Sua compra foi aprovada!</p>
                 </div>
               </div>
             </div>
             <h1 className="text-2xl md:text-5xl font-bold text-white mb-4">
-              Instagram @ eingeben
+              Digite o Instagram @
             </h1>
             <p className="text-gray-300 text-sm mb-8">
-              Du kannst jederzeit über den Link in deiner E-Mail auf diese Plattform zugreifen
+              Você pode acessar esta plataforma a qualquer momento através do link em seu e-mail
             </p>
           </div>
 
@@ -339,7 +339,7 @@ export default function DeliveryInstaPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="username" className="block text-white font-semibold mb-3 text-lg">
-                    Instagram-Benutzername
+                    Nome de Usuário do Instagram
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg font-semibold">
@@ -357,7 +357,7 @@ export default function DeliveryInstaPage() {
                     />
                   </div>
                   <p className="text-gray-400 text-sm mt-2">
-                    Gib nur den Benutzernamen ein, ohne das @-Symbol
+                    Digite apenas o nome de usuário, sem o símbolo @
                   </p>
                 </div>
 
@@ -369,10 +369,10 @@ export default function DeliveryInstaPage() {
                   {isLoading ? (
                     <>
                       <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Bericht wird verarbeitet...
+                      Relatório sendo processado...
                     </>
                   ) : (
-                    "SPIONAGE-BERICHT ERSTELLEN"
+                    "CRIAR RELATÓRIO DE ESPIONAGEM"
                   )}
                 </Button>
               </form>

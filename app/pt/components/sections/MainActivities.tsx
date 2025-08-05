@@ -26,9 +26,9 @@ interface MainActivitiesProps {
 }
 
 const mockActivities = [
-  { username: "@d******", action: "DM-Nachrichten gelöscht - 12 Mal gestern", icon: Lock },
-  { username: "@a******", action: "Zu engen Freunden hinzugefügt", icon: Users },
-  { username: "@o******", action: "Verbrachte +52m im Videoanruf mit eo.rosch", icon: Clock }
+  { username: "@d******", action: "Mensagens DM excluídas - 12 vezes ontem", icon: Lock },
+  { username: "@a******", action: "Adicionado aos amigos próximos", icon: Users },
+  { username: "@o******", action: "Passou +52m em chamada de vídeo com eo.rosch", icon: Clock }
 ]
 
 const ActivityItem = ({ username, action, icon: Icon }: {
@@ -51,7 +51,7 @@ export function MainActivities({ username, profileData, followers, followersLoad
   return (
     <section className="space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-white mb-2">Hauptaktivitäten dieser Woche erkannt</h2>
+        <h2 className="text-2xl font-bold text-white mb-2">Principais atividades detectadas esta semana</h2>
       </div>
 
       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl space-y-4">
@@ -70,14 +70,14 @@ export function MainActivities({ username, profileData, followers, followersLoad
           onClick={() => setShowChatList(true)}
           className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
         >
-          Zugriff auf Instagram in Echtzeit
+          Acesso ao Instagram em tempo real
         </button>
       </div>
 
       <div className="bg-red-900/20 border border-red-500/30 rounded-2xl p-4 shadow-xl">
         <div className="flex items-center space-x-3">
           <AlertTriangle className="w-6 h-6 text-red-400" />
-          <p className="text-white">Profile wurden in den Stories und Beiträgen von {username} eingeschränkt</p>
+          <p className="text-white">Perfis foram restritos nas histórias e publicações de {username}</p>
         </div>
       </div>
 
@@ -85,8 +85,8 @@ export function MainActivities({ username, profileData, followers, followersLoad
         <div className="mb-4">
           <div className="flex items-center space-x-3 mb-3">
             <div>
-              <h3 className="text-white font-bold text-lg">Standortaktivität erkannt</h3>
-              <p className="text-gray-300 text-sm">Echtzeit-Standortverfolgung</p>
+              <h3 className="text-white font-bold text-lg">Atividade de localização detectada</h3>
+              <p className="text-gray-300 text-sm">Rastreamento de localização em tempo real</p>
             </div>
           </div>
         </div>

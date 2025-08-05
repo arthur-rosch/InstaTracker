@@ -38,7 +38,7 @@ export default function MentionsSection({ isActive, mentionsCount = 19, follower
                 <MessageCircle className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg md:text-xl">Erwähnungsschätzung</h3>
+                <h3 className="text-white font-bold text-lg md:text-xl">Estimativa de Menções</h3>
               </div>
             </div>
             <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${
@@ -54,7 +54,7 @@ export default function MentionsSection({ isActive, mentionsCount = 19, follower
           <div className="space-y-6">
             {/* Mentions Count */}
             <div className="text-center">
-              <h2 className="text-white font-bold text-4xl md:text-5xl mb-2">{mentionsCount} Erwähnungen</h2>
+              <h2 className="text-white font-bold text-4xl md:text-5xl mb-2">{mentionsCount} Menções</h2>
             </div>
 
             {/* Sample Avatars */}
@@ -78,16 +78,16 @@ export default function MentionsSection({ isActive, mentionsCount = 19, follower
             {/* Description */}
             <div className="text-center space-y-2">
               <p className="text-white text-sm md:text-base font-medium">
-                Entsperre das Capture-Center, um Nachrichten zu sehen, die
+                Desbloqueie o Centro de Captura para ver as mensagens que
               </p>
               <p className="text-white text-sm md:text-base font-medium">
-                deinen Namen erwähnt haben.
+                mencionaram seu nome.
               </p>
             </div>
 
             {/* Status */}
             <div className="text-center">
-              <p className="text-gray-400 text-sm">Jetzt aktualisiert</p>
+              <p className="text-gray-400 text-sm">Atualizado agora</p>
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function MentionsSection({ isActive, mentionsCount = 19, follower
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="bg-black/95 border border-white/20 text-white w-[95vw] max-w-lg max-h-[85vh] overflow-hidden">
           <DialogHeader className="flex flex-row items-center justify-between pb-4">
-            <DialogTitle className="text-lg md:text-xl font-bold">Personen, die dich erwähnt haben ({displayFollowers.length})</DialogTitle>
+            <DialogTitle className="text-lg md:text-xl font-bold">Pessoas que te mencionaram ({displayFollowers.length})</DialogTitle>
             <Button
               variant="ghost"
               size="sm"
@@ -126,7 +126,7 @@ export default function MentionsSection({ isActive, mentionsCount = 19, follower
                   className="border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white text-xs md:text-sm px-3 py-1 flex-shrink-0"
                   onClick={() => window.open(`https://instagram.com/${follower.username}`, '_blank')}
                 >
-                  Ansehen
+                  Ver
                 </Button>
               </div>
             ))}

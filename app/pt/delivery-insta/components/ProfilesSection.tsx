@@ -13,7 +13,7 @@ export default function ProfilesSection({ isActive, profile }: ProfilesSectionPr
   if (!profile) {
     return (
       <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl">
-        <div className="text-center text-gray-400">Profil wird geladen...</div>
+        <div className="text-center text-gray-400">Carregando perfil...</div>
       </div>
     )
   }
@@ -33,8 +33,8 @@ export default function ProfilesSection({ isActive, profile }: ProfilesSectionPr
                 <Users className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg md:text-xl">Profile</h3>
-                <p className="text-gray-300 text-sm">Besuchte Profile, Stalker ansehen...</p>
+                <h3 className="text-white font-bold text-lg md:text-xl">Perfis</h3>
+                <p className="text-gray-300 text-sm">Ver perfis visitados, stalkers...</p>
               </div>
             </div>
             <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${isActive
@@ -95,19 +95,19 @@ export default function ProfilesSection({ isActive, profile }: ProfilesSectionPr
                   <div className="text-white font-bold text-lg">
                     {profile.totalFollower.toLocaleString()}
                   </div>
-                  <div className="text-gray-400 text-sm">Follower</div>
+                  <div className="text-gray-400 text-sm">Seguidores</div>
                 </div>
                 <div className="text-center flex-1">
                   <div className="text-white font-bold text-lg">
                     {profile.totalFollowing.toLocaleString()}
                   </div>
-                  <div className="text-gray-400 text-sm">Folge ich</div>
+                  <div className="text-gray-400 text-sm">Seguindo</div>
                 </div>
                 <div className="text-center flex-1">
                   <div className="text-white font-bold text-lg">
                     {profile.totalPosts.toLocaleString()}
                   </div>
-                  <div className="text-gray-400 text-sm">Beiträge</div>
+                  <div className="text-gray-400 text-sm">Publicações</div>
                 </div>
               </div>
             </div>
@@ -118,14 +118,14 @@ export default function ProfilesSection({ isActive, profile }: ProfilesSectionPr
             <div className="flex justify-center space-x-8">
               <div className="text-center">
                 <div className="text-purple-400 font-bold text-2xl">100%</div>
-                <div className="text-gray-400 text-sm">Vollständige Analyse</div>
+                <div className="text-gray-400 text-sm">Análise Completa</div>
               </div>
               <div className="text-center">
                 <div className="text-purple-400 font-bold text-2xl">24h</div>
-                <div className="text-gray-400 text-sm">Überwachung</div>
+                <div className="text-gray-400 text-sm">Monitoramento</div>
               </div>
               <div className="text-center">
-                <div className="text-purple-400 font-bold text-2xl">Live</div>
+                <div className="text-purple-400 font-bold text-2xl">Ao Vivo</div>
                 <div className="text-gray-400 text-sm">Status</div>
               </div>
             </div>

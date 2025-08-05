@@ -21,15 +21,15 @@ export default function GallerySection({ isActive }: GallerySectionProps) {
                 <AlertTriangle className="w-6 h-6 md:w-8 md:h-8 text-red-400" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg md:text-xl">Verdächtige Fotos</h3>
-                <p className="text-gray-400 text-sm">Potenziell kompromittierender Inhalt erkannt</p>
+                <h3 className="text-white font-bold text-lg md:text-xl">Fotos Suspeitas</h3>
+                <p className="text-gray-400 text-sm">Conteúdo potencialmente comprometedor detectado</p>
               </div>
             </div>
             <div className={`px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${isActive
                 ? 'bg-red-500/20 text-red-400 border border-red-500/30'
                 : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
               }`}>
-              {isActive ? 'Alarm' : 'Inaktiv'}
+              {isActive ? 'Alerta' : 'Inativo'}
             </div>
           </div>
 
@@ -38,7 +38,7 @@ export default function GallerySection({ isActive }: GallerySectionProps) {
             <div className="relative aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden border border-red-500/30 shadow-lg">
               <Image
                 src={suspiciousPhoto}
-                alt="Verdächtiger Inhalt erkannt"
+                alt="Conteúdo suspeito detectado"
                 fill
                 className="object-cover"
                 priority
@@ -56,17 +56,17 @@ export default function GallerySection({ isActive }: GallerySectionProps) {
             <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
               <div className="flex items-center justify-center space-x-2 mb-2">
                 <AlertTriangle className="w-5 h-5 text-red-400" />
-                <span className="text-red-400 font-semibold">Datenschutz-Alarm</span>
+                <span className="text-red-400 font-semibold">Alerta de Privacidade</span>
               </div>
               <p className="text-gray-300 text-sm">
-                Potenziell kompromittierender Inhalt wurde erkannt und erfasst.
+                Conteúdo potencialmente comprometedor foi detectado e registrado.
               </p>
             </div>
 
             <div className="space-y-1">
-              <p className="text-white font-bold text-xl">1 Verdächtiges Foto</p>
-              <p className="text-red-400 text-sm">Erfordert sofortige Aufmerksamkeit</p>
-              <p className="text-gray-400 text-xs">Letzte Erkennung: Gerade jetzt</p>
+              <p className="text-white font-bold text-xl">1 Foto Suspeita</p>
+              <p className="text-red-400 text-sm">Requer atenção imediata</p>
+              <p className="text-gray-400 text-xs">Última detecção: Agora mesmo</p>
             </div>
           </div>
         </div>
