@@ -561,7 +561,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
             </div>
 
             {/* Fixed Footer Button */}
-            <div className="fixed bottom-0 left-0 right-0 w-full p-4 pb-safe z-[9999]">
+            <div className="fixed bottom-10 left-0 right-0 w-full p-4 pb-safe z-[9999]">
               <div className="max-w-sm mx-auto">
                 <Button
                   onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR')}
@@ -663,7 +663,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
                 </div>
 
                 {/* Fixed Footer Button */}
-                <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent z-20">
+                <div className="fixed bottom-10 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent z-20">
                   <Button
                     onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR', '_blank')}
                     className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"

@@ -386,7 +386,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-black text-white border-gray-800 max-w-md w-full h-[100vh] max-h-[100vh] overflow-hidden flex flex-col p-0 sm:max-h-[80vh] sm:rounded-lg sm:h-auto">
+      <DialogContent className="bg-black text-white border-gray-800 max-w-md w-full h-[100vh] max-h-[100vh] overflow-none flex flex-col p-0 sm:max-h-[80vh] sm:rounded-lg sm:h-auto">
         <DialogHeader className="p-4 border-b border-gray-800">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -412,260 +412,159 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
             </div>
           </div>
         </DialogHeader>
-          <div className="flex-grow overflow-y-auto pb-[88px]">
+        <div className="flex-grow overflow-y-auto pb-[88px]">
 
-        {/* Tabs */}
-        <div className="flex border-b border-gray-800">
-          <button
-            onClick={() => setActiveTab("primary")}
-            className={`flex-1 text-center py-3 ${activeTab === "primary" ? "border-b-2 border-white font-semibold text-white" : "text-gray-400"}`}
-          >
-            Principal
-          </button>
-          <button
-            className="flex-1 text-center py-3 opacity-30 cursor-not-allowed text-gray-500"
-            disabled
-          >
-            Geral
-          </button>
-          <button
-            className="flex-1 text-center py-3 relative opacity-30 cursor-not-allowed text-gray-500"
-            disabled
-          >
-            Solicitações
-            <span className="absolute -top-1 -right-1 bg-gray-600 text-gray-400 text-xs rounded-full w-5 h-5 flex items-center justify-center opacity-50">
-              2
-            </span>
-          </button>
-        </div>
+          {/* Tabs */}
+          <div className="flex border-b border-gray-800">
+            <button
+              onClick={() => setActiveTab("primary")}
+              className={`flex-1 text-center py-3 ${activeTab === "primary" ? "border-b-2 border-white font-semibold text-white" : "text-gray-400"}`}
+            >
+              Principal
+            </button>
+            <button
+              className="flex-1 text-center py-3 opacity-30 cursor-not-allowed text-gray-500"
+              disabled
+            >
+              Geral
+            </button>
+            <button
+              className="flex-1 text-center py-3 relative opacity-30 cursor-not-allowed text-gray-500"
+              disabled
+            >
+              Solicitações
+              <span className="absolute -top-1 -right-1 bg-gray-600 text-gray-400 text-xs rounded-full w-5 h-5 flex items-center justify-center opacity-50">
+                2
+              </span>
+            </button>
+          </div>
 
-        {/* Notes Profile Slider */}
-        <div className="p-4 border-b border-gray-800">
+          {/* Notes Profile Slider */}
+          <div className="p-4 border-b border-gray-800">
 
-          <div className="flex space-x-4 pb-2 overflow-x-hidden">
-            {/* User's profile - first photo */}
-            <div className="flex-shrink-0 text-center">
-              <div className="relative mb-2">
-                <img
-                  src={avatar || avatarImages[0].src}
-                  alt="Seu perfil"
-                  className="w-16 h-16 rounded-full object-cover border-2 border-gray-600"
-                />
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
-              </div>
-              <p className="text-white text-xs font-medium truncate w-16">
-                Sua nota
-              </p>
-            </div>
-
-            {/* Followers profiles with blur */}
-            {followers.slice(0, 7).map((follower, index) => (
-              <div key={index} className="flex-shrink-0 text-center">
+            <div className="flex space-x-4 pb-2 overflow-x-hidden">
+              {/* User's profile - first photo */}
+              <div className="flex-shrink-0 text-center">
                 <div className="relative mb-2">
                   <img
-                    src={follower.avatar}
-                    alt={follower.name}
-                    className="w-16 h-16 rounded-full object-cover border-2 border-gray-600 blur-sm"
+                    src={avatar || avatarImages[0].src}
+                    alt="Seu perfil"
+                    className="w-16 h-16 rounded-full object-cover border-2 border-gray-600"
                   />
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
                 </div>
-                <p className="text-white text-xs font-medium truncate w-16 blur-sm">
-                  {follower.name.split(' ')[0]}
+                <p className="text-white text-xs font-medium truncate w-16">
+                  Sua nota
                 </p>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Search */}
-        <div className="p-4">
-          <div className="flex items-center bg-gray-900 rounded-lg px-3 py-2">
-            <Search className="w-5 h-5 text-gray-400 mr-3" />
-            <input
-              type="text"
-              placeholder="Pesquisar"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-transparent flex-1 text-white placeholder-gray-400 outline-none"
-            />
-            {searchTerm && (
-              <X
-                className="w-5 h-5 text-gray-400 cursor-pointer"
-                onClick={() => setSearchTerm('')}
-              />
-            )}
-          </div>
-        </div>
-
-        {/* Conversations */}
-        <div className="flex-1 overflow-y-auto relative">
-          <div className="pb-24">
-            {activeTab === "primary" && conversations.map((conv) => (
-              <div
-                key={conv.id}
-                className="flex items-center px-4 py-3 hover:bg-gray-900/50 cursor-pointer relative"
-                onClick={() => {
-                  setSelectedConversation(conv);
-                }}
-              >
-                <div className="relative">
-                  <img
-                    src={conv.avatar}
-                    alt={conv.name}
-                    className="w-12 h-12 rounded-full object-cover blur-sm"
-                  />
-                  {conv.id === 1 && (
-                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black blur-sm"></div>
-                  )}
+              {/* Followers profiles with blur */}
+              {followers.slice(0, 7).map((follower, index) => (
+                <div key={index} className="flex-shrink-0 text-center">
+                  <div className="relative mb-2">
+                    <img
+                      src={follower.avatar}
+                      alt={follower.name}
+                      className="w-16 h-16 rounded-full object-cover border-2 border-gray-600 blur-sm"
+                    />
+                  </div>
+                  <p className="text-white text-xs font-medium truncate w-16 blur-sm">
+                    {follower.name.split(' ')[0]}
+                  </p>
                 </div>
-                <div className="flex-1 ml-3 min-w-0">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-white truncate blur-sm">{conv.name}</h3>
-                    <div className="flex items-center space-x-2 flex-shrink-0">
-                      <span className="text-gray-400 text-sm blur-sm">{conv.time}</span>
-                      {conv.muted && (
-                        <div className="w-4 h-4 text-gray-400 blur-sm">
+              ))}
+            </div>
+          </div>
+
+          {/* Search */}
+          <div className="p-4">
+            <div className="flex items-center bg-gray-900 rounded-lg px-3 py-2">
+              <Search className="w-5 h-5 text-gray-400 mr-3" />
+              <input
+                type="text"
+                placeholder="Pesquisar"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="bg-transparent flex-1 text-white placeholder-gray-400 outline-none"
+              />
+              {searchTerm && (
+                <X
+                  className="w-5 h-5 text-gray-400 cursor-pointer"
+                  onClick={() => setSearchTerm('')}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Conversations */}
+          <div className="flex-1 overflow-y-auto relative">
+            <div className="pb-24">
+              {activeTab === "primary" && conversations.map((conv) => (
+                <div
+                  key={conv.id}
+                  className="flex items-center px-4 py-3 hover:bg-gray-900/50 cursor-pointer relative"
+                  onClick={() => {
+                    setSelectedConversation(conv);
+                  }}
+                >
+                  <div className="relative">
+                    <img
+                      src={conv.avatar}
+                      alt={conv.name}
+                      className="w-12 h-12 rounded-full object-cover blur-sm"
+                    />
+                    {conv.id === 1 && (
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black blur-sm"></div>
+                    )}
+                  </div>
+                  <div className="flex-1 ml-3 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-semibold text-white truncate blur-sm">{conv.name}</h3>
+                      <div className="flex items-center space-x-2 flex-shrink-0">
+                        <span className="text-gray-400 text-sm blur-sm">{conv.time}</span>
+                        {conv.muted && (
+                          <div className="w-4 h-4 text-gray-400 blur-sm">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L4.617 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.617l3.766-3.793a1 1 0 011.617.793zM14.657 5.757a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-2.929 7.071 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.414 0A5.983 5.983 0 0115 12a5.983 5.983 0 01-1.758 4.243 1 1 0 11-1.414-1.414A3.987 3.987 0 0013 12a3.987 3.987 0 00-1.172-2.829 1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                        )}
+                        <div className="w-4 h-4 text-yellow-500">
                           <svg fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L4.617 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.617l3.766-3.793a1 1 0 011.617.793zM14.657 5.757a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-2.929 7.071 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.414 0A5.983 5.983 0 0115 12a5.983 5.983 0 01-1.758 4.243 1 1 0 11-1.414-1.414A3.987 3.987 0 0013 12a3.987 3.987 0 00-1.172-2.829 1 1 0 010-1.414z" clipRule="evenodd" />
+                            <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
                           </svg>
                         </div>
-                      )}
-                      <div className="w-4 h-4 text-yellow-500">
-                        <svg fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
-                        </svg>
                       </div>
                     </div>
-                  </div>
-                  <p className="text-gray-400 text-sm truncate blur-sm">{conv.message}</p>
-                </div>
-              </div>
-            ))}
-
-            {activeTab === "general" && messagesUnlocked && (
-              <div className="p-4 text-center text-gray-400">
-                <p>Conversas gerais serão exibidas aqui</p>
-              </div>
-            )}
-
-            {activeTab === "s" && messagesUnlocked && (
-              <div className="p-4 text-center text-gray-400">
-                <p>Solicitações de mensagens serão exibidas aqui</p>
-              </div>
-            )}
-
-            {(activeTab === "general" || activeTab === "requests") && !messagesUnlocked && (
-              <div className="p-4 text-center text-gray-400 opacity-50">
-                <p>Desbloqueie para ver este conteúdo</p>
-              </div>
-            )}
-          </div>
-
-          {/* Fixed Footer Button */}
-          <div className="fixed bottom-0 left-0 right-0 w-full p-4 pb-safe z-[9999]">
-            <div className="max-w-sm mx-auto">
-            <Button
-              onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR')}
-              className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
-            >
-              <Unlock className="w-5 h-5 mr-2" />
-              DESBLOQUEAR MENSAGENS
-            </Button>
-            </div>
-          </div>
-        </div>
-        {/* Conversation View */}
-        {selectedConversation && (
-          <div className="absolute inset-0 bg-black z-10 flex flex-col">
-            <div className="p-4 border-b border-gray-800">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <button
-                    onClick={() => setSelectedConversation(null)}
-                    className="p-1 hover:bg-gray-800 rounded-full transition-colors"
-                  >
-                    <ArrowLeft className="w-6 h-6" />
-                  </button>
-                  <div className="flex items-center space-x-3">
-                    <div className="relative">
-                      <img
-                        src={selectedConversation.avatar}
-                        alt={selectedConversation.name}
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-
-                    </div>
-                    <div className="relative">
-                      <div className="flex items-center space-x-2">
-                        <h3 className="text-lg font-semibold text-white blur-sm">
-                          {selectedConversation.name}
-                        </h3>
-
-                      </div>
-                      <p className="text-sm text-gray-400 blur-sm">Ativo agora</p>
-                    </div>
+                    <p className="text-gray-400 text-sm truncate blur-sm">{conv.message}</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21L6.3 10.5a11.05 11.05 0 005.2 5.2l1.113-3.924a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
+              ))}
+
+              {activeTab === "general" && messagesUnlocked && (
+                <div className="p-4 text-center text-gray-400">
+                  <p>Conversas gerais serão exibidas aqui</p>
                 </div>
-              </div>
+              )}
+
+              {activeTab === "s" && messagesUnlocked && (
+                <div className="p-4 text-center text-gray-400">
+                  <p>Solicitações de mensagens serão exibidas aqui</p>
+                </div>
+              )}
+
+              {(activeTab === "general" || activeTab === "requests") && !messagesUnlocked && (
+                <div className="p-4 text-center text-gray-400 opacity-50">
+                  <p>Desbloqueie para ver este conteúdo</p>
+                </div>
+              )}
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto relative">
-              {/* Toast Container for Conversation View */}
-              <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50">
-                <ToastContainer />
-              </div>
-
-
-
-
-
-              <div className="p-4 space-y-4 pb-24">
-                {generateFullConversation(selectedConversation.name, selectedConversation.avatar).map((msg: { sender: string, message: string, time: string, isImage?: boolean }, index) => (
-                  <div key={index} className={`flex ${msg.sender === 'you' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg blur-sm ${msg.sender === 'you'
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-700 text-white'
-                      }`}>
-                      <p className="text-sm">{msg.message}</p>
-                      <p className="text-xs opacity-70 mt-1">{msg.time}</p>
-                    </div>
-                  </div>
-                ))}
-
-
-              </div>
-
-              {/* Middle Unlock Button - Always centered */}
-              <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-                <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 text-center max-w-sm mx-auto">
-                  <div className="mb-4">
-                    <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Unlock className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-white font-bold text-lg mb-2">Conteúdo Bloqueado</h3>
-                    <p className="text-gray-300 text-sm mb-4">Conteúdo restrito para menores</p>
-                  </div>
-                  <Button
-                    onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR', '_blank')}
-                    className="w-full h-12 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition-opacity"
-                  >
-                    🔒 PREMIUM NECESSÁRIO
-                  </Button>
-                </div>
-              </div>
-
-              {/* Fixed Footer Button */}
-              <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent z-20">
+            {/* Fixed Footer Button */}
+            <div className="fixed bottom-10 left-0 right-0 w-full p-4 pb-safe z-[9999]">
+              <div className="max-w-sm mx-auto">
                 <Button
-                  onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR', '_blank')}
+                  onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR')}
                   className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
                 >
                   <Unlock className="w-5 h-5 mr-2" />
@@ -674,12 +573,113 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
               </div>
             </div>
           </div>
-        )}
+          {/* Conversation View */}
+          {selectedConversation && (
+            <div className="absolute inset-0 bg-black z-10 flex flex-col">
+              <div className="p-4 border-b border-gray-800">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <button
+                      onClick={() => setSelectedConversation(null)}
+                      className="p-1 hover:bg-gray-800 rounded-full transition-colors"
+                    >
+                      <ArrowLeft className="w-6 h-6" />
+                    </button>
+                    <div className="flex items-center space-x-3">
+                      <div className="relative">
+                        <img
+                          src={selectedConversation.avatar}
+                          alt={selectedConversation.name}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
 
-        {/* Toast Container for Chat List View */}
-        {!selectedConversation && <ToastContainer />}
-      </div>
-        </DialogContent>
+                      </div>
+                      <div className="relative">
+                        <div className="flex items-center space-x-2">
+                          <h3 className="text-lg font-semibold text-white blur-sm">
+                            {selectedConversation.name}
+                          </h3>
+
+                        </div>
+                        <p className="text-sm text-gray-400 blur-sm">Ativo agora</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21L6.3 10.5a11.05 11.05 0 005.2 5.2l1.113-3.924a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* Messages */}
+              <div className="flex-1 overflow-y-auto relative">
+                {/* Toast Container for Conversation View */}
+                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50">
+                  <ToastContainer />
+                </div>
+
+
+
+
+
+                <div className="p-4 space-y-4 pb-24">
+                  {generateFullConversation(selectedConversation.name, selectedConversation.avatar).map((msg: { sender: string, message: string, time: string, isImage?: boolean }, index) => (
+                    <div key={index} className={`flex ${msg.sender === 'you' ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg blur-sm ${msg.sender === 'you'
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-700 text-white'
+                        }`}>
+                        <p className="text-sm">{msg.message}</p>
+                        <p className="text-xs opacity-70 mt-1">{msg.time}</p>
+                      </div>
+                    </div>
+                  ))}
+
+
+                </div>
+
+                {/* Middle Unlock Button - Always centered */}
+                <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                  <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 text-center max-w-sm mx-auto">
+                    <div className="mb-4">
+                      <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <Unlock className="w-8 h-8 text-white" />
+                      </div>
+                      <h3 className="text-white font-bold text-lg mb-2">Conteúdo Bloqueado</h3>
+                      <p className="text-gray-300 text-sm mb-4">Conteúdo restrito para menores</p>
+                    </div>
+                    <Button
+                      onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR', '_blank')}
+                      className="w-full h-12 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition-opacity"
+                    >
+                      🔒 PREMIUM NECESSÁRIO
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Fixed Footer Button */}
+                <div className="fixed bottom-10 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent z-20">
+                  <Button
+                    onClick={() => window.open('https://go.perfectpay.com.br/PPU38CPSHJR', '_blank')}
+                    className="w-full h-14 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:opacity-90 transition-opacity text-lg shadow-xl"
+                  >
+                    <Unlock className="w-5 h-5 mr-2" />
+                    DESBLOQUEAR MENSAGENS
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Toast Container for Chat List View */}
+          {!selectedConversation && <ToastContainer />}
+        </div>
+      </DialogContent>
     </Dialog>
   )
 }

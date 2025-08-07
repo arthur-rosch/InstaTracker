@@ -787,7 +787,7 @@ export default function Upsell2Page() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white max-w-sm mx-auto flex flex-col pt-[64px]">
+    <div className="min-h-screen bg-black text-white max-w-sm mx-auto flex flex-col pt-[64px] overflow-x-hidden">
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-between p-4 border-b border-gray-800 max-w-sm mx-auto">
         <div className="flex items-center space-x-4">
