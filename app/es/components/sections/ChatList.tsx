@@ -386,8 +386,8 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-black text-white border-gray-800 max-w-md w-full h-[100vh] max-h-[100vh] overflow-hidden flex flex-col p-0 sm:max-h-[80vh] sm:rounded-lg sm:h-auto">
-        <DialogHeader className="p-4 border-b border-gray-800">
+      <DialogContent className="bg-black text-white border-gray-800 max-w-md w-full h-[100vh] max-h-[100vh] overflow-hidden flex flex-col p-0 sm:max-h-[80vh] sm:rounded-lg sm:h-auto max-w-full">
+        <DialogHeader className="p-4 border-b border-gray-800 mt-12">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="relative">
@@ -412,7 +412,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
             </div>
           </div>
         </DialogHeader>
-        <div className="flex-grow overflow-y-auto pb-[88px]">
+        <div className="flex-grow overflow-y-auto overflow-x-hidden pb-[88px]">
 
           {/* Tabs */}
           <div className="flex border-b border-gray-800">
@@ -497,7 +497,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
           </div>
 
           {/* Conversations */}
-          <div className="flex-1 overflow-y-auto relative">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden relative">
             <div className="pb-24">
               {activeTab === "primary" && conversations.map((conv) => (
                 <div
@@ -576,7 +576,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
           {/* Conversation View */}
           {selectedConversation && (
             <div className="absolute inset-0 bg-black z-10 flex flex-col">
-              <div className="p-4 border-b border-gray-800">
+              <div className="p-4 border-b border-gray-800 mt-12">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <button
@@ -617,7 +617,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
               </div>
 
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto relative">
+              <div className="flex-1 overflow-y-auto overflow-x-hidden relative">
                 {/* Toast Container for Conversation View */}
                 <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50">
                   <ToastContainer />

@@ -722,7 +722,7 @@ export default function Upsell2Page() {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 p-4 space-y-4 overflow-y-auto pb-20">
+        <div className="flex-1 p-4 space-y-4 overflow-y-auto overflow-x-hidden pb-20">
           {currentChatMessages.map((message: ChatMessage) => (
             <div key={message.id} className={`flex ${message.type === 'sent' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${message.type === 'sent'
@@ -817,7 +817,7 @@ export default function Upsell2Page() {
 
       {/* Notes Profile Slider */}
       <div className="p-4 border-b border-gray-800">
-        <div className="flex space-x-4 pb-2">
+        <div className="flex space-x-4 pb-2 overflow-x-hidden">
           {/* User's profile - first photo */}
           <div className="flex-shrink-0 text-center">
             <div className="relative mb-2">
@@ -874,7 +874,7 @@ export default function Upsell2Page() {
 
 
       {/* Conversations */}
-      <div className="flex-1 pb-24">
+      <div className="flex-1 pb-24 overflow-x-hidden">
         <ToastContainer />
         {(searchTerm ? filteredConversations : sortedConversations).map((conv: Conversation) => (
           <div
@@ -933,7 +933,7 @@ export default function Upsell2Page() {
 
       {/* Locked Conversation Modal */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="sm:max-w-md bg-[#1a1a2e] border-none rounded-2xl">
+        <DialogContent className="sm:max-w-md bg-[#1a1a2e] border-none rounded-2xl max-w-full overflow-hidden">
           <div className="text-center p-6">
             <div className="mb-6">
               <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
