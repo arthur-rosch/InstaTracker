@@ -386,7 +386,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-black text-white border-gray-800 max-w-md w-full h-[100vh] max-h-[100vh] overflow-none flex flex-col p-0 sm:max-h-[80vh] sm:rounded-lg sm:h-auto">
+      <DialogContent className="bg-black text-white border-gray-800 max-w-md w-full h-[100vh] max-h-[100vh] overflow-hidden flex flex-col p-0 sm:max-h-[80vh] sm:rounded-lg sm:h-auto">
         <DialogHeader className="p-4 border-b border-gray-800">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -442,7 +442,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
           {/* Notes Profile Slider */}
           <div className="p-4 border-b border-gray-800">
 
-            <div className="flex space-x-4 pb-2">
+            <div className="flex space-x-4 pb-2 overflow-x-hidden">
               {/* User's profile - first photo */}
               <div className="flex-shrink-0 text-center">
                 <div className="relative mb-2">

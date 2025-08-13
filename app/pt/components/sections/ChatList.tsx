@@ -386,7 +386,7 @@ export function ChatList({ open, onOpenChange, username, followers = [], avatar 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-black text-white border-gray-800 max-w-md w-full h-[100vh] max-h-[100vh] overflow-none flex flex-col p-0 sm:max-h-[80vh] sm:rounded-lg sm:h-auto">
+      <DialogContent className="bg-black text-white border-gray-800 max-w-md w-full h-[100vh] max-h-[100vh] overflow-hidden flex flex-col p-0 sm:max-h-[80vh] sm:rounded-lg sm:h-auto">
         <DialogHeader className="p-4 border-b border-gray-800">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">

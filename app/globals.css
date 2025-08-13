@@ -54,8 +54,13 @@
     @apply border-border;
   }
   body {
-    @apply bg-black text-white overflow-hidden;
+    @apply bg-black text-white;
   }
+  
+}
+
+html, body {
+  overflow-x: hidden !important;
 }
 
 html {
